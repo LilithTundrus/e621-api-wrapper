@@ -47,3 +47,26 @@ enum e621ResponseCodes {
     SLL_HANDSHAKE_FAILED= 525,
 }
 
+enum e621TagTypes {
+        /** General tag, anything NOT a character, artist or species
+     * @memberof e621TagTypes
+    */
+   general= 0,
+   /** Artist name tag (EX= zonk_punch)
+    * @memberof e621TagTypes
+   */
+   artist= 1,
+   /** Type of copyright the work falls under
+    * @memberof e621TagTypes
+   */
+   copyright= 3,
+   /** Name of a character in the post (EX= lucario)
+    * @memberof e621TagTypes
+   */
+   character= 4,
+   /** Type of species in the post (EX= fox, )
+    * @memberof e621TagTypes
+   */
+   species= 5
+}
+
