@@ -1,0 +1,22 @@
+{
+  "name": "e621-api-typescript",
+  "version": "0.0.1",
+  "description": "API wrapper in TypeScript and JS for e621",
+  "main": "wrapper.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "e621",
+    "api",
+    "wrapper",
+    "ts",
+    "js",
+    "typescript"
+  ],
+  "author": "Lilith Tundrus",
+  "license": "MIT"
+}
