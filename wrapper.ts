@@ -46,6 +46,10 @@ class e621 {
             })
     }
 
+    getE621PosyByID(postID: string) {
+        return getPostByID(postID, this.userAgent);
+    }
+
     getE621PostIndexPaginate(tags: string, start: number, limitPerPage: number, pageLimit: number) {
         var tagsString: string;
         var pageStart: number;
@@ -104,7 +108,7 @@ class e621 {
  * @param {string} userAgent
  * @returns {Array<Array<e621PostData>>} Returns a 2D array
  */
-function paginateE621Endpoint(urlWithoutPageNum: string, start: number, limit: number, pageArray: Array<Array<e621PostData>>, userAgent) {
+function paginateE621Endpoint(urlWithoutPageNum: string, start: number, limit: number, pageArray: Array<Array<e621PostData>>, userAgent: string) {
     return requestUrl(`${urlWithoutPageNum}&page=${start}`, userAgent)
         .then((response: Array<e621PostData>) => {
             if (response.length !== 0 && limit !== start) {
@@ -129,7 +133,7 @@ function paginateE621Endpoint(urlWithoutPageNum: string, start: number, limit: n
  * @param {string} md5 
  * @returns {Promise}
  */
-function getPostByID(postID, userAgent) {
+function getPostByID(postID: string, userAgent: string) {
     return requestUrl(`https://e621.net/post/show.json?id=${postID}`, userAgent)
         .then((response: e621PostData) => {
             return response;
