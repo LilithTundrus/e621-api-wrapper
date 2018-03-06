@@ -108,7 +108,7 @@ class e621 {
  * @param {string} userAgent
  * @returns {Array<Array<e621PostData>>} Returns a 2D array
  */
-function paginateE621Endpoint(urlWithoutPageNum: string, start: number, limit: number, pageArray: Array<Array<e621PostData>>, userAgent: string) {
+function paginateE621Endpoint(urlWithoutPageNum: string, start: number, limit: number, pageArray: Array<Array<e621PostData>>, userAgent: string): Promise<Array<Array<e621PostData>>> {
     return requestUrl(`${urlWithoutPageNum}&page=${start}`, userAgent)
         .then((response: Array<e621PostData>) => {
             if (response.length !== 0 && limit !== start) {
