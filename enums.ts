@@ -70,7 +70,7 @@ export enum e621TagTypes {
     species = 5
 }
 
-enum e621PopularityEndpointTypes {
+export enum e621PopularityEndpointTypes {
     /** Daily popularity endpoint
      * @memberof e621PopularityEndpointTypes
     */
@@ -83,6 +83,13 @@ enum e621PopularityEndpointTypes {
      * @memberof e621PopularityEndpointTypes
     */
     monthly = 2,
+}
+
+export enum e621PopularityStrings {
+    'daily' = 0,
+    'wwekly' = 1,
+    'monthly' = 2,
+    'alltime' = 3
 }
 
 
