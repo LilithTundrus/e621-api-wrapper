@@ -18,5 +18,9 @@
     "typescript"
   ],
   "author": "Lilith Tundrus",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@types/request": "^2.47.0",
+    "request": "^2.83.0"
+  }
 }
