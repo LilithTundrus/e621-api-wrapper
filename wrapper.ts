@@ -2,9 +2,9 @@ import { e621ResponseCodes, e621TagTypes, e621PopularityStrings } from './enums'
 import { e621PostData } from './interfaces';
 import * as request from 'request';
 
-class e621 {
-    userAgent: string;
-    pageLimit: number;
+export class e621 {
+    private userAgent: string;
+    private pageLimit: number;
     public constructor(userAgent: string, pageLimit?: number) {
         this.userAgent = userAgent;
         if (pageLimit) {
@@ -46,7 +46,11 @@ class e621 {
             })
     }
 
-    getE621PosyByID(postID: string) {
+    /**
+     * Get a post's data by its ID using the e621 API
+     * @param {number} postID 
+    */
+    getE621PostByID(postID: string) {
         return getPostByID(postID, this.userAgent);
     }
 
@@ -104,7 +108,7 @@ class e621 {
  * @param {String} urlWithoutPageNum 
  * @param {Number} start 
  * @param {Number} limit 
- * @param {Array} pageArray 
+ * @param {Array<Array<e621PostData>>} pageArray 
  * @param {string} userAgent
  * @returns {Array<Array<e621PostData>>} Returns a 2D array
  */
@@ -130,7 +134,7 @@ function paginateE621Endpoint(urlWithoutPageNum: string, start: number, limit: n
 /**
  * Get a post's data by its ID using the e621 API
  * @param {number} postID 
- * @param {string} md5 
+ * @param {string} userAgent 
  * @returns {Promise}
  */
 function getPostByID(postID: string, userAgent: string) {
@@ -173,6 +177,7 @@ function requestUrl(url: string, userAgent: string): Promise<any> {
         })
     })
 }
+
 /**
  * Generate the e621 URL for getting a user's API key
  * @param {String} username 
