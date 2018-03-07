@@ -38,7 +38,7 @@ export class e621 {
                 throw Error(`Unsupported popularURLHandler typeArg: ${typeArg}`);
         }
         return requestUrl(url, this.userAgent)
-            .then((response: e621PostData) => {
+            .then((response: [e621PostData]) => {
                 return response;
             })
             .catch((err) => {

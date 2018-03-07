@@ -1,5 +1,4 @@
 import { e621 } from './wrapper';
+import {e621PopularityStrings} from './enums'
 
-
-let test = new e621('type-script-0,1', 3)
 
