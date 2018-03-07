@@ -4,9 +4,6 @@
   "description": "API wrapper in TypeScript and JS for e621",
   "main": "/index.js",
   "types": "interfaces.d.ts",
-  "directories": {
-    "lib": "lib"
-  },
   "scripts": {
     "build": "tsc index.ts"
   },
