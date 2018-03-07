@@ -1,6 +1,8 @@
 import { e621ResponseCodes, e621TagTypes, e621PopularityStrings } from './enums';
 import { e621PostData } from './interfaces';
 import * as request from 'request';
+declare const Promise: any;
+
 
 export class e621 {
     private userAgent: string;
