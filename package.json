@@ -1,8 +1,8 @@
 {
-  "name": "e621-api-typescript",
-  "version": "0.0.1",
+  "name": "e621-api",
+  "version": "0.1.0",
   "description": "API wrapper in TypeScript and JS for e621",
-  "main": "/index.js",
+  "main": "./index.js",
   "types": "interfaces.d.ts",
   "scripts": {
     "build": "tsc index.ts"
