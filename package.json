@@ -2,10 +2,10 @@
   "name": "e621-api",
   "version": "0.1.0",
   "description": "API wrapper in TypeScript and JS for e621",
-  "main": "./index.js",
-  "types": "interfaces.d.ts",
+  "main": "e621-api.js",
+  "types": "e621-api.d.ts",
   "scripts": {
-    "build": "tsc index.ts"
+    "build": "tsc e621-api.ts"
   },
   "keywords": [
     "e621",
