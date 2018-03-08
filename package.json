@@ -1,5 +1,5 @@
 {
-  "name": "e621-api",
+  "name": "e621-api-wrapper",
   "version": "0.1.0",
   "description": "API wrapper in TypeScript and JS for e621",
   "main": "./index.js",
@@ -20,5 +20,11 @@
   "dependencies": {
     "@types/request": "^2.47.0",
     "request": "^2.83.0"
+  },
+  "repository": {
+    "url": "https://github.com/LilithTundrus/e621-api-wrapper"
+  },
+  "bugs": {
+    "url": "https://github.com/LilithTundrus/e621-api-wrapper/issues"
   }
 }
