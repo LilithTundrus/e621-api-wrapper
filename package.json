@@ -5,7 +5,7 @@
   "main": "e621-api.js",
   "types": "e621-api.d.ts",
   "scripts": {
-    "build": "tsc e621-api.ts"
+    "build": "tsc e621-api.d.ts"
   },
   "keywords": [
     "e621",

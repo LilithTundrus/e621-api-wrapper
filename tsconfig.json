@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "noImplicitAny": true,
+        "strictNullChecks": false,
+        "lib": [
+            "dom",
+            "es6",
+            "es2015.promise",
+            "es2017.object"
+        ],
+        "typeRoots": [
+            "./node_modules/@types"
+        ],
+        "types": [
+            "request-promise-native"
+        ],
+    },
+}

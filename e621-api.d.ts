@@ -114,7 +114,7 @@ export default class e621 {
  * @param {string} userAgent
  * @returns {Array<Array<e621PostData>>} Returns a 2D array
  */
-function paginateE621Endpoint(urlWithoutPageNum: string, start: number, limit: number, pageArray: Array<Array<e621PostData>>, userAgent: string): Promise<Array<Array<e621PostData>>> {
+declare function paginateE621Endpoint(urlWithoutPageNum: string, start: number, limit: number, pageArray: Array<Array<e621PostData>>, userAgent: string): Promise<Array<Array<e621PostData>>> {
     return requestUrl(`${urlWithoutPageNum}&page=${start}`, userAgent)
         .then((response: Array<e621PostData>) => {
             if (response.length !== 0 && limit !== start) {
@@ -139,7 +139,7 @@ function paginateE621Endpoint(urlWithoutPageNum: string, start: number, limit: n
  * @param {string} userAgent 
  * @returns {Promise}
  */
-function getPostByID(postID: string, userAgent: string) {
+declare function getPostByID(postID: string, userAgent: string) {
     return requestUrl(`https://e621.net/post/show.json?id=${postID}`, userAgent)
         .then((response: e621PostData) => {
             return response;
@@ -154,7 +154,7 @@ function getPostByID(postID: string, userAgent: string) {
  * @param {URL} url 
  * @returns {Promise<any>}
  */
-function requestUrl(url: string, userAgent: string): Promise<any> {
+declare function requestUrl(url: string, userAgent: string): Promise<any> {
     // set up the options so we don't have to constantly redefine our user agent
     let options = {
         uri: url,
@@ -186,6 +186,6 @@ function requestUrl(url: string, userAgent: string): Promise<any> {
  * @param {String} password 
  * @returns {String}
  */
-function generateAPIKeyURL(username: string, password: string): string {
+declare function generateAPIKeyURL(username: string, password: string): string {
     return `https://e621.net/user/login.json?name="${username}"&password="${password}"`;
 }
