@@ -4,7 +4,7 @@ import * as request from 'request';
 declare const Promise: any;
 
 
-export class e621 {
+export default class e621 {
     private userAgent: string;
     private pageLimit: number;
     public constructor(userAgent: string, pageLimit?: number) {
