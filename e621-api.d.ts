@@ -3,8 +3,11 @@ import { e621PostData } from './interfaces';
 import * as request from 'request';
 declare const Promise: any;
 
+export as namespace e621Wrapper
 
-export default class e621 {
+export = e621;
+
+declare class e621 {
     private userAgent: string;
     private pageLimit: number;
     public constructor(userAgent: string, pageLimit?: number) {
