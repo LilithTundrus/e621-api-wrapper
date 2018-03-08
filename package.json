@@ -1,5 +1,5 @@
 {
-  "name": "e621-api-wrapper",
+  "name": "e621-api",
   "version": "0.1.0",
   "description": "API wrapper in TypeScript and JS for e621",
   "main": "./index.js",

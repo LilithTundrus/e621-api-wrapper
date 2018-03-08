@@ -1,4 +1,4 @@
-# e621-api-wrapper
+# e621-api
 
 ## About
 
@@ -13,7 +13,7 @@ If you're here you know what this site is for.
 This project is available via NPM:
 
 ```
-npm install e621-api-wrapper --save
+npm install e621-api --save
 ```
 
 You should have `Node 8.9.4` and `tsc 2.1` or higher to be safely running this.
@@ -24,9 +24,9 @@ You should have `Node 8.9.4` and `tsc 2.1` or higher to be safely running this.
 **For typeScript setup is easy:**
 
 ```typescript
-import { e621 } from "e621-api-wrapper";
-import { e621PostData } from 'e621-api-wrapper/interfaces';
-import { e621TagTypes, e621PopularityStrings } from 'e621-api-wrapper/enums';
+import { e621 } from "e621-api";
+import { e621PostData } from 'e621-api/interfaces';
+import { e621TagTypes, e621PopularityStrings } from 'e621-api/enums';
 
 // First argument is your user agent, the second is the page limit per search result (pageLimit * 50 = maximum number of results returned)
 let wrapper = new e621('Node-test-1.0', 3);
@@ -41,8 +41,8 @@ wrapper.getPopularPosts(e621PopularityStrings.daily)
 **ES6 requires slightly different setup**
 
 ```javascript
-let e621 = require('e621-api-wrapper').e621;
-let enums = require('e621-api-wrapper/enums');
+let e621 = require('e621-api').e621;
+let enums = require('e621-api/enums');
 let wrapper = new e621('Node-test-1.0', 3);
 
 // First argument is your user agent, the second is the page limit per search result (pageLimit * 50 = maximum number of results returned)
@@ -55,7 +55,7 @@ wrapper.getPopularPosts(enums.e621PopularityStrings.daily)
 
 ## Issues
 
-Do you have any issues or recommendations for this package? Feel free to open an issue in the [issue](https://github.com/LilithTundrus/e621-api-wrapper/issues) section. I'm always happy to help :D
+Do you have any issues or recommendations for this package? Feel free to open an issue in the [issue](https://github.com/LilithTundrus/e621-api/issues) section. I'm always happy to help :D
 
 
 ## License
