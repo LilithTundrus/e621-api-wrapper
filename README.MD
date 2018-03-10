@@ -1,5 +1,7 @@
 # e621-api
 
+[![Build Status](https://travis-ci.org/LilithTundrus/e621-api-wrapper.svg?branch=master)](https://travis-ci.org/LilithTundrus/e621-api-wrapper)
+
 ## About
 
 This is a small wrapper for the site [e621](https://e621.net)
@@ -25,8 +27,8 @@ You should have `Node 8.9.4` and `tsc 2.1` or higher to be safely running this.
 
 ```typescript
 import { e621 } from "e621-api";
-import { e621PostData } from 'e621-api/interfaces';
-import { e621TagTypes, e621PopularityStrings } from 'e621-api/enums';
+import { e621PostData } from 'e621-api/build/interfaces';
+import { e621TagTypes, e621PopularityStrings } from 'e621-api/build/enums';
 
 // First argument is your user agent, the second is the page limit per search result (pageLimit * 50 = maximum number of results returned)
 let wrapper = new e621('Node-test-1.0', 3);
@@ -42,7 +44,7 @@ wrapper.getPopularPosts(e621PopularityStrings.daily)
 
 ```javascript
 let e621 = require('e621-api').e621;
-let enums = require('e621-api/enums');
+let enums = require('e621-api/build/enums');
 let wrapper = new e621('Node-test-1.0', 3);
 
 // First argument is your user agent, the second is the page limit per search result (pageLimit * 50 = maximum number of results returned)
