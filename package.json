@@ -1,6 +1,6 @@
 {
   "name": "e621-api",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "API wrapper in TypeScript and JS for e621",
   "main": "build/e621-api.js",
   "types": "build/e621-api.d.ts",

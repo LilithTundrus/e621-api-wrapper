@@ -26,13 +26,13 @@ You should have `Node 8.9.4` and `tsc 2.1` or higher to be safely running this.
 **For typeScript setup is easy:**
 
 ```typescript
-import { e621 } from "e621-api";
+import e621 from 'e621-api'
 import { e621PostData } from 'e621-api/build/interfaces';
 import { e621TagTypes, e621PopularityStrings } from 'e621-api/build/enums';
-
+ 
 // First argument is your user agent, the second is the page limit per search result (pageLimit * 50 = maximum number of results returned)
 let wrapper = new e621('Node-test-1.0', 3);
-
+ 
 wrapper.getPopularPosts(e621PopularityStrings.daily)
 .then((data) => {
     console.log(data[0].file_url);
@@ -43,10 +43,10 @@ wrapper.getPopularPosts(e621PopularityStrings.daily)
 **ES6 requires slightly different setup**
 
 ```javascript
-let e621 = require('e621-api').e621;
+let e621 = require('e621-api').default;
 let enums = require('e621-api/build/enums');
 let wrapper = new e621('Node-test-1.0', 3);
-
+ 
 // First argument is your user agent, the second is the page limit per search result (pageLimit * 50 = maximum number of results returned)
 wrapper.getPopularPosts(enums.e621PopularityStrings.daily)
 .then((data) => {
