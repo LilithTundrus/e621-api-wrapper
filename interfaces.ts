@@ -1,3 +1,4 @@
+import { e621TagTypes } from './enums';
 
 export interface e621PostData {
     id: Number,
@@ -38,4 +39,12 @@ export interface e621PostData {
     artist: string[],
     sources: string[],
     delreason: String
+}
+
+export interface e621TagJSON {
+    id: number
+    name: string
+    count: number
+    type: e621TagTypes
+    type_locked: boolean
 }
