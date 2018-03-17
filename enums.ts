@@ -87,7 +87,7 @@ export enum e621PopularityEndpointTypes {
 
 export enum e621PopularityStrings {
     'daily' = 0,
-    'wwekly' = 1,
+    'weekly' = 1,
     'monthly' = 2,
     'alltime' = 3
 }
