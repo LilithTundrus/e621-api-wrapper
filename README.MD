@@ -54,6 +54,13 @@ wrapper.getPopularPosts(enums.e621PopularityStrings.daily)
 })
 ```
 
+## History
+
+- **v0.1.3**
+    - Added support for getting tag data through the wrapper
+
+
+
 
 ## Issues
 
