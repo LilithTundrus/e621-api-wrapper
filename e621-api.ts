@@ -1,5 +1,5 @@
-import { e621ResponseCodes, e621TagTypes, e621PopularityStrings } from './build/enums';
-import { e621PostData, e621TagJSON } from './build/interfaces';
+import { e621ResponseCodes, e621TagTypes, e621PopularityStrings } from './enums';
+import { e621PostData, e621TagJSON } from './interfaces';
 import * as request from 'request';
 declare const Promise: any;
 
@@ -105,9 +105,9 @@ export default class e621 {
      * @param {string} tagName 
      * @memberof e621
      */
-    getTagJSONByName(tagName: string): Promise<e621TagJSON> {
+    getTagJSONByName(tagName: string): Promise<e621TagJSON[]> {
         return requestUrl(`https://e621.net/tag/index.json?name=${tagName}`, this.userAgent)
-            .then((response: e621TagJSON) => {
+            .then((response: e621TagJSON[]) => {
                 return response;
             })
             .catch((err) => {
@@ -156,7 +156,7 @@ function paginateE621Endpoint(urlWithoutPageNum: string, start: number, limit: n
  */
 function getPostByID(postID: string, userAgent: string) {
     return requestUrl(`https://e621.net/post/show.json?id=${postID}`, userAgent)
-        .then((response: e621PostData) => {
+        .then((response: e621PostData[]) => {
             return response;
         })
         .catch((err) => {
