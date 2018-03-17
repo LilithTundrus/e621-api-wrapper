@@ -1,5 +1,5 @@
 import { e621ResponseCodes, e621TagTypes, e621PopularityStrings } from './enums';
-import { e621PostData } from './interfaces';
+import { e621PostData, e621TagJSON } from './interfaces';
 import * as request from 'request';
 declare const Promise: any;
 
@@ -98,6 +98,21 @@ export default class e621 {
                 resolve(response.password_hash);
             });
         });
+    }
+
+    /**
+     * Get an e621 tag's JSON by name
+     * @param {string} tagName 
+     * @memberof e621
+     */
+    getTagJSONByName(tagName: string): Promise<e621TagJSON> {
+        return requestUrl(`https://e621.net/tag/index.json?name=${tagName}`, this.userAgent)
+            .then((response: e621TagJSON) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 }
 
