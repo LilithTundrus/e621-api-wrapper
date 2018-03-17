@@ -1,5 +1,5 @@
-import { e621ResponseCodes, e621TagTypes, e621PopularityStrings } from './enums';
-import { e621PostData, e621TagJSON, e621RelatedTagJSON } from './interfaces';
+import { e621ResponseCodes, e621TagTypes, e621PopularityStrings } from './build/enums';
+import { e621PostData, e621TagJSON, e621RelatedTagJSON } from './build/interfaces';
 import * as request from 'request';
 declare const Promise: any;
 
