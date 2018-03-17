@@ -56,6 +56,10 @@ wrapper.getPopularPosts(enums.e621PopularityStrings.daily)
 
 ## History
 
+- **v0.1.7**
+    - Added a method for getting related tags
+
+
 - **v0.1.6**
     - Fixed tag data calls not returning as an array
 
