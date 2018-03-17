@@ -48,3 +48,13 @@ export interface e621TagJSON {
     type: e621TagTypes
     type_locked: boolean
 }
+
+export interface e621RelatedTagJSON {
+    tagName: [
+        [
+            { name: string, count: number, type: e621TagTypes }
+        ]
+    ]
+
+
+}

@@ -1,5 +1,5 @@
 import { e621ResponseCodes, e621TagTypes, e621PopularityStrings } from './enums';
-import { e621PostData, e621TagJSON } from './interfaces';
+import { e621PostData, e621TagJSON, e621RelatedTagJSON } from './interfaces';
 import * as request from 'request';
 declare const Promise: any;
 
@@ -108,6 +108,16 @@ export default class e621 {
     getTagJSONByName(tagName: string): Promise<e621TagJSON[]> {
         return requestUrl(`https://e621.net/tag/index.json?name=${tagName}`, this.userAgent)
             .then((response: e621TagJSON[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    getRelatedTagsByName(tagName: string): Promise<e621RelatedTagJSON> {
+        return requestUrl(`https://e621.net/tag/related.json?tags=${tagName}`, this.userAgent)
+            .then((response: e621RelatedTagJSON) => {
                 return response;
             })
             .catch((err) => {
