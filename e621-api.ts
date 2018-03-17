@@ -179,6 +179,7 @@ function requestUrl(url: string, userAgent: string): Promise<any> {
         json: true
     };
     return new Promise((resolve, reject) => {
+
         request.get(options, function (err: Error, response, body) {
             if (err) {
                 return reject(err);
