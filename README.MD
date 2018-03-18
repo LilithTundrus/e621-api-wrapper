@@ -9,6 +9,8 @@ This is a small wrapper for the site [e621](https://e621.net)
 
 If you're here you know what this site is for.
 
+**PLEASE NOTE:**
+This is still in development, if something doesn't work or isn't defined correctly, please let me know!
 
 ## Getting Started
 
