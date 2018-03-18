@@ -50,11 +50,5 @@ export interface e621TagJSON {
 }
 
 export interface e621RelatedTagJSON {
-    tagName: [
-        [
-            { name: string, count: number, type: e621TagTypes }
-        ]
-    ]
-
-
+    key: string[][];
 }
