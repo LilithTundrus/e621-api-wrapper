@@ -51,7 +51,7 @@ export interface e621TagJSON {
 
 
 export interface e621RelatedTag {
-    name: e621RelatedTagArrayTypes.name
-    count: e621RelatedTagArrayTypes.count
-    type: e621RelatedTagArrayTypes.type
+    name: [0]
+    count: [1]
+    type: [2]
 }
