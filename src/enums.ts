@@ -92,4 +92,8 @@ export enum e621PopularityStrings {
     'alltime' = 3
 }
 
-
+export enum e621RelatedTagArrayTypes{
+    'name' = 0,
+    'count' = 1,
+    'type' = 2
+}

@@ -1,4 +1,4 @@
-import { e621TagTypes } from './enums';
+import { e621TagTypes, e621RelatedTagArrayTypes } from './enums';
 
 export interface e621PostData {
     id: Number,
@@ -51,7 +51,7 @@ export interface e621TagJSON {
 
 
 export interface e621RelatedTag {
-    name: string
-    count: number
-    category: string
+    name: e621RelatedTagArrayTypes.name
+    count: e621RelatedTagArrayTypes.count
+    type: e621RelatedTagArrayTypes.type
 }
