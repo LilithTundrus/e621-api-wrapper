@@ -10,6 +10,7 @@
             "es2015.promise",
             "es2017.object"
         ],
+        "rootDir": "src",
         "typeRoots": [
             "./node_modules/@types"
         ],
