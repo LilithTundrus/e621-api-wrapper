@@ -49,16 +49,9 @@ export interface e621TagJSON {
     type_locked: boolean
 }
 
-export interface e621RelatedTagItem {
+
+export interface e621RelatedTag {
     name: string
     count: number
     category: string
-}
-
-export interface e621RelatedTagJSON {
-    [key: string]: [
-        [
-            e621RelatedTagItem
-        ]
-    ]
 }
