@@ -49,21 +49,25 @@ export enum e621ResponseCodes {
 
 export enum e621TagTypes {
     /** General tag, anything NOT a character, artist or species
- * @memberof e621TagTypes
-*/
+    * @memberof e621TagTypes
+    */
     general = 0,
+
     /** Artist name tag (EX= zonk_punch)
      * @memberof e621TagTypes
     */
     artist = 1,
+
     /** Type of copyright the work falls under
      * @memberof e621TagTypes
     */
     copyright = 3,
+
     /** Name of a character in the post (EX= lucario)
      * @memberof e621TagTypes
     */
     character = 4,
+
     /** Type of species in the post (EX= fox, )
      * @memberof e621TagTypes
     */
@@ -92,7 +96,8 @@ export enum e621PopularityStrings {
     'alltime' = 3
 }
 
-export enum e621RelatedTagArrayTypes{
+// These tag types are for the method getRelatedTagsByName from e721-api.ts
+export enum e621RelatedTagArrayTypes {
     'name' = 0,
     'count' = 1,
     'type' = 2
