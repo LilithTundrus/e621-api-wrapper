@@ -87,6 +87,8 @@ export default class e621 {
 
     /**
      * Used to get the api key
+     * 
+     * WARNING: This is dangerous to use without encryption and can lead to user data leakage. Only use via enrypted methods.
      * @param {String} username e621 username
      * @param {String} password password (only needed to generate the key)
     */
