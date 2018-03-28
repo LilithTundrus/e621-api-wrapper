@@ -3,6 +3,8 @@ import { e621PostData, e621TagJSON, e621RelatedTag } from './interfaces';
 import * as request from 'request';
 declare const Promise: any;
 
+// TODO: fill in ALL API endpoints
+// TODO: actually allow for class-external definitions for page limits/etc.
 
 export default class e621 {
     private userAgent: string;

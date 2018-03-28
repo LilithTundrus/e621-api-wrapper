@@ -4,18 +4,12 @@
         "target": "es5",
         "noImplicitAny": false,
         "strictNullChecks": false,
-        "lib": [
-            "dom",
-            "es6",
-            "es2015.promise",
-            "es2017.object"
-        ],
         "rootDir": "src",
         "typeRoots": [
             "./node_modules/@types"
         ],
         "outDir": "build",
         "declaration": true,
-        "esModuleInterop": true                   /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
-    },
+        "esModuleInterop": true
+    }
 }
