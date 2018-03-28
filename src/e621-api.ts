@@ -1,10 +1,11 @@
-import { e621ResponseCodes, e621TagTypes, e621PopularityStrings } from './enums';
+import { e621ResponseCodes, e621TagTypes, e621PopularityStrings, e621RelatedTagArrayTypes } from './enums';
 import { e621PostData, e621TagJSON, e621RelatedTag } from './interfaces';
 import * as request from 'request';
 declare const Promise: any;
 
-// TODO: fill in ALL API endpoints
-// TODO: actually allow for class-external definitions for page limits/etc.
+// TODO: Fill in ALL API endpoints
+// TODO: Actually allow for class-external definitions for page limits/etc.
+// TODO: Document all of the class endpoints so the user knows what they do
 
 export default class e621 {
     private userAgent: string;
@@ -18,7 +19,13 @@ export default class e621 {
         }
     }
 
-    generateE621PostUrl(postID: string): string {
+    /**
+     * Generate a post's URL by its ID
+     * @param {(string | number)} postID ID of the e621 post (Can be pulled from the API)
+     * @returns {string} 
+     * @memberof e621
+     */
+    generateE621PostUrl(postID: string | number): string {
         return `https://e621.net/post/show/${postID}/`;
     }
 
