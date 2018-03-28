@@ -64,3 +64,4 @@ typings/
 # other
 
 build/
+.vscode/settings.json
