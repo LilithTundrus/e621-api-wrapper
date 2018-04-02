@@ -48,10 +48,3 @@ export interface e621TagJSON {
     type: e621TagTypes
     type_locked: boolean
 }
-
-
-export interface e621RelatedTag {
-    name: [e621RelatedTagArrayTypes.name]
-    count: [e621RelatedTagArrayTypes.count]
-    type: [e621RelatedTagArrayTypes.type]
-}

@@ -1,5 +1,5 @@
 import { e621ResponseCodes, e621TagTypes, e621PopularityStrings, e621RelatedTagArrayTypes } from './enums';
-import { e621PostData, e621TagJSON, e621RelatedTag } from './interfaces';
+import { e621PostData, e621TagJSON } from './interfaces';
 import * as request from 'request';
 declare const Promise: any;
 
@@ -71,6 +71,7 @@ export default class e621 {
         return getPostByID(postID, this.userAgent);
     }
 
+    // TODO: Document this!
     getE621PostIndexPaginate(tags: string, start: number, limitPerPage: number, pageLimit: number) {
         var tagsString: string;
         var pageStart: number;
@@ -132,12 +133,12 @@ export default class e621 {
             })
     }
 
-    getRelatedTagsByName(tagName: string): Promise<e621RelatedTag[] | null> {
+    getRelatedTagsByName(tagName: string): Promise<Array<Array<string>> | null> {
         return requestUrl(`https://e621.net/tag/related.json?tags=${tagName}`, this.userAgent)
             .then((response) => {
                 // We are going to have to modify this a bit before giving it to the user
                 let key = Object.keys(response)[0];
-                let data: e621RelatedTag[] = response[key];
+                let data: Array<Array<string>> = response[key];
                 return data;
             })
             .catch((err) => {
