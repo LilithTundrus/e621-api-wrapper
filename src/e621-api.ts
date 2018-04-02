@@ -29,8 +29,14 @@ export default class e621 {
         return `https://e621.net/post/show/${postID}/`;
     }
 
+    /**
+     * Get popular posts for a given timeframe by providing a *e621PopularityStrings* typeArg
+     * @param {e621PopularityStrings} typeArg 
+     * @returns {Promise<[e621PostData]>}
+     * @memberof e621
+     */
     getPopularPosts(typeArg: e621PopularityStrings) {
-        let url;
+        let url: string;
         switch (typeArg) {
             case 0:
                 url = `https://e621.net/post/popular_by_day.json`;
@@ -129,7 +135,7 @@ export default class e621 {
     getRelatedTagsByName(tagName: string): Promise<e621RelatedTag[] | null> {
         return requestUrl(`https://e621.net/tag/related.json?tags=${tagName}`, this.userAgent)
             .then((response) => {
-                // Were going to have to modify this a bit before giving it to the user
+                // We are going to have to modify this a bit before giving it to the user
                 let key = Object.keys(response)[0];
                 let data: e621RelatedTag[] = response[key];
                 return data;
@@ -203,7 +209,6 @@ function requestUrl(url: string, userAgent: string): Promise<any> {
         json: true
     };
     return new Promise((resolve, reject) => {
-
         request.get(options, function (err: Error, response, body) {
             if (err) {
                 return reject(err);
