@@ -133,6 +133,11 @@ export default class e621 {
             })
     }
 
+    /**
+     * Get a set of related tags by providing a valid e621 tag. Returns a 2D array. This may change in the future
+     * @param {string} tagName the tag to get related results for
+     * @memberof e621
+     */
     getRelatedTagsByName(tagName: string): Promise<Array<Array<string>> | null> {
         return requestUrl(`https://e621.net/tag/related.json?tags=${tagName}`, this.userAgent)
             .then((response) => {
