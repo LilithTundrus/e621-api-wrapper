@@ -81,7 +81,7 @@ export default class e621 {
         // We'll want to make all required paramaters are provided here
     }
 
-    updatePost({postID: string = required()}) {
+    updatePost({ postID: string = required() }) {
         // Update e621 post API endpoint
     }
 
@@ -110,6 +110,9 @@ export default class e621 {
         // This action lets you vote for a post. You can only vote once per post per IP address. The base URL is /post/vote.json.
     }
 
+    getRecentPosts() {
+        // GET recent e621 posts (https://e621.net/post/show/)
+    }
 
     /**
      * Generate a post's URL by its ID
@@ -119,10 +122,6 @@ export default class e621 {
      */
     generatePostUrl(postID: string | number): string {
         return `https://e621.net/post/show/${postID}/`;
-    }
-
-    getRecentPosts() {
-        // GET recent e621 posts (https://e621.net/post/show/)
     }
 
     /**
@@ -165,6 +164,14 @@ export default class e621 {
      */
     getPostByID(postID: string) {
         return getPostByID(postID, this.userAgent);
+    }
+
+        /**
+     * Get a post's data by its MD5 hash string
+     * @param {stirng} md5String 
+     */
+    getPostByMD5(md5String: string) {
+        return getPostByMD5(md5String, this.userAgent);
     }
 
     /**
@@ -247,6 +254,22 @@ function paginateE621Endpoint(urlWithoutPageNum: string, start: number, limit: n
  */
 function getPostByID(postID: string, userAgent: string) {
     return requestUrl(`https://e621.net/post/show.json?id=${postID}`, userAgent)
+        .then((response: e621PostData[]) => {
+            return response;
+        })
+        .catch((err) => {
+            throw Error(err);
+        })
+}
+
+/**
+ * Get a post's data by its MD5 using the e621 API
+ * @param {number} md5String 
+ * @param {string} userAgent 
+ * @returns {Promise}
+ */
+function getPostByMD5(md5String: string, userAgent: string) {
+    return requestUrl(`https://e621.net/post/show.json?md5=${md5String}`, userAgent)
         .then((response: e621PostData[]) => {
             return response;
         })
