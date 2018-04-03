@@ -71,13 +71,15 @@ export default class e621 {
 
     // #region POST Endpoints
 
+
+
     /**
      * Generate a post's URL by its ID
      * @param {(string | number)} postID ID of the e621 post (Can be pulled from the API)
      * @returns {string} 
      * @memberof e621
      */
-    generateE621PostUrl(postID: string | number): string {
+    generatePostUrl(postID: string | number): string {
         return `https://e621.net/post/show/${postID}/`;
     }
 
@@ -119,19 +121,19 @@ export default class e621 {
      * Get a post's data by its ID using the e621 API
      * @param {number} postID 
      */
-    getE621PostByID(postID: string) {
+    getPostByID(postID: string) {
         return getPostByID(postID, this.userAgent);
     }
 
     /**
-     * Get a set of e621 pages via pagination
+     * Get a set of e621 posts via pagination
      * @param {string} tags The tags to filter results by
      * @param {number} start Page number to start at
      * @param {number} limitPerPage Number of results per page (Max of 75)
      * @param {number} pageLimit Number of pages to get (Max of 750)
      * @memberof e621
      */
-    getE621PostIndexPaginate(tags: string, start: number, limitPerPage: number, pageLimit: number) {
+    getPostIndexPaginate(tags: string, start: number, limitPerPage: number, pageLimit: number) {
         var tagsString: string;
         var pageStart: number;
         var limitString;
