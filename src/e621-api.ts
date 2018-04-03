@@ -3,6 +3,11 @@ import { e621PostData, e621TagJSON } from './interfaces';
 import * as request from 'request';
 declare const Promise: any;
 
+// This function can be used as a higher order function for named parameters
+const required = () => {
+    throw Error('Missing parameter');
+};
+
 // TODO: Fill in ALL API endpoints
 // TODO: Actually allow for class-external definitions for page limits/etc.
 // TODO: Document all of the class endpoints so the user knows what they do
@@ -76,7 +81,7 @@ export default class e621 {
         // We'll want to make all required paramaters are provided here
     }
 
-    updatePost() {
+    updatePost({postID: string = required()}) {
         // Update e621 post API endpoint
     }
 
@@ -290,3 +295,4 @@ function requestUrl(url: string, userAgent: string): Promise<any> {
 function generateAPIKeyURL(username: string, password: string): string {
     return `https://e621.net/user/login.json?name="${username}"&password="${password}"`;
 }
+
