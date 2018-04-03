@@ -20,6 +20,58 @@ export default class e621 {
     }
 
     /**
+     * Used to get the api key
+     * 
+     * WARNING: This is dangerous to use without encryption and can lead to user data leakage. Only use via enrypted methods.
+     * @param {String} username e621 username
+     * @param {String} password password (only needed to generate the key)
+     */
+    getApiKey(username: string, password: string): Promise<string> {
+        let userAgent = this.userAgent
+        return new Promise(function (resolve, reject) {
+            const url = generateAPIKeyURL(username, password);
+            requestUrl(url, userAgent).then((response) => {
+                resolve(response.password_hash);
+            });
+        });
+    }
+
+    /**
+     * Get an e621 tag's JSON by name
+     * @param {string} tagName 
+     * @memberof e621
+     */
+    getTagJSONByName(tagName: string): Promise<e621TagJSON[]> {
+        return requestUrl(`https://e621.net/tag/index.json?name=${tagName}`, this.userAgent)
+            .then((response: e621TagJSON[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /**
+     * Get a set of related tags by providing a valid e621 tag. Returns a 2D array. This may change in the future
+     * @param {string} tagName the tag to get related results for
+     * @memberof e621
+     */
+    getRelatedTagsByName(tagName: string): Promise<Array<Array<string>> | null> {
+        return requestUrl(`https://e621.net/tag/related.json?tags=${tagName}`, this.userAgent)
+            .then((response) => {
+                // We are going to have to modify this a bit before giving it to the user
+                let key = Object.keys(response)[0];
+                let data: Array<Array<string>> = response[key];
+                return data;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    // #region POST Endpoints
+
+    /**
      * Generate a post's URL by its ID
      * @param {(string | number)} postID ID of the e621 post (Can be pulled from the API)
      * @returns {string} 
@@ -66,7 +118,7 @@ export default class e621 {
     /**
      * Get a post's data by its ID using the e621 API
      * @param {number} postID 
-    */
+     */
     getE621PostByID(postID: string) {
         return getPostByID(postID, this.userAgent);
     }
@@ -101,55 +153,7 @@ export default class e621 {
         return paginateE621Endpoint(`https://e621.net/post/index.json?${tagsString}&limit=${limitString}`, start, pageLimit, dataArray, this.userAgent);
     }
 
-    /**
-     * Used to get the api key
-     * 
-     * WARNING: This is dangerous to use without encryption and can lead to user data leakage. Only use via enrypted methods.
-     * @param {String} username e621 username
-     * @param {String} password password (only needed to generate the key)
-    */
-    getApiKey(username: string, password: string): Promise<string> {
-        let userAgent = this.userAgent
-        return new Promise(function (resolve, reject) {
-            const url = generateAPIKeyURL(username, password);
-            requestUrl(url, userAgent).then((response) => {
-                resolve(response.password_hash);
-            });
-        });
-    }
-
-    /**
-     * Get an e621 tag's JSON by name
-     * @param {string} tagName 
-     * @memberof e621
-     */
-    getTagJSONByName(tagName: string): Promise<e621TagJSON[]> {
-        return requestUrl(`https://e621.net/tag/index.json?name=${tagName}`, this.userAgent)
-            .then((response: e621TagJSON[]) => {
-                return response;
-            })
-            .catch((err) => {
-                throw Error(err);
-            })
-    }
-
-    /**
-     * Get a set of related tags by providing a valid e621 tag. Returns a 2D array. This may change in the future
-     * @param {string} tagName the tag to get related results for
-     * @memberof e621
-     */
-    getRelatedTagsByName(tagName: string): Promise<Array<Array<string>> | null> {
-        return requestUrl(`https://e621.net/tag/related.json?tags=${tagName}`, this.userAgent)
-            .then((response) => {
-                // We are going to have to modify this a bit before giving it to the user
-                let key = Object.keys(response)[0];
-                let data: Array<Array<string>> = response[key];
-                return data;
-            })
-            .catch((err) => {
-                throw Error(err);
-            })
-    }
+    // #endregion
 }
 
 /**
