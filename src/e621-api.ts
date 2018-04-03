@@ -6,6 +6,7 @@ declare const Promise: any;
 // TODO: Fill in ALL API endpoints
 // TODO: Actually allow for class-external definitions for page limits/etc.
 // TODO: Document all of the class endpoints so the user knows what they do
+// TODO: Support getting tags/posts by MD5 hash
 
 export default class e621 {
     private userAgent: string;
@@ -70,7 +71,39 @@ export default class e621 {
     }
 
     // #region POST Endpoints
+    createPost() {
+        // Create e621 post API endpoint
+        // We'll want to make all required paramaters are provided here
+    }
 
+    updatePost() {
+        // Update e621 post API endpoint
+    }
+
+    checkPostMD5() {
+        // example output: https://e621.net/post/check_md5.json?md5=e9fbd2f2d0703a9775f245d55b9a0f9f
+    }
+
+    flagPostForDelete() {
+        // post/flag.json --flag a post for delete through this method
+    }
+
+    deletePost() {
+        // The base URL is /post/destroy.json
+    }
+
+    getDeletedPostIndex() {
+        // The base URL is /post/deleted_index.json.
+        // get the deleted index, returns user_id of who deleted the post
+    }
+
+    revertPostTags() {
+        //  This action reverts a post to a previous set of tags. The base URL is /post/revert_tags.json.
+    }
+
+    voteForPost() {
+        // This action lets you vote for a post. You can only vote once per post per IP address. The base URL is /post/vote.json.
+    }
 
 
     /**
@@ -81,6 +114,10 @@ export default class e621 {
      */
     generatePostUrl(postID: string | number): string {
         return `https://e621.net/post/show/${postID}/`;
+    }
+
+    getRecentPosts() {
+        // GET recent e621 posts (https://e621.net/post/show/)
     }
 
     /**
