@@ -123,7 +123,14 @@ export default class e621 {
         return getPostByID(postID, this.userAgent);
     }
 
-    // TODO: Document this!
+    /**
+     * Get a set of e621 pages via pagination
+     * @param {string} tags The tags to filter results by
+     * @param {number} start Page number to start at
+     * @param {number} limitPerPage Number of results per page (Max of 75)
+     * @param {number} pageLimit Number of pages to get (Max of 750)
+     * @memberof e621
+     */
     getE621PostIndexPaginate(tags: string, start: number, limitPerPage: number, pageLimit: number) {
         var tagsString: string;
         var pageStart: number;
