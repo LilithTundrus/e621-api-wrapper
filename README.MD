@@ -56,6 +56,11 @@ wrapper.getPopularPosts(enums.e621PopularityStrings.daily)
 })
 ```
 
+## Available methods
+
+This is a placeholder for all methods that will eventually be implemented!
+
+
 ## History
 
 - **v0.1.7**
