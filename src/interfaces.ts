@@ -48,3 +48,9 @@ export interface e621TagJSON {
     type: e621TagTypes
     type_locked: boolean
 }
+
+export interface e621MD5CheckJSON {
+    md5: string
+    exists: boolean
+    post_id: number
+}
