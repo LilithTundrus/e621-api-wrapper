@@ -79,6 +79,7 @@ export default class e621 {
     createPost() {
         // Create e621 post API endpoint
         // We'll want to make all required paramaters are provided here
+        return postUrl('https://httpbin.org/anything', this.userAgent, { "hello": "test" })
     }
 
     updatePost({ postID: string = required() }) {
@@ -166,7 +167,7 @@ export default class e621 {
         return getPostByID(postID, this.userAgent);
     }
 
-        /**
+    /**
      * Get a post's data by its MD5 hash string
      * @param {stirng} md5String 
      */
@@ -284,7 +285,6 @@ function getPostByMD5(md5String: string, userAgent: string) {
  * @returns {Promise<any>}
  */
 function requestUrl(url: string, userAgent: string): Promise<any> {
-    // set up the options so we don't have to constantly redefine our user agent
     let options = {
         uri: url,
         headers: {
@@ -309,6 +309,25 @@ function requestUrl(url: string, userAgent: string): Promise<any> {
     })
 }
 
+function postUrl(url: string, userAgent: string, postObject: Object): Promise<Object> {
+    let options = {
+        uri: url,
+        headers: {
+            'User-Agent': userAgent
+        },
+        json: true,
+        body: postObject
+    };
+    return new Promise((resolve, reject) => {
+        request.post(options, function (err: Error, response, body) {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(body);
+        })
+    })
+}
+
 /**
  * Generate the e621 URL for getting a user's API key
  * @param {String} username 
@@ -318,4 +337,3 @@ function requestUrl(url: string, userAgent: string): Promise<any> {
 function generateAPIKeyURL(username: string, password: string): string {
     return `https://e621.net/user/login.json?name="${username}"&password="${password}"`;
 }
-
