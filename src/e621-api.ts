@@ -109,9 +109,33 @@ export default class e621 {
         // The base URL is /post/destroy.json
     }
 
-    getDeletedPostIndex() {
-        // The base URL is /post/deleted_index.json.
-        // get the deleted index, returns user_id of who deleted the post
+    /**
+     * Navigate through deleted posts, delreason being populated.
+     * @param {number} [page] Page number to return (if more than 1)
+     * @param {(number | string)} [userID] Return posts uploaded by the user with the given ID number.
+     * @memberof e621
+     */
+    getDeletedPostIndex(page?: number, userID?: number | string): Promise<e621PostData[]> {
+        // TODO: Allow for deletes to be filtered by user_id
+        // Make sure we have a default
+        if (!page) page = 1;
+        if (userID) {
+            return requestUrl(`https://e621.net/post/deleted_index.json?page=${page}&user_id=${userID}`, this.userAgent)
+                .then((response: e621PostData[]) => {
+                    return response;
+                })
+                .catch((err) => {
+                    throw Error(err);
+                })
+        } else {
+            return requestUrl(`https://e621.net/post/deleted_index.json?page=${page}`, this.userAgent)
+                .then((response: e621PostData[]) => {
+                    return response;
+                })
+                .catch((err) => {
+                    throw Error(err);
+                })
+        }
     }
 
     revertPostTags() {
