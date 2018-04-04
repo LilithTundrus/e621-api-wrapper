@@ -1,5 +1,5 @@
 import { e621ResponseCodes, e621TagTypes, e621PopularityStrings, e621RelatedTagArrayTypes } from './enums';
-import { e621PostData, e621TagJSON } from './interfaces';
+import { e621PostData, e621TagJSON, e621MD5CheckJSON } from './interfaces';
 import * as request from 'request';
 declare const Promise: any;
 
@@ -86,8 +86,19 @@ export default class e621 {
         // Update e621 post API endpoint
     }
 
-    checkPostMD5() {
-        // example output: https://e621.net/post/check_md5.json?md5=e9fbd2f2d0703a9775f245d55b9a0f9f
+    /**
+     * Check if a post exists by MD5 hash string
+     * @param {string} md5String 
+     * @memberof e621
+     */
+    checkPostMD5(md5String: string): Promise<e621MD5CheckJSON> {
+        return requestUrl(`https://e621.net/post/check_md5.json?md5=${md5String}`, this.userAgent)
+            .then((response: e621MD5CheckJSON) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     flagPostForDelete() {
