@@ -37,9 +37,13 @@ export default class e621 {
         let userAgent = this.userAgent
         return new Promise(function (resolve, reject) {
             const url = generateAPIKeyURL(username, password);
-            requestUrl(url, userAgent).then((response) => {
-                resolve(response.password_hash);
-            });
+            requestUrl(url, userAgent)
+                .then((response) => {
+                    resolve(response.password_hash);
+                })
+                .catch((err) => {
+                    throw Error(err)
+                })
         });
     }
 
@@ -142,12 +146,11 @@ export default class e621 {
         //  This action reverts a post to a previous set of tags. The base URL is /post/revert_tags.json.
     }
 
+    // TODO: figure out if this is a POST or GET and if you need to be logged in
     voteForPost() {
-        // This action lets you vote for a post. You can only vote once per post per IP address. The base URL is /post/vote.json.
-    }
-
-    getRecentPosts() {
-        // GET recent e621 posts (https://e621.net/post/show/)
+        // This action lets you vote for a post. 
+        // You can only vote once per post per IP address. The base URL is /post/vote.json.
+        return postUrl('https://e621.net/post/vote.json?id=1504549&score=1', this.userAgent)
     }
 
     /**
@@ -211,8 +214,8 @@ export default class e621 {
     }
 
     /**
-     * Get a set of e621 posts via pagination
-     * @param {string} tags The tags to filter results by
+     * Get a set of e621 posts filtered by tags via pagination
+     * @param {string} tags The tags to filter results by - providing an empty string or NULL value will get RECENT posts
      * @param {number} start Page number to start at
      * @param {number} limitPerPage Number of results per page (Max of 75)
      * @param {number} pageLimit Number of pages to get (Max of 750)

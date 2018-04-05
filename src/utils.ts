@@ -97,15 +97,27 @@ export function requestUrl(url: string, userAgent: string): Promise<any> {
     })
 }
 
-export function postUrl(url: string, userAgent: string, postObject: Object): Promise<Object> {
-    let options = {
-        uri: url,
-        headers: {
-            'User-Agent': userAgent
-        },
-        json: true,
-        body: postObject
-    };
+export function postUrl(url: string, userAgent: string, postObject?: Object): Promise<Object> {
+    let options: object
+    if (postObject) {
+        options = {
+            uri: url,
+            headers: {
+                'User-Agent': userAgent
+            },
+            json: true,
+            body: postObject
+        };
+    } else {
+        options = {
+            uri: url,
+            headers: {
+                'User-Agent': userAgent
+            },
+            json: true,
+        };
+    }
+
     return new Promise((resolve, reject) => {
         request.post(options, function (err: Error, response, body) {
             if (err) {
