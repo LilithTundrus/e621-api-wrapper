@@ -7,3 +7,8 @@ wrapper.createPost().then(results => console.log(results))
 wrapper.getDeletedPostIndex(2, 263793).then((results) => {
     console.log(results)
 })
+
+wrapper.getPostIndexPaginate('fox', 0, 2, 1)
+    .then((postData) => {
+        console.log(postData)
+    })
