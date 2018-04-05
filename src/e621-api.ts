@@ -12,7 +12,8 @@ const required = () => {
 // TODO: Fill in ALL API endpoints
 // TODO: Actually allow for class-external definitions for page limits/etc.
 // TODO: Document all of the class endpoints so the user knows what they do
-// Get logins working
+// TODO: Get logins working
+// TODO: Figure out how to to class.method.submethod() things like artist.getArt()/etc.
 
 export default class e621 {
     private userAgent: string;
@@ -293,6 +294,6 @@ export default class e621 {
     // #endregion
 
     // #region Artist methods
-
+    
     // #endregion
 }
