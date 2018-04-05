@@ -12,7 +12,7 @@ const required = () => {
 // TODO: Fill in ALL API endpoints
 // TODO: Actually allow for class-external definitions for page limits/etc.
 // TODO: Document all of the class endpoints so the user knows what they do
-// TODO: Support getting tags/posts by MD5 hash
+// Get logins working
 
 export default class e621 {
     private userAgent: string;
@@ -47,6 +47,7 @@ export default class e621 {
         });
     }
 
+    // #region Tag methods
     /**
      * Get an e621 tag's JSON by name
      * @param {string} tagName 
@@ -80,7 +81,47 @@ export default class e621 {
             })
     }
 
-    // #region POST Endpoints
+    listAllTags() {
+        //         The base URL is /tag/index.json.
+
+        // limit How many tags to retrieve. There is a hard limit of 500 tags per request.
+        // page The page number.
+        // order Can be date, count, or name.
+        // after_id Return all tags that have an ID number greater than this.
+        // show_empty_tags If set to 1 will return tags regardless of the number of posts associated with them.
+        // name The exact name of the tag.
+        // name_pattern Search for any tag that has this parameter in its name.
+    }
+
+    getTagDetails(tagID) {
+        //         The base URL is /tag/show.json.
+
+        // id The ID of the tag.
+    }
+
+    updateTag(name, tagType, isAmbiguous) {
+        // The base URL is /tag/update.json.
+
+        //         name The name of the tag to update.
+        // tag[tag_type] The tag type. General: 0, artist: 1, copyright: 3, character: 4, species: 5.
+        // tag[is_ambiguous] Whether or not this tag is ambiguous. Use 1 for true and 0 for false.
+    }
+
+    getTagAliases() {
+        //         The base URL is /tag_alias/index.json.
+
+        // page The page number.
+        // order Can be tag, aliasedtag, reason, user, date, or forum_post.
+        // query/aliased_to Search for aliases that have this parameter in its name.
+        // user Username of user who submitted the suggestion.
+        // approved Can be all, true, false.
+        // forum_post Has an accompanying forum post. Can be all/true/false.
+
+        // Example URL: https://e621.net/tag_alias/index.json?aliased_to=digitigrade&approved=true
+    }
+    // endregion
+
+    // #region Post methods
     createPost() {
         // Create e621 post API endpoint
         // We'll want to make all required paramaters are provided here
@@ -249,6 +290,9 @@ export default class e621 {
         var dataArray = [];                                         // Empty array, likely not needed but eh?
         return paginateE621Endpoint(`https://e621.net/post/index.json?${tagsString}&limit=${limitString}`, start, pageLimit, dataArray, this.userAgent);
     }
+    // #endregion
+
+    // #region Artist methods
 
     // #endregion
 }
