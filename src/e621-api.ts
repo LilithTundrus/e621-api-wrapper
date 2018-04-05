@@ -117,7 +117,6 @@ export default class e621 {
      * @memberof e621
      */
     getDeletedPostIndex(page?: number, userID?: number | string): Promise<e621PostData[]> {
-        // TODO: Allow for deletes to be filtered by user_id
         // Make sure we have a default
         if (!page) page = 1;
         if (userID) {
@@ -219,7 +218,7 @@ export default class e621 {
      * @param {number} pageLimit Number of pages to get (Max of 750)
      * @memberof e621
      */
-    getPostIndexPaginate(tags: string, start: number, limitPerPage: number, pageLimit: number) {
+    getPostIndexPaginate(tags: string, start?: number, limitPerPage?: number, pageLimit?: number) {
         var tagsString: string;
         var pageStart: number;
         var limitString;
