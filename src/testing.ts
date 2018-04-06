@@ -16,3 +16,5 @@ wrapper.getPostIndexPaginate(null, 0, 2, 1)
 wrapper.voteForPost().then(voteResponse => {
     console.log(voteResponse)
 })
+
+console.log(wrapper.agent)

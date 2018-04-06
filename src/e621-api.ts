@@ -26,6 +26,9 @@ export default class e621 {
             this.pageLimit = 3;
         }
     }
+    get agent() {
+        return this.userAgent;
+    }
 
     /**
      * Used to get the api key
