@@ -337,4 +337,9 @@ export default class e621 {
     }
 
     // #endregion
+
+
+    // #region Comments Endpoints
+
+    // #endregion
 }
