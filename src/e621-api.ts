@@ -88,10 +88,17 @@ export default class e621 {
                 throw Error(err);
             })
     }
-
-    listAllTags() {
-        //         The base URL is /tag/index.json.
-
+    /**
+     * This is a more advanced getTagJSONByName method, allowing you to get more tag data than just by name
+     * @param {number} [limit] Hard limit of 500
+     * @param {number} [page] 
+     * @param {string} [order] 
+     * @param {string} [name] 
+     * @returns 
+     * @memberof e621
+     */
+    listAllTags(limit?: number, page?: number, order?: string, tagName?: string, tagPattern?: string, afterID?: number) {
+        let url: string;
         // limit How many tags to retrieve. There is a hard limit of 500 tags per request.
         // page The page number.
         // order Can be date, count, or name.
@@ -99,6 +106,20 @@ export default class e621 {
         // show_empty_tags If set to 1 will return tags regardless of the number of posts associated with them.
         // name The exact name of the tag.
         // name_pattern Search for any tag that has this parameter in its name.
+        if (!limit) limit = 50;
+        if (!page) page = 1;
+        url = `https://e621.net/tag/index.json?limit=${limit}&page=${page}`;
+        if (order) url = url + `&order=${order}`;
+        if (tagName) url = url + `&name=${tagName}`;
+        if (tagPattern) url = url + `&name_pattern=${tagPattern}`;
+        if (afterID) url = url + `&after_id=${afterID}`;
+        return requestUrl(url, this.userAgent)
+            .then((response: e621TagJSON[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     getTagDetails(tagID) {
