@@ -10,7 +10,6 @@ const required = () => {
 };
 
 // TODO: Fill in ALL API endpoints
-// TODO: Actually allow for class-external definitions for page limits/etc.
 // TODO: Document all of the class endpoints so the user knows what they do
 // TODO: Get logins working
 // TODO: Figure out how to to class.method.submethod() things like artist.getArt()/etc.
@@ -26,13 +25,9 @@ export default class e621 {
             this.pageLimit = 3;
         }
     }
-    get agent() {
-        return this.userAgent;
-    }
+    get agent() { return this.userAgent; }
 
-    get limit() {
-        return this.pageLimit;
-    }
+    get limit() { return this.pageLimit; }
 
     /**
      * Used to get the api key
@@ -88,24 +83,19 @@ export default class e621 {
                 throw Error(err);
             })
     }
+
     /**
      * This is a more advanced getTagJSONByName method, allowing you to get more tag data than just by name
      * @param {number} [limit] Hard limit of 500
      * @param {number} [page] 
      * @param {string} [order] 
      * @param {string} [name] 
-     * @returns 
+     * @returns Promise<e621TagJSON[]>
      * @memberof e621
      */
     listAllTags(limit?: number, page?: number, order?: string, tagName?: string, tagPattern?: string, afterID?: number) {
         let url: string;
-        // limit How many tags to retrieve. There is a hard limit of 500 tags per request.
-        // page The page number.
-        // order Can be date, count, or name.
-        // after_id Return all tags that have an ID number greater than this.
-        // show_empty_tags If set to 1 will return tags regardless of the number of posts associated with them.
-        // name The exact name of the tag.
-        // name_pattern Search for any tag that has this parameter in its name.
+        // consturct the URL (in a mega janky way)
         if (!limit) limit = 50;
         if (!page) page = 1;
         url = `https://e621.net/tag/index.json?limit=${limit}&page=${page}`;
@@ -122,10 +112,20 @@ export default class e621 {
             })
     }
 
-    getTagDetails(tagID) {
-        //         The base URL is /tag/show.json.
-
-        // id The ID of the tag.
+    /**
+     * Get an e621 tag's data by ID
+     * @param {(number | string)} tagID 
+     * @returns Promise<e621TagJSON>
+     * @memberof e621
+     */
+    getTagByID(tagID: number | string): Promise<e621TagJSON> {
+        return requestUrl(`https://e621.net/tag/show.json?id=${tagID}`, this.userAgent)
+            .then((response: e621TagJSON) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     updateTag(name, tagType, isAmbiguous) {
