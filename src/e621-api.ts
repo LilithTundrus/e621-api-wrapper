@@ -12,7 +12,7 @@ const required = () => {
 // TODO: Fill in ALL API endpoints
 // TODO: Document all of the class endpoints so the user knows what they do
 // TODO: Get logins working
-// TODO: Figure out how to to class.method.submethod() things like artist.getArt()/etc.
+// TODO: Use a prototype chain in the future for something like artists.getPosts()?
 
 export default class e621 {
     private userAgent: string;
@@ -29,8 +29,7 @@ export default class e621 {
 
     get limit() { return this.pageLimit; }
 
-    /**
-     * Used to get the api key
+    /** Used to get the api key
      * 
      * WARNING: This is dangerous to use without encryption and can lead to user data leakage. Only use via enrypted methods.
      * @param {String} username e621 username
@@ -51,8 +50,8 @@ export default class e621 {
     }
 
     // #region Tag methods
-    /**
-     * Get an e621 tag's JSON by name
+
+    /** Get an e621 tag's JSON by name
      * @param {string} tagName 
      * @memberof e621
      */
@@ -66,9 +65,8 @@ export default class e621 {
             })
     }
 
-    /**
-     * Get a set of related tags by providing a valid e621 tag. Returns a 2D array. This may change in the future
-     * @param {string} tagName the tag to get related results for
+    /** Get a set of related tags by providing a valid e621 tag. Returns a 2D array. This may change in the future
+     * @param {string} tagName The tag to get related results for
      * @memberof e621
      */
     getRelatedTagsByName(tagName: string): Promise<Array<Array<string>> | null> {
@@ -84,8 +82,7 @@ export default class e621 {
             })
     }
 
-    /**
-     * This is a more advanced getTagJSONByName method, allowing you to get more tag data than just by name
+    /** This is a more advanced getTagJSONByName method, allowing you to get more tag data than just by name
      * @param {number} [limit] Hard limit of 500
      * @param {number} [page] 
      * @param {string} [order] 
@@ -112,8 +109,7 @@ export default class e621 {
             })
     }
 
-    /**
-     * Get an e621 tag's data by ID
+    /** Get an e621 tag's data by ID
      * @param {(number | string)} tagID 
      * @returns Promise<e621TagJSON>
      * @memberof e621
@@ -161,8 +157,7 @@ export default class e621 {
         // Update e621 post API endpoint
     }
 
-    /**
-     * Check if a post exists by MD5 hash string
+    /**Check if a post exists by MD5 hash string
      * @param {string} md5String 
      * @memberof e621
      */
@@ -184,8 +179,7 @@ export default class e621 {
         // The base URL is /post/destroy.json
     }
 
-    /**
-     * Navigate through deleted posts, delreason being populated.
+    /** Navigate through deleted posts, delreason being populated.
      * @param {number} [page] Page number to return (if more than 1)
      * @param {(number | string)} [userID] Return posts uploaded by the user with the given ID number.
      * @memberof e621
@@ -223,8 +217,7 @@ export default class e621 {
         return postUrl('https://e621.net/post/vote.json?id=1504549&score=1', this.userAgent)
     }
 
-    /**
-     * Generate a post's URL by its ID
+    /** Generate a post's URL by its ID
      * @param {(string | number)} postID ID of the e621 post (Can be pulled from the API)
      * @returns {string} 
      * @memberof e621
@@ -233,9 +226,8 @@ export default class e621 {
         return `https://e621.net/post/show/${postID}/`;
     }
 
-    /**
-     * Get popular posts for a given timeframe by providing a *e621PopularityStrings* typeArg
-     * @param {e621PopularityStrings} typeArg 
+    /** Get popular posts for a given timeframe by providing a *e621PopularityStrings* typeArg
+     * @param {e621PopularityStrings} typeArg Type of popular endpoint to use
      * @returns {Promise<[e621PostData]>}
      * @memberof e621
      */
@@ -267,24 +259,21 @@ export default class e621 {
             })
     }
 
-    /**
-     * Get a post's data by its ID using the e621 API
-     * @param {number} postID 
+    /** Get a post's data by its ID
+     * @param {number} postID ID of the e621 post
      */
     getPostByID(postID: string) {
         return getPostByID(postID, this.userAgent);
     }
 
-    /**
-     * Get a post's data by its MD5 hash string
+    /** Get a post's data by its MD5 hash string
      * @param {stirng} md5String 
      */
     getPostByMD5(md5String: string) {
         return getPostByMD5(md5String, this.userAgent);
     }
 
-    /**
-     * Get a set of e621 posts filtered by tags via pagination
+    /** Get a set of e621 posts filtered by tags via pagination
      * @param {string} tags The tags to filter results by - providing an empty string or NULL value will get RECENT posts
      * @param {number} start Page number to start at
      * @param {number} limitPerPage Number of results per page (Max of 75)
