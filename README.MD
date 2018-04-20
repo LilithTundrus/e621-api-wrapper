@@ -6,11 +6,10 @@
 
 This is a small wrapper for the site [e621](https://e621.net)
 
-
 If you're here you know what this site is for.
 
 **PLEASE NOTE:**
-This is still in development, if something doesn't work or isn't defined correctly, please let me know!
+This is still in ALPHA development, if something doesn't work or isn't defined correctly, please let me know!
 
 ## Getting Started
 
@@ -56,6 +55,7 @@ wrapper.getPopularPosts(enums.e621PopularityStrings.daily)
 })
 ```
 
+
 ## Available methods
 
 This is a placeholder for all methods that will eventually be implemented!
@@ -75,11 +75,14 @@ This is a placeholder for all methods that will eventually be implemented!
     - Added support for getting tag data through the wrapper
 
 
-
-
 ## Issues
 
 Do you have any issues or recommendations for this package? Feel free to open an issue in the [issue](https://github.com/LilithTundrus/e621-api/issues) section. I'm always happy to help :D
+
+
+## Contributing
+
+If you would like to contribute to this project feel free to make some changes and open a pull request! I'm not very good at Typescript just yet.
 
 
 ## License
