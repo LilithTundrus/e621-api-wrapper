@@ -63,6 +63,15 @@ This is a placeholder for all methods that will eventually be implemented!
 
 ## History
 
+- **v0.2.9**
+    - Created a lot more support for e621 endpoints, starting to pull the project in a broader directions
+    - Improved typings slightly
+
+
+- **v0.1.8-0.2.8**
+    - Chased after a ton of NPM deployment related bugs
+
+
 - **v0.1.7**
     - Added a method for getting related tags
 
