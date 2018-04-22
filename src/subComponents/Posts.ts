@@ -148,7 +148,7 @@ export default class Posts {
      * @param {number} pageLimit Number of pages to get (Max of 750)
      * @memberof e621
      */
-    getPostIndexPaginate(tags: string, start?: number, limitPerPage?: number, pageLimit?: number) {
+    getPostIndexPaginate(tags?: string, start?: number, limitPerPage?: number, pageLimit?: number) {
         var tagsString: string;
         var pageStart: number;
         var limitString;
