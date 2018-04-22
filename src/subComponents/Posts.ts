@@ -15,13 +15,13 @@ export default class Posts {
         this.pageLimit = pageLimit;
     }
 
-    createPost() {
+    create() {
         // Create e621 post API endpoint
         // We'll want to make all required paramaters are provided here
         return postUrl('https://httpbin.org/anything', this.userAgent, { "hello": "test" })
     }
 
-    updatePost({ postID: string = required() }) {
+    update(postID: string) {
         // Update e621 post API endpoint
     }
 
@@ -29,7 +29,7 @@ export default class Posts {
      * @param {string} md5String 
      * @memberof e621
      */
-    checkPostMD5(md5String: string): Promise<e621MD5CheckJSON> {
+    checkIfExists(md5String: string): Promise<e621MD5CheckJSON> {
         return requestUrl(`https://e621.net/post/check_md5.json?md5=${md5String}`, this.userAgent)
             .then((response: e621MD5CheckJSON) => {
                 return response;
@@ -39,11 +39,11 @@ export default class Posts {
             })
     }
 
-    flagPostForDelete() {
+    flagForDelete() {
         // post/flag.json --flag a post for delete through this method
     }
 
-    deletePost() {
+    delete() {
         // The base URL is /post/destroy.json
     }
 
@@ -52,7 +52,7 @@ export default class Posts {
      * @param {(number | string)} [userID] Return posts uploaded by the user with the given ID number.
      * @memberof e621
      */
-    getDeletedPostIndex(page?: number, userID?: number | string): Promise<e621PostData[]> {
+    getDeletedIndex(page?: number, userID?: number | string): Promise<e621PostData[]> {
         // Make sure we have a default
         if (!page) page = 1;
         if (userID) {
@@ -74,12 +74,12 @@ export default class Posts {
         }
     }
 
-    revertPostTags() {
+    revertTags() {
         //  This action reverts a post to a previous set of tags. The base URL is /post/revert_tags.json.
     }
 
     // TODO: figure out if this is a POST or GET and if you need to be logged in
-    voteForPost() {
+    vote() {
         // This action lets you vote for a post. 
         // You can only vote once per post per IP address. The base URL is /post/vote.json.
         return postUrl('https://e621.net/post/vote.json?id=1504549&score=1', this.userAgent)
@@ -90,7 +90,7 @@ export default class Posts {
      * @returns {string} 
      * @memberof e621
      */
-    generatePostUrl(postID: string | number): string {
+    generateUrl(postID: string | number): string {
         return `https://e621.net/post/show/${postID}/`;
     }
 
@@ -130,14 +130,14 @@ export default class Posts {
     /** Get a post's data by its ID
      * @param {number} postID ID of the e621 post
      */
-    getPostByID(postID: string) {
+    getByID(postID: string) {
         return getPostByID(postID, this.userAgent);
     }
 
     /** Get a post's data by its MD5 hash string
      * @param {stirng} md5String 
      */
-    getPostByMD5(md5String: string) {
+    getByMD5(md5String: string) {
         return getPostByMD5(md5String, this.userAgent);
     }
 
@@ -148,7 +148,7 @@ export default class Posts {
      * @param {number} pageLimit Number of pages to get (Max of 750)
      * @memberof e621
      */
-    getPostIndexPaginate(tags?: string, start?: number, limitPerPage?: number, pageLimit?: number) {
+    getIndexPaginate(tags?: string, start?: number, limitPerPage?: number, pageLimit?: number) {
         var tagsString: string;
         var pageStart: number;
         var limitString;
