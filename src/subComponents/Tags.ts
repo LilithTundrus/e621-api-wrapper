@@ -12,7 +12,7 @@ export default class Tags {
 
     /** Get an e621 tag's data by name
      * @param {string} tagName 
-     * @memberof e621
+     * @memberof Tags
      */
     public getByName(tagName: string): Promise<e621TagJSON[]> {
         return requestUrl(`https://e621.net/tag/index.json?name=${tagName}`, this.userAgent)
@@ -26,7 +26,7 @@ export default class Tags {
 
     /** Get a set of related tags by providing a valid e621 tag. Returns a 2D array. This may change in the future
      * @param {string} tagName The tag to get related results for
-     * @memberof e621
+     * @memberof Tags
      */
     public getRelatedTagsByName(tagName: string): Promise<Array<Array<string>> | null> {
         return requestUrl(`https://e621.net/tag/related.json?tags=${tagName}`, this.userAgent)
@@ -47,7 +47,7 @@ export default class Tags {
      * @param {string} [order] 
      * @param {string} [name] 
      * @returns Promise<e621TagJSON[]>
-     * @memberof e621
+     * @memberof Tags
      */
     public listAllTags(limit?: number, page?: number, order?: string, tagName?: string, tagPattern?: string, afterID?: number) {
         let url: string;
@@ -71,7 +71,7 @@ export default class Tags {
     /** Get an e621 tag's data by ID
      * @param {(number | string)} tagID 
      * @returns Promise<e621TagJSON>
-     * @memberof e621
+     * @memberof Tags
      */
     public getByID(tagID: number | string): Promise<e621TagJSON> {
         return requestUrl(`https://e621.net/tag/show.json?id=${tagID}`, this.userAgent)
@@ -83,7 +83,7 @@ export default class Tags {
             })
     }
 
-    public updateTag(name, tagType, isAmbiguous) {
+    public updateTag(name: string, tagType, isAmbiguous: boolean) {
         // The base URL is /tag/update.json.
 
         //         name The name of the tag to update.
@@ -91,16 +91,25 @@ export default class Tags {
         // tag[is_ambiguous] Whether or not this tag is ambiguous. Use 1 for true and 0 for false.
     }
 
-    public getAliases() {
-        //         The base URL is /tag_alias/index.json.
-
-        // page The page number.
-        // order Can be tag, aliasedtag, reason, user, date, or forum_post.
-        // query/aliased_to Search for aliases that have this parameter in its name.
-        // user Username of user who submitted the suggestion.
-        // approved Can be all, true, false.
-        // forum_post Has an accompanying forum post. Can be all/true/false.
-
-        // Example URL: https://e621.net/tag_alias/index.json?aliased_to=digitigrade&approved=true
+    /** Get a tag's aliases (user an forum_post queries NOT supported)
+     * @param {string} query The tag to query
+     * @param {number} [page] Page to start at (default is 1)
+     * @param {string} [order] How to order the results. Can be tag, aliasedtag, reason, user, date, or forum_post
+     * @param {boolean} [approved] Can be all, true, false.
+     * @memberof Tags
+     */
+    public getAliases(query: string, page?: number, order?: string, approved?: boolean) {
+        let url: string;
+        if (!page) page = 1;
+        url = `https://e621.net/tag/index.json?page=${page}`;
+        if (order) url = url + `&order=${order}`;
+        if (approved) url = url + `&approved=${approved}`;
+        return requestUrl(url, this.userAgent)
+            .then((response: e621TagJSON[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 }
