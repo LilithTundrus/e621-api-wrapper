@@ -101,11 +101,11 @@ export default class Tags {
     public getAliases(query: string, page?: number, order?: string, approved?: boolean) {
         let url: string;
         if (!page) page = 1;
-        url = `https://e621.net/tag/index.json?page=${page}`;
+        url = `https://e621.net/tag_alias/index.json?page=${page}&query=${query}`;
         if (order) url = url + `&order=${order}`;
         if (approved) url = url + `&approved=${approved}`;
         return requestUrl(url, this.userAgent)
-            .then((response: e621TagJSON[]) => {
+            .then((response: any[]) => {
                 return response;
             })
             .catch((err) => {
