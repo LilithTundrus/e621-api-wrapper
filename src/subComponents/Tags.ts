@@ -10,11 +10,11 @@ export default class Tags {
         this.pageLimit = pageLimit;
     }
 
-    /** Get an e621 tag's JSON by name
+    /** Get an e621 tag's data by name
      * @param {string} tagName 
      * @memberof e621
      */
-    getTagJSONByName(tagName: string): Promise<e621TagJSON[]> {
+    public getByName(tagName: string): Promise<e621TagJSON[]> {
         return requestUrl(`https://e621.net/tag/index.json?name=${tagName}`, this.userAgent)
             .then((response: e621TagJSON[]) => {
                 return response;
@@ -28,7 +28,7 @@ export default class Tags {
      * @param {string} tagName The tag to get related results for
      * @memberof e621
      */
-    getRelatedTagsByName(tagName: string): Promise<Array<Array<string>> | null> {
+    public getRelatedTagsByName(tagName: string): Promise<Array<Array<string>> | null> {
         return requestUrl(`https://e621.net/tag/related.json?tags=${tagName}`, this.userAgent)
             .then((response) => {
                 // We are going to have to modify this a bit before giving it to the user
@@ -41,7 +41,7 @@ export default class Tags {
             })
     }
 
-    /** This is a more advanced getTagJSONByName method, allowing you to get more tag data than just by name
+    /** This is a more advanced getByName method, allowing you to get more tag data than just by name
      * @param {number} [limit] Hard limit of 500
      * @param {number} [page] 
      * @param {string} [order] 
@@ -49,7 +49,7 @@ export default class Tags {
      * @returns Promise<e621TagJSON[]>
      * @memberof e621
      */
-    listAllTags(limit?: number, page?: number, order?: string, tagName?: string, tagPattern?: string, afterID?: number) {
+    public listAllTags(limit?: number, page?: number, order?: string, tagName?: string, tagPattern?: string, afterID?: number) {
         let url: string;
         // consturct the URL (in a mega janky way)
         if (!limit) limit = 50;
@@ -73,7 +73,7 @@ export default class Tags {
      * @returns Promise<e621TagJSON>
      * @memberof e621
      */
-    getTagByID(tagID: number | string): Promise<e621TagJSON> {
+    public getByID(tagID: number | string): Promise<e621TagJSON> {
         return requestUrl(`https://e621.net/tag/show.json?id=${tagID}`, this.userAgent)
             .then((response: e621TagJSON) => {
                 return response;
@@ -83,7 +83,7 @@ export default class Tags {
             })
     }
 
-    updateTag(name, tagType, isAmbiguous) {
+    public updateTag(name, tagType, isAmbiguous) {
         // The base URL is /tag/update.json.
 
         //         name The name of the tag to update.
@@ -91,7 +91,7 @@ export default class Tags {
         // tag[is_ambiguous] Whether or not this tag is ambiguous. Use 1 for true and 0 for false.
     }
 
-    getTagAliases() {
+    public getAliases() {
         //         The base URL is /tag_alias/index.json.
 
         // page The page number.
