@@ -1,0 +1,106 @@
+import { e621TagJSON, } from '../interfaces';
+import { paginateE621Endpoint, requestUrl, postUrl } from '../utils';
+
+
+export default class Tags {
+    private userAgent: string;
+    private pageLimit: number;
+    public constructor(userAgent: string, pageLimit: number) {
+        this.userAgent = userAgent;
+        this.pageLimit = pageLimit;
+    }
+
+    /** Get an e621 tag's JSON by name
+     * @param {string} tagName 
+     * @memberof e621
+     */
+    getTagJSONByName(tagName: string): Promise<e621TagJSON[]> {
+        return requestUrl(`https://e621.net/tag/index.json?name=${tagName}`, this.userAgent)
+            .then((response: e621TagJSON[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /** Get a set of related tags by providing a valid e621 tag. Returns a 2D array. This may change in the future
+     * @param {string} tagName The tag to get related results for
+     * @memberof e621
+     */
+    getRelatedTagsByName(tagName: string): Promise<Array<Array<string>> | null> {
+        return requestUrl(`https://e621.net/tag/related.json?tags=${tagName}`, this.userAgent)
+            .then((response) => {
+                // We are going to have to modify this a bit before giving it to the user
+                let key = Object.keys(response)[0];
+                let data: Array<Array<string>> = response[key];
+                return data;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /** This is a more advanced getTagJSONByName method, allowing you to get more tag data than just by name
+     * @param {number} [limit] Hard limit of 500
+     * @param {number} [page] 
+     * @param {string} [order] 
+     * @param {string} [name] 
+     * @returns Promise<e621TagJSON[]>
+     * @memberof e621
+     */
+    listAllTags(limit?: number, page?: number, order?: string, tagName?: string, tagPattern?: string, afterID?: number) {
+        let url: string;
+        // consturct the URL (in a mega janky way)
+        if (!limit) limit = 50;
+        if (!page) page = 1;
+        url = `https://e621.net/tag/index.json?limit=${limit}&page=${page}`;
+        if (order) url = url + `&order=${order}`;
+        if (tagName) url = url + `&name=${tagName}`;
+        if (tagPattern) url = url + `&name_pattern=${tagPattern}`;
+        if (afterID) url = url + `&after_id=${afterID}`;
+        return requestUrl(url, this.userAgent)
+            .then((response: e621TagJSON[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /** Get an e621 tag's data by ID
+     * @param {(number | string)} tagID 
+     * @returns Promise<e621TagJSON>
+     * @memberof e621
+     */
+    getTagByID(tagID: number | string): Promise<e621TagJSON> {
+        return requestUrl(`https://e621.net/tag/show.json?id=${tagID}`, this.userAgent)
+            .then((response: e621TagJSON) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    updateTag(name, tagType, isAmbiguous) {
+        // The base URL is /tag/update.json.
+
+        //         name The name of the tag to update.
+        // tag[tag_type] The tag type. General: 0, artist: 1, copyright: 3, character: 4, species: 5.
+        // tag[is_ambiguous] Whether or not this tag is ambiguous. Use 1 for true and 0 for false.
+    }
+
+    getTagAliases() {
+        //         The base URL is /tag_alias/index.json.
+
+        // page The page number.
+        // order Can be tag, aliasedtag, reason, user, date, or forum_post.
+        // query/aliased_to Search for aliases that have this parameter in its name.
+        // user Username of user who submitted the suggestion.
+        // approved Can be all, true, false.
+        // forum_post Has an accompanying forum post. Can be all/true/false.
+
+        // Example URL: https://e621.net/tag_alias/index.json?aliased_to=digitigrade&approved=true
+    }
+}
