@@ -97,7 +97,7 @@ export function requestUrl(url: string, userAgent: string): Promise<any> {
     })
 }
 
-export function postUrl(url: string, userAgent: string, postObject?: Object): Promise<Object> {
+export function postUrl(url: string, userAgent: string, postObject?: object): Promise<Object> {
     let options: object
     if (postObject) {
         options = {
