@@ -1,6 +1,6 @@
 // The methods for artists go here
 
-export default class artist {
+export default class Artists {
     private userAgent: string;
     private pageLimit: number;
     public constructor(userAgent: string, pageLimit: number) {
