@@ -2,11 +2,6 @@ import { e621PostData, e621MD5CheckJSON } from '../interfaces';
 import { paginateE621Endpoint, getPostByID, getPostByMD5, requestUrl, postUrl } from '../utils';
 import { e621PopularityStrings } from '../enums';
 
-// This function can be used as a higher order function for named parameters
-const required = () => {
-    throw Error('Missing parameter');
-};
-
 export default class Posts {
     private userAgent: string;
     private pageLimit: number;
