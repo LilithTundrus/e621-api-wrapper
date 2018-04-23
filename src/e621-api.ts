@@ -12,16 +12,24 @@ declare const Promise: any;
 
 export default class e621 {
     private userAgent: string;
+    private userName: string;
+    private apiKey: string;
     private pageLimit: number;
     public tags: Tags;
     public posts: Posts;
 
-    public constructor(userAgent: string, pageLimit?: number) {
+    public constructor(userAgent: string, userName?: string, apiKey?: string, pageLimit?: number) {
         this.userAgent = userAgent;
         if (pageLimit) this.pageLimit = pageLimit;
         else this.pageLimit = 3;
-        this.tags = new Tags(this.userAgent, this.pageLimit);
+        if (userName && apiKey) {
+            this.userName = userName;
+            this.apiKey = apiKey
+        }
+        this.tags = new Tags(this.userAgent, this.pageLimit, this.userName, this.apiKey);
         this.posts = new Posts(this.userAgent, this.pageLimit);
+
+        // set the API key and username to be used with all requests/posts if one is given 
     }
 
     public get agent() { return this.userAgent; }
@@ -45,5 +53,10 @@ export default class e621 {
                     throw Error(err);
                 })
         });
+    }
+
+    // this is how we allow a user to GET/POST as themselves
+    public setApiKey() {
+
     }
 }

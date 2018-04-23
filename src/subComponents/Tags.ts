@@ -5,9 +5,15 @@ import { e621TagTypes } from '../enums';
 export default class Tags {
     private userAgent: string;
     private pageLimit: number;
-    public constructor(userAgent: string, pageLimit: number) {
+    private userName: string;
+    private apiKey: string;
+    public constructor(userAgent: string, pageLimit: number, userName?: string, apiKey?: string) {
         this.userAgent = userAgent;
         this.pageLimit = pageLimit;
+        if (userName && apiKey) {
+            this.userName = userName;
+            this.apiKey = apiKey
+        }
     }
 
     /** Get an e621 tag's data by name
@@ -15,7 +21,7 @@ export default class Tags {
      * @memberof Tags
      */
     public getByName(tagName: string): Promise<e621TagJSON[]> {
-        return requestUrl(`https://e621.net/tag/index.json?name=${tagName}`, this.userAgent)
+        return requestUrl(`https://e621.net/tag/index.json?name=${tagName}`, this.userAgent, this.userName, this.apiKey)
             .then((response: e621TagJSON[]) => {
                 return response;
             })

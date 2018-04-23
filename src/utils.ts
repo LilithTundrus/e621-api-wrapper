@@ -72,7 +72,7 @@ export function getPostByMD5(md5String: string, userAgent: string) {
  * @param {URL} url 
  * @returns {Promise<any>}
  */
-export function requestUrl(url: string, userAgent: string): Promise<any> {
+export function requestUrl(url: string, userAgent: string, userName?: string, apiKey?: string): Promise<any> {
     let options = {
         uri: url,
         headers: {
@@ -80,6 +80,8 @@ export function requestUrl(url: string, userAgent: string): Promise<any> {
         },
         json: true
     };
+    if (userName && apiKey) url = url + `&name=${userName}&password_hash=${apiKey}`;
+    console.log(url)
     return new Promise((resolve, reject) => {
         request.get(options, function (err: Error, response, body) {
             if (err) {

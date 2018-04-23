@@ -7,7 +7,7 @@ export default class Artists {
         this.userAgent = userAgent;
         this.pageLimit = pageLimit;
     }
-    listArtists() {
+    listArtists(name: string, limit?: number, order?: string, page?: number) {
         //         The base URL is /artist/index.json.
 
         // name The name (or a fragment of the name) of the artist or the artist URL.
