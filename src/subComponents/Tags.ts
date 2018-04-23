@@ -1,19 +1,14 @@
 import { e621TagJSON, e621TagAliases, subClassOptions } from '../interfaces';
-import { paginateE621Endpoint, requestUrl, postUrl } from '../utils';
 import { e621TagTypes } from '../enums';
+import { RequestServices } from '../RequestService';
 
 export default class Tags {
-    private userAgent: string;
     private pageLimit: number;
     private userName: string;
-    private apiKey: string;
-    public constructor(userAgent: string, pageLimit: number, options: subClassOptions) {
-        this.userAgent = userAgent;
+    private requestServices: RequestServices;
+    public constructor(pageLimit: number, requestServices: RequestServices) {
         this.pageLimit = pageLimit;
-        if (options) {
-            this.userName = options.userName;
-            this.apiKey = options.apiKey
-        }
+        this.requestServices = requestServices;
     }
 
     /** Get an e621 tag's data by name
@@ -21,7 +16,7 @@ export default class Tags {
      * @memberof Tags
      */
     public getByName(tagName: string): Promise<e621TagJSON[]> {
-        return requestUrl(`https://e621.net/tag/index.json?name=${tagName}`, this.userAgent, this.userName, this.apiKey)
+        return this.requestServices.get(`https://e621.net/tag/index.json?name=${tagName}`)
             .then((response: e621TagJSON[]) => {
                 return response;
             })
@@ -35,7 +30,7 @@ export default class Tags {
      * @memberof Tags
      */
     public getRelatedTagsByName(tagName: string): Promise<Array<Array<string>> | null> {
-        return requestUrl(`https://e621.net/tag/related.json?tags=${tagName}`, this.userAgent)
+        return this.requestServices.get(`https://e621.net/tag/related.json?tags=${tagName}`)
             .then((response) => {
                 // We are going to have to modify this a bit before giving it to the user
                 let key = Object.keys(response)[0];
@@ -65,7 +60,7 @@ export default class Tags {
         if (tagName) url = url + `&name=${tagName}`;
         if (tagPattern) url = url + `&name_pattern=${tagPattern}`;
         if (afterID) url = url + `&after_id=${afterID}`;
-        return requestUrl(url, this.userAgent)
+        return this.requestServices.get(url)
             .then((response: e621TagJSON[]) => {
                 return response;
             })
@@ -80,7 +75,7 @@ export default class Tags {
      * @memberof Tags
      */
     public getByID(tagID: number | string): Promise<e621TagJSON> {
-        return requestUrl(`https://e621.net/tag/show.json?id=${tagID}`, this.userAgent)
+        return this.requestServices.get(`https://e621.net/tag/show.json?id=${tagID}`)
             .then((response: e621TagJSON) => {
                 return response;
             })
@@ -96,7 +91,7 @@ export default class Tags {
         // tag[tag_type] The tag type. General: 0, artist: 1, copyright: 3, character: 4, species: 5.
         // tag[is_ambiguous] Whether or not this tag is ambiguous. Use 1 for true and 0 for false.
         let url = `https://e621.net/tag/update.json?name=${name}&tag=${tagType}`;
-        return postUrl(url, this.userAgent)
+        return this.requestServices.post(url)
             .then((response: any) => {
                 return response;
             })
@@ -118,7 +113,7 @@ export default class Tags {
         url = `https://e621.net/tag_alias/index.json?page=${page}&query=${query}`;
         if (order) url = url + `&order=${order}`;
         if (approved) url = url + `&approved=${approved}`;
-        return requestUrl(url, this.userAgent)
+        return this.requestServices.get(url)
             .then((response: e621TagAliases[]) => {
                 return response;
             })
