@@ -1,4 +1,4 @@
-import { e621TagJSON, e621TagAliases } from '../interfaces';
+import { e621TagJSON, e621TagAliases, subClassOptions } from '../interfaces';
 import { paginateE621Endpoint, requestUrl, postUrl } from '../utils';
 import { e621TagTypes } from '../enums';
 
@@ -7,12 +7,12 @@ export default class Tags {
     private pageLimit: number;
     private userName: string;
     private apiKey: string;
-    public constructor(userAgent: string, pageLimit: number, userName?: string, apiKey?: string) {
+    public constructor(userAgent: string, pageLimit: number, options: subClassOptions) {
         this.userAgent = userAgent;
         this.pageLimit = pageLimit;
-        if (userName && apiKey) {
-            this.userName = userName;
-            this.apiKey = apiKey
+        if (options) {
+            this.userName = options.userName;
+            this.apiKey = options.apiKey
         }
     }
 

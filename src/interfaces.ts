@@ -61,3 +61,8 @@ export interface e621MD5CheckJSON {
     exists: boolean
     post_id: number
 }
+
+export interface subClassOptions {
+    userName: string,
+    apiKey: string
+}
