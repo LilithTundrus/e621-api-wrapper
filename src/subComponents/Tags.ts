@@ -1,6 +1,6 @@
-import { e621TagJSON, e621TagAliases} from '../interfaces';
+import { e621TagJSON, e621TagAliases } from '../interfaces';
 import { paginateE621Endpoint, requestUrl, postUrl } from '../utils';
-
+import { e621TagTypes } from '../enums';
 
 export default class Tags {
     private userAgent: string;
@@ -83,15 +83,22 @@ export default class Tags {
             })
     }
 
-    public updateTag(name: string, tagType, isAmbiguous: boolean) {
+    public updateTag(name: string, tagType: e621TagTypes) {
         // The base URL is /tag/update.json.
 
         //         name The name of the tag to update.
         // tag[tag_type] The tag type. General: 0, artist: 1, copyright: 3, character: 4, species: 5.
         // tag[is_ambiguous] Whether or not this tag is ambiguous. Use 1 for true and 0 for false.
+        let url = `https://e621.net/tag/update.json?name=${name}&tag=${tagType}`;
+        return postUrl(url, this.userAgent)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
-    // TODO: Create types for the results here
     /** Get a tag's aliases (user an forum_post queries NOT supported)
      * @param {string} query The tag to query
      * @param {number} [page] Page to start at (default is 1)
