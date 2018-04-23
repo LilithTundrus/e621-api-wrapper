@@ -74,7 +74,10 @@ export class RequestServices {
                 json: true,
             };
         }
+        if (this.userName && this.apiKey) url = url + `&name=${this.userName}&password_hash=${this.apiKey}`;
 
+        console.log(this.userAgent);
+        console.log(url);
         return new Promise((resolve, reject) => {
             request.post(options, function (err: Error, response, body) {
                 if (err) {
@@ -111,36 +114,6 @@ export class RequestServices {
                     }
                     return pageArray;
                 }
-            })
-            .catch((err) => {
-                throw Error(err);
-            })
-    }
-
-    /** Get a post's data by its ID using the e621 API
-     * @param {number} postID 
-     * @param {string} userAgent 
-     * @returns {Promise}
-     */
-    public getPostByID(postID: string) {
-        return this.get(`https://e621.net/post/show.json?id=${postID}`)
-            .then((response: e621PostData[]) => {
-                return response;
-            })
-            .catch((err) => {
-                throw Error(err);
-            })
-    }
-
-    /** Get a post's data by its MD5 using the e621 API
-     * @param {number} md5String 
-     * @param {string} userAgent 
-     * @returns {Promise}
-     */
-    public getPostByMD5(md5String: string) {
-        return this.get(`https://e621.net/post/show.json?md5=${md5String}`)
-            .then((response: e621PostData[]) => {
-                return response;
             })
             .catch((err) => {
                 throw Error(err);
