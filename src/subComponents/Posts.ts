@@ -1,19 +1,19 @@
 import { e621PostData, e621MD5CheckJSON } from '../interfaces';
-import { paginateE621Endpoint, getPostByID, getPostByMD5, requestUrl, postUrl } from '../utils';
+import { RequestServices } from '../RequestService';
 import { e621PopularityStrings } from '../enums';
 
 export default class Posts {
-    private userAgent: string;
     private pageLimit: number;
-    public constructor(userAgent: string, pageLimit: number) {
-        this.userAgent = userAgent;
+    private requestServices: RequestServices;
+    public constructor(pageLimit: number, requestServices: RequestServices) {
         this.pageLimit = pageLimit;
+        this.requestServices = requestServices;
     }
 
     create() {
         // Create e621 post API endpoint
         // We'll want to make all required paramaters are provided here
-        return postUrl('https://httpbin.org/anything', this.userAgent, { "hello": "test" })
+        return this.requestServices.post('https://httpbin.org/anything', { "hello": "test" })
     }
 
     update(postID: string) {
@@ -25,7 +25,7 @@ export default class Posts {
      * @memberof e621
      */
     checkIfExists(md5String: string): Promise<e621MD5CheckJSON> {
-        return requestUrl(`https://e621.net/post/check_md5.json?md5=${md5String}`, this.userAgent)
+        return this.requestServices.get(`https://e621.net/post/check_md5.json?md5=${md5String}`)
             .then((response: e621MD5CheckJSON) => {
                 return response;
             })
@@ -51,7 +51,7 @@ export default class Posts {
         // Make sure we have a default
         if (!page) page = 1;
         if (userID) {
-            return requestUrl(`https://e621.net/post/deleted_index.json?page=${page}&user_id=${userID}`, this.userAgent)
+            return this.requestServices.get(`https://e621.net/post/deleted_index.json?page=${page}&user_id=${userID}`)
                 .then((response: e621PostData[]) => {
                     return response;
                 })
@@ -59,7 +59,7 @@ export default class Posts {
                     throw Error(err);
                 })
         } else {
-            return requestUrl(`https://e621.net/post/deleted_index.json?page=${page}`, this.userAgent)
+            return this.requestServices.get(`https://e621.net/post/deleted_index.json?page=${page}`)
                 .then((response: e621PostData[]) => {
                     return response;
                 })
@@ -77,7 +77,7 @@ export default class Posts {
     vote() {
         // This action lets you vote for a post. 
         // You can only vote once per post per IP address. The base URL is /post/vote.json.
-        return postUrl('https://e621.net/post/vote.json?id=1504549&score=1', this.userAgent)
+        return this.requestServices.post('https://e621.net/post/vote.json?id=1504549&score=1')
     }
 
     /** Generate a post's URL by its ID
@@ -108,12 +108,12 @@ export default class Posts {
                 break;
             // Not ready yet
             case 3:
-                url = `https://e621.net/post/index.json?tags= order:favcount`;
+                url = `https://e621.net/post/index.json?tags=order:favcount`;
                 break;
             default:
                 throw Error(`Unsupported popularURLHandler typeArg: ${typeArg}`);
         }
-        return requestUrl(url, this.userAgent)
+        return this.requestServices.get(url)
             .then((response: [e621PostData]) => {
                 return response;
             })
@@ -126,14 +126,26 @@ export default class Posts {
      * @param {number} postID ID of the e621 post
      */
     getByID(postID: string) {
-        return getPostByID(postID, this.userAgent);
+        return this.requestServices.get(`https://e621.net/post/show.json?id=${postID}`)
+            .then((response: e621PostData[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     /** Get a post's data by its MD5 hash string
      * @param {stirng} md5String 
      */
     getByMD5(md5String: string) {
-        return getPostByMD5(md5String, this.userAgent);
+        return this.requestServices.get(`https://e621.net/post/show.json?md5=${md5String}`)
+            .then((response: e621PostData[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     /** Get a set of e621 posts filtered by tags via pagination
@@ -169,6 +181,6 @@ export default class Posts {
             pageLimitTemp = pageLimit;
         }
         var dataArray = [];                                         // Empty array, likely not needed but eh?
-        return paginateE621Endpoint(`https://e621.net/post/index.json?${tagsString}&limit=${limitString}`, start, pageLimit, dataArray, this.userAgent);
+        return this.requestServices.paginateE621Endpoint(`https://e621.net/post/index.json?${tagsString}&limit=${limitString}`, start, pageLimit, dataArray);
     }
 }
