@@ -42,11 +42,18 @@ export interface e621PostData {
 }
 
 export interface e621TagJSON {
-    id: number
-    name: string
-    count: number
-    type: e621TagTypes
+    id: number,
+    name: string,
+    count: number,
+    type: e621TagTypes,
     type_locked: boolean
+}
+
+export interface e621TagAliases {
+    id: number,
+    name: string,
+    alias_id: number,
+    pending: boolean
 }
 
 export interface e621MD5CheckJSON {

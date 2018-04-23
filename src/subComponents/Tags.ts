@@ -1,4 +1,4 @@
-import { e621TagJSON, } from '../interfaces';
+import { e621TagJSON, e621TagAliases} from '../interfaces';
 import { paginateE621Endpoint, requestUrl, postUrl } from '../utils';
 
 
@@ -91,6 +91,7 @@ export default class Tags {
         // tag[is_ambiguous] Whether or not this tag is ambiguous. Use 1 for true and 0 for false.
     }
 
+    // TODO: Create types for the results here
     /** Get a tag's aliases (user an forum_post queries NOT supported)
      * @param {string} query The tag to query
      * @param {number} [page] Page to start at (default is 1)
@@ -105,7 +106,7 @@ export default class Tags {
         if (order) url = url + `&order=${order}`;
         if (approved) url = url + `&approved=${approved}`;
         return requestUrl(url, this.userAgent)
-            .then((response: any[]) => {
+            .then((response: e621TagAliases[]) => {
                 return response;
             })
             .catch((err) => {
