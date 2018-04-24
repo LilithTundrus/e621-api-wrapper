@@ -74,6 +74,14 @@ export enum e621TagTypes {
     species = 5
 }
 
+export enum e621TagStrings {
+    'general',
+    'artist',
+    'copyright',
+    'character',
+    'species'
+}
+
 export enum e621PopularityEndpointTypes {
     /** Daily popularity endpoint
      * @memberof e621PopularityEndpointTypes
