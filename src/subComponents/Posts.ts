@@ -73,11 +73,13 @@ export default class Posts {
         //  This action reverts a post to a previous set of tags. The base URL is /post/revert_tags.json.
     }
 
-    // TODO: figure out if this is a POST or GET and if you need to be logged in
     vote() {
         // This action lets you vote for a post. 
         // You can only vote once per post per IP address. The base URL is /post/vote.json.
-        return this.requestServices.post('https://e621.net/post/vote.json?id=1504549&score=1')
+        return this.requestServices.post('https://e621.net/post/vote.json',
+            {
+                "id": 1524137, "score": 1
+            });
     }
 
     /** Generate a post's URL by its ID

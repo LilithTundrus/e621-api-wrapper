@@ -1,5 +1,4 @@
 import * as request from 'request'
-import { generateAPIKeyURL, requestUrl } from './utils';
 import { subClassOptions } from './interfaces'
 
 import Tags from './subComponents/Tags';
@@ -30,7 +29,7 @@ export default class e621 {
             this.requestservices = new RequestServices(userAgent);
         }
         this.tags = new Tags(this.pageLimit, this.requestservices);
-        this.posts = new Posts(this.userAgent, this.pageLimit);
+        this.posts = new Posts(this.pageLimit, this.requestservices);
     }
 
     public get agent() { return this.userAgent; }
