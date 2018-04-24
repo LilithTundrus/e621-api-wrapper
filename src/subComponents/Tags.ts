@@ -1,5 +1,5 @@
 import { e621TagJSON, e621TagAliases, subClassOptions } from '../interfaces';
-import { e621TagTypes } from '../enums';
+import { e621TagTypes, e621TagStrings } from '../enums';
 import { RequestServices } from '../RequestService';
 
 export default class Tags {
@@ -90,10 +90,10 @@ export default class Tags {
         //         name The name of the tag to update.
         // tag[tag_type] The tag type. General: 0, artist: 1, copyright: 3, character: 4, species: 5.
         // tag[is_ambiguous] Whether or not this tag is ambiguous. Use 1 for true and 0 for false.
-        let url = `https://e621.net/tag/update.json?name=${name}&tag=${tagType}`;
+        let url = `https://e621.net/tag/update.json`;
         let postObj = {
-            "name": name,
-            "tag": tagType
+            "tag[name]": name,
+            "tag[tag_type]": tagType
         }
         return this.requestServices.post(url, postObj)
             .then((response: any) => {
