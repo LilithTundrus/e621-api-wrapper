@@ -4,7 +4,7 @@
 
 ## About
 
-This is a small wrapper for the site [e621](https://e621.net)
+This is an API wrapper for the site [e621](https://e621.net)
 
 If you're here you know what this site is for.
 
@@ -19,12 +19,15 @@ This project is available via NPM:
 npm install e621-api --save
 ```
 
+**--- After 0.3.0 is released this documentation is no longer accurate**
+
 You should have `Node 8.9.4` and `tsc 2.1` or higher to be safely running this.
 
 **Note**: When calling the wrapper class you __must__ provide a user-agent or e621 will deny your API requests.
 
 
 **For typeScript setup is easy:**
+
 
 ```typescript
 import e621 from 'e621-api'
@@ -61,7 +64,22 @@ wrapper.getPopularPosts(enums.e621PopularityStrings.daily)
 This is a placeholder for all methods that will eventually be implemented!
 
 
+## Logging in 
+
+PlaceHolder
+
+### Getting your API key
+
+PlaceHolder
+
+## Interacting directly with the request layer
+
+Placeholder, will tell the user how to circumvent wrapped API calls to allow for more granular control using the public `requestservices` generated on new API instances
+
+
 ## History
+
+**--- 0.3.0 will be a BREAKING release, too many changes to be backwards compatible**
 
 - **v0.2.9**
     - Created a lot more support for e621 endpoints, starting to pull the project in a broader directions
