@@ -10,13 +10,13 @@ export default class Posts {
         this.requestServices = requestServices;
     }
 
-    create() {
+    public create() {
         // Create e621 post API endpoint
         // We'll want to make all required paramaters are provided here
         return this.requestServices.post('https://httpbin.org/anything', { "hello": "test" })
     }
 
-    update(postID: string) {
+    public update(postID: string) {
         // Update e621 post API endpoint
     }
 
@@ -24,7 +24,7 @@ export default class Posts {
      * @param {string} md5String 
      * @memberof e621
      */
-    checkIfExists(md5String: string): Promise<e621MD5CheckJSON> {
+    public checkIfExists(md5String: string): Promise<e621MD5CheckJSON> {
         return this.requestServices.get(`https://e621.net/post/check_md5.json?md5=${md5String}`)
             .then((response: e621MD5CheckJSON) => {
                 return response;
@@ -34,11 +34,11 @@ export default class Posts {
             })
     }
 
-    flagForDelete() {
+    public flagForDelete() {
         // post/flag.json --flag a post for delete through this method
     }
 
-    delete() {
+    public delete() {
         // The base URL is /post/destroy.json
     }
 
@@ -47,7 +47,7 @@ export default class Posts {
      * @param {(number | string)} [userID] Return posts uploaded by the user with the given ID number.
      * @memberof e621
      */
-    getDeletedIndex(page?: number, userID?: number | string): Promise<e621PostData[]> {
+    public getDeletedIndex(page?: number, userID?: number | string): Promise<e621PostData[]> {
         // Make sure we have a default
         if (!page) page = 1;
         if (userID) {
@@ -69,7 +69,7 @@ export default class Posts {
         }
     }
 
-    revertTags() {
+    public revertTags() {
         //  This action reverts a post to a previous set of tags. The base URL is /post/revert_tags.json.
     }
 
@@ -79,7 +79,7 @@ export default class Posts {
      * @returns 
      * @memberof Posts
      */
-    vote(postID: string | number, score: 1 | -1): Promise<object> {
+    public vote(postID: string | number, score: 1 | -1): Promise<any> {
         return this.requestServices.post('https://e621.net/post/vote.json',
             {
                 "id": postID, "score": score
@@ -91,7 +91,7 @@ export default class Posts {
      * @returns {string} 
      * @memberof e621
      */
-    generateUrl(postID: string | number): string {
+    public generatePostUrl(postID: string | number): string {
         return `https://e621.net/post/show/${postID}/`;
     }
 
@@ -100,7 +100,7 @@ export default class Posts {
      * @returns {Promise<[e621PostData]>}
      * @memberof e621
      */
-    getPopularPosts(typeArg: e621PopularityStrings) {
+    public getPopularPosts(typeArg: e621PopularityStrings) {
         let url: string;
         switch (typeArg) {
             case 0:
@@ -131,7 +131,7 @@ export default class Posts {
     /** Get a post's data by its ID
      * @param {number} postID ID of the e621 post
      */
-    getByID(postID: string) {
+    public getByID(postID: string) {
         return this.requestServices.get(`https://e621.net/post/show.json?id=${postID}`)
             .then((response: e621PostData[]) => {
                 return response;
@@ -144,7 +144,7 @@ export default class Posts {
     /** Get a post's data by its MD5 hash string
      * @param {stirng} md5String 
      */
-    getByMD5(md5String: string) {
+    public getByMD5(md5String: string) {
         return this.requestServices.get(`https://e621.net/post/show.json?md5=${md5String}`)
             .then((response: e621PostData[]) => {
                 return response;
@@ -161,7 +161,7 @@ export default class Posts {
      * @param {number} pageLimit Number of pages to get (Max of 750)
      * @memberof e621
      */
-    getIndexPaginate(tags?: string, start?: number, limitPerPage?: number, pageLimit?: number) {
+    public getIndexPaginate(tags?: string, start?: number, limitPerPage?: number, pageLimit?: number) {
         var tagsString: string;
         var pageStart: number;
         var limitString;
@@ -188,5 +188,29 @@ export default class Posts {
         }
         var dataArray = [];                                         // Empty array, likely not needed but eh?
         return this.requestServices.paginateE621Endpoint(`https://e621.net/post/index.json?${tagsString}&limit=${limitString}`, start, pageLimit, dataArray);
+    }
+
+    public getTagHistoryByID() {
+        let url = `https://e621.net/post_tag_history/index.xml`;
+        return this.requestServices.get(url)
+            .then((response) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+        //         The base URL is /post_tag_history/index.xml. Due to performance issues, this controller does not use page numbers. Instead, it takes an ID and returns the next/previous [limit] results. To traverse forward (back in time) through multiple pages of results, set the after parameter of the next request to the ID of the last result in the current result set. Or to go backwards (towards more recently) through results, set before to the ID of the first result in the current result set.
+
+        // post_id Filter by post ID.
+        // date_start Show only edits after this date (inclusive). Takes most date formats, including 10-digit UNIX timestamps
+        // date_end Show only edits before this date (inclusive). Takes most date formats, including 10-digit UNIX timestamps
+        // user_id Filter by user ID.
+        // user_name Filter by username. Must match exactly, case insensitive.
+        // source Filter by source. Wildcard, so 'example' will match 'http://www.example.com/'
+        // tags Filter by tags. Wildcard, like above. Caveat: since this is a simple text match against the history entry's tag list, it's best to only use one tag for this field.
+        // reason Filter by edit reason. Wildcard, like above.
+        // description Filter by description. Wildcard, like above.
+        // limit How many results to return at once. Defaults to 100 and limited to 1000.
+        // before / after Show the next [limit] results before (higher ID than) or after (lower ID than) the given ID.
     }
 }

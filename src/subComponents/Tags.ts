@@ -91,11 +91,6 @@ export default class Tags {
      * @memberof Tags
      */
     public updateTag(name: string, tagType: e621TagTypes) {
-        // The base URL is /tag/update.json.
-
-        //         name The name of the tag to update.
-        // tag[tag_type] The tag type. General: 0, artist: 1, copyright: 3, character: 4, species: 5.
-        // tag[is_ambiguous] Whether or not this tag is ambiguous. Use 1 for true and 0 for false.
         let url = `https://e621.net/tag/update.json`;
         let postObj = {
             "tag[name]": name,
@@ -130,21 +125,5 @@ export default class Tags {
             .catch((err) => {
                 throw Error(err);
             })
-    }
-
-    public tagHistory() {
-        //         The base URL is /post_tag_history/index.xml. Due to performance issues, this controller does not use page numbers. Instead, it takes an ID and returns the next/previous [limit] results. To traverse forward (back in time) through multiple pages of results, set the after parameter of the next request to the ID of the last result in the current result set. Or to go backwards (towards more recently) through results, set before to the ID of the first result in the current result set.
-
-        // post_id Filter by post ID.
-        // date_start Show only edits after this date (inclusive). Takes most date formats, including 10-digit UNIX timestamps
-        // date_end Show only edits before this date (inclusive). Takes most date formats, including 10-digit UNIX timestamps
-        // user_id Filter by user ID.
-        // user_name Filter by username. Must match exactly, case insensitive.
-        // source Filter by source. Wildcard, so 'example' will match 'http://www.example.com/'
-        // tags Filter by tags. Wildcard, like above. Caveat: since this is a simple text match against the history entry's tag list, it's best to only use one tag for this field.
-        // reason Filter by edit reason. Wildcard, like above.
-        // description Filter by description. Wildcard, like above.
-        // limit How many results to return at once. Defaults to 100 and limited to 1000.
-        // before / after Show the next [limit] results before (higher ID than) or after (lower ID than) the given ID.
     }
 }
