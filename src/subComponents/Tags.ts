@@ -1,4 +1,4 @@
-import { e621TagJSON, e621TagAliases, subClassOptions } from '../interfaces';
+import { e621TagJSON, e621TagAliases, e621TagUpdateResponse } from '../interfaces';
 import { e621TagTypes, e621TagStrings } from '../enums';
 import { RequestServices } from '../RequestService';
 
@@ -84,6 +84,12 @@ export default class Tags {
             })
     }
 
+    /** Update a tag's type
+     * @param {string} name 
+     * @param {e621TagTypes} tagType 
+     * @returns 
+     * @memberof Tags
+     */
     public updateTag(name: string, tagType: e621TagTypes) {
         // The base URL is /tag/update.json.
 
@@ -96,7 +102,7 @@ export default class Tags {
             "tag[tag_type]": tagType
         }
         return this.requestServices.post(url, postObj)
-            .then((response: any) => {
+            .then((response: e621TagUpdateResponse) => {
                 return response;
             })
             .catch((err) => {

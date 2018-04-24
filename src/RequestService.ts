@@ -52,7 +52,7 @@ export class RequestServices {
     }
 
     // post method goes here
-    public post(url: string, postObject: any): Promise<object> {
+    public post(url: string, postObject: any): Promise<any> {
         let options: object
         options = {
             uri: url,

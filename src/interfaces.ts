@@ -62,7 +62,7 @@ export interface e621MD5CheckJSON {
     post_id: number
 }
 
-export interface subClassOptions {
-    userName: string,
-    apiKey: string
+export interface e621TagUpdateResponse {
+    success: boolean,
+    reason?: string
 }
