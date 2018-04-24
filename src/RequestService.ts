@@ -33,9 +33,7 @@ export class RequestServices {
             },
             json: true
         };
-        if (this.userName && this.apiKey) url = url + `&name=${this.userName}&password_hash=${this.apiKey}`;
-        console.log(this.userAgent);
-        console.log(url);
+        console.log(url)
         return new Promise((resolve, reject) => {
             request.get(options, function (err: Error, response, body) {
                 if (err) {
@@ -54,34 +52,21 @@ export class RequestServices {
     }
 
     // post method goes here
-    public post(url: string, postObject?: any): Promise<object> {
+    public post(url: string, postObject: any): Promise<object> {
         let options: object
-        if (postObject) {
-            options = {
-                uri: url,
-                headers: {
-                    'User-Agent': this.userAgent,
-                    'content-type': 'application/x-www-form-urlencoded'
-
-                },
-                form: postObject
-            };
-        } else {
-            options = {
-                uri: url,
-                headers: {
-                    'User-Agent': this.userAgent,
-                    'content-type': 'application/x-www-form-urlencoded'
-                },
-                json: true,
-            };
-        }
-        // if (this.userName && this.apiKey) url = url + `&name=${this.userName}&password_hash=${this.apiKey}`;
+        options = {
+            uri: url,
+            headers: {
+                'User-Agent': this.userAgent,
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            json: true,
+            form: postObject
+        };
         if (this.userName && this.apiKey) {
             postObject.login = this.userName;
             postObject.password_hash = this.apiKey;
         }
-        console.log(this.userAgent);
         console.log(url);
         console.log(options)
         return new Promise((resolve, reject) => {
