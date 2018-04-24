@@ -73,12 +73,16 @@ export default class Posts {
         //  This action reverts a post to a previous set of tags. The base URL is /post/revert_tags.json.
     }
 
-    vote() {
-        // This action lets you vote for a post. 
-        // You can only vote once per post per IP address. The base URL is /post/vote.json.
+    /** Vote for a post by ID, Score must be 1 for updvote, -1 for downvote
+     * @param {(string | number)} postID 
+     * @param {(1 | -1)} score 
+     * @returns 
+     * @memberof Posts
+     */
+    vote(postID: string | number, score: 1 | -1): Promise<object> {
         return this.requestServices.post('https://e621.net/post/vote.json',
             {
-                "id": 1524137, "score": 1
+                "id": postID, "score": score
             });
     }
 
