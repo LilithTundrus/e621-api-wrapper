@@ -33,7 +33,7 @@ export class RequestServices {
             },
             json: true
         };
-        console.log(url)
+        console.log(url);
         return new Promise((resolve, reject) => {
             request.get(options, function (err: Error, response, body) {
                 if (err) {
@@ -68,7 +68,7 @@ export class RequestServices {
             postObject.password_hash = this.apiKey;
         }
         console.log(url);
-        console.log(options)
+        console.log(options);
         return new Promise((resolve, reject) => {
             request.post(options, function (err: Error, response, body) {
                 if (err) {
