@@ -1,11 +1,11 @@
-import { e621TagJSON, e621TagAliases, e621TagUpdateResponse } from '../interfaces';
+import { e621TagJSON, e621TagAliases, e621TagUpdateResponse, e621RelatedTagJSON } from '../interfaces';
 import { e621TagTypes, e621TagStrings } from '../enums';
 import { RequestServices } from '../RequestService';
 
 export default class Tags {
     private pageLimit: number;
-    private userName: string;
     private requestServices: RequestServices;
+
     public constructor(pageLimit: number, requestServices: RequestServices) {
         this.pageLimit = pageLimit;
         this.requestServices = requestServices;
@@ -29,13 +29,22 @@ export default class Tags {
      * @param {string} tagName The tag to get related results for
      * @memberof Tags
      */
-    public getRelatedTagsByName(tagName: string): Promise<Array<Array<string>> | null> {
+    public getRelatedTagsByName(tagName: string): Promise<e621RelatedTagJSON[]> {
         return this.requestServices.get(`https://e621.net/tag/related.json?tags=${tagName}`)
             .then((response) => {
                 // We are going to have to modify this a bit before giving it to the user
                 let key = Object.keys(response)[0];
-                let data: Array<Array<string>> = response[key];
-                return data;
+                let data = response[key];
+                // make the array 1D, and have JSON inside the array entries, not CSV
+                // there has to be a better way to represent the data
+                let formattedData = data.map(entry => {
+                    return new Object({
+                        name: entry[0],
+                        popularity: entry[1],
+                        type: entry[2]
+                    });
+                });
+                return formattedData;
             })
             .catch((err) => {
                 throw Error(err);

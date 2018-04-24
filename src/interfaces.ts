@@ -66,3 +66,9 @@ export interface e621TagUpdateResponse {
     success: boolean,
     reason?: string
 }
+
+export interface e621RelatedTagJSON {
+    name: string,
+    popularity: string,
+    type: string
+}

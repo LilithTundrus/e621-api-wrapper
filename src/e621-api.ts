@@ -1,6 +1,4 @@
 import * as request from 'request'
-import { subClassOptions } from './interfaces'
-
 import Tags from './subComponents/Tags';
 import Posts from './subComponents/Posts';
 import { RequestServices } from './RequestService';
