@@ -91,7 +91,11 @@ export default class Tags {
         // tag[tag_type] The tag type. General: 0, artist: 1, copyright: 3, character: 4, species: 5.
         // tag[is_ambiguous] Whether or not this tag is ambiguous. Use 1 for true and 0 for false.
         let url = `https://e621.net/tag/update.json?name=${name}&tag=${tagType}`;
-        return this.requestServices.post(url)
+        let postObj = {
+            "name": name,
+            "tag": tagType
+        }
+        return this.requestServices.post(url, postObj)
             .then((response: any) => {
                 return response;
             })
