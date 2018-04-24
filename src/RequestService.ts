@@ -54,30 +54,36 @@ export class RequestServices {
     }
 
     // post method goes here
-    public post(url: string, postObject?: object): Promise<Object> {
+    public post(url: string, postObject?: any): Promise<object> {
         let options: object
         if (postObject) {
             options = {
                 uri: url,
                 headers: {
-                    'User-Agent': this.userAgent
+                    'User-Agent': this.userAgent,
+                    'content-type': 'application/x-www-form-urlencoded'
+
                 },
-                json: true,
-                body: postObject
+                form: postObject
             };
         } else {
             options = {
                 uri: url,
                 headers: {
-                    'User-Agent': this.userAgent
+                    'User-Agent': this.userAgent,
+                    'content-type': 'application/x-www-form-urlencoded'
                 },
                 json: true,
             };
         }
-        if (this.userName && this.apiKey) url = url + `&name=${this.userName}&password_hash=${this.apiKey}`;
-
+        // if (this.userName && this.apiKey) url = url + `&name=${this.userName}&password_hash=${this.apiKey}`;
+        if (this.userName && this.apiKey) {
+            postObject.login = this.userName;
+            postObject.password_hash = this.apiKey;
+        }
         console.log(this.userAgent);
         console.log(url);
+        console.log(options)
         return new Promise((resolve, reject) => {
             request.post(options, function (err: Error, response, body) {
                 if (err) {
