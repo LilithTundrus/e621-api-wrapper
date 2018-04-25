@@ -1,6 +1,9 @@
 import { e621PostData, e621MD5CheckJSON } from '../interfaces';
 import { RequestServices } from '../RequestService';
 import { e621PopularityStrings } from '../enums';
+import * as fs from 'fs';
+
+
 
 export default class Posts {
     private pageLimit: number;
@@ -10,10 +13,42 @@ export default class Posts {
         this.requestServices = requestServices;
     }
 
-    public create() {
-        // Create e621 post API endpoint
-        // We'll want to make all required paramaters are provided here
-        return this.requestServices.post('https://httpbin.org/anything', { "hello": "test" })
+    public create(tags: string, source: string, rating: string, file?: string, url?: string) {
+        let formOptions;
+        if (file) {
+            formOptions = {
+                "post[tags]": tags,
+                "post[source]": source,
+                "post[rating]": rating,
+                "post[file]": fs.createReadStream(file)
+            };
+        } else if (url) {
+            formOptions = {
+                "post[tags]": tags,
+                "post[source]": source,
+                "post[rating]": rating,
+                "post[url]": url
+            };
+        }
+        // The base URL is /post/create.json. There are only four mandatory fields: you need to supply the tags, and you need to supply the file, either through a multipart form or through a source URL. A source, even if blank, and a rating are also required.
+
+        // post[tags] A space delimited list of tags.
+        // post[file] The file data encoded as a multipart form.
+        // post[rating] The rating for the post. Can be: safe, questionable, or explicit.
+        // post[upload_url] If this is a URL, e621 will download the file.
+        // post[source] This will be used as the post's 'Source' text. Separate multiple URLs with %0A (url-encoded newline) to define multiple sources. Limit of five URLs
+        // post[description] The description for the post.
+        // post[is_rating_locked] Set to true to prevent others from changing the rating.
+        // post[is_note_locked] Set to true to prevent others from adding notes.
+        // post[parent_id] The ID of the parent post.
+        // If the call fails, the following response reasons are possible:
+
+        // MD5 mismatch This means you supplied an MD5 parameter and what e621 got doesn't match. Try uploading the file again.
+        // duplicate This post already exists in e621 (based on the MD5 hash). An additional attribute called location will be set, pointing to the (relative) URL of the original post.
+        // other Any other error will have its error message printed.
+        // If the post upload succeeded, you'll get an attribute called location in the response pointing to the relative URL of your newly uploaded post.
+        console.log(formOptions)
+        return this.requestServices.post('https://e621.net/post/create.json', formOptions)
     }
 
     public update(postID: string) {
