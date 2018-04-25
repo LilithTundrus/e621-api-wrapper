@@ -2,8 +2,9 @@ import { e621PostData, e621MD5CheckJSON } from '../interfaces';
 import { RequestServices } from '../RequestService';
 import { e621PopularityStrings } from '../enums';
 import * as fs from 'fs';
-
-
+import { xmlToJson } from '../lib/xml2json';
+import { DOMParser } from 'xmldom'
+let parser = new DOMParser();
 
 export default class Posts {
     private pageLimit: number;
@@ -231,27 +232,26 @@ export default class Posts {
         return this.requestServices.paginateE621Endpoint(`https://e621.net/post/index.json?${tagsString}&limit=${limitString}`, start, pageLimit, dataArray);
     }
 
-    public getTagHistoryByID(postID: string | number) {
+    /**
+     * Get a post's tag history XML. Pass true for returnJSON to get converted JSON back from the Promise
+     * @param {(string | number)} postID The post's ID to get the tag history of
+     * @param {boolean} [returnJSON] Pass true to have XML converted to JSON before return
+     * @returns Promise<any>
+     * @memberof Posts
+     */
+    public getTagHistoryByID(postID: string | number, returnJSON?: boolean) {
         let url = `https://e621.net/post_tag_history/index.xml?post_id=${postID}`;
         return this.requestServices.get(url)
             .then((response) => {
+                if (returnJSON) {
+                    var document = parser.parseFromString(response, 'text/xml');
+                    let json = xmlToJson(document)
+                    return json;
+                }
                 return response;
             })
             .catch((err) => {
                 throw Error(err);
             })
-        //         The base URL is /post_tag_history/index.xml. Due to performance issues, this controller does not use page numbers. Instead, it takes an ID and returns the next/previous [limit] results. To traverse forward (back in time) through multiple pages of results, set the after parameter of the next request to the ID of the last result in the current result set. Or to go backwards (towards more recently) through results, set before to the ID of the first result in the current result set.
-
-        // post_id Filter by post ID.
-        // date_start Show only edits after this date (inclusive). Takes most date formats, including 10-digit UNIX timestamps
-        // date_end Show only edits before this date (inclusive). Takes most date formats, including 10-digit UNIX timestamps
-        // user_id Filter by user ID.
-        // user_name Filter by username. Must match exactly, case insensitive.
-        // source Filter by source. Wildcard, so 'example' will match 'http://www.example.com/'
-        // tags Filter by tags. Wildcard, like above. Caveat: since this is a simple text match against the history entry's tag list, it's best to only use one tag for this field.
-        // reason Filter by edit reason. Wildcard, like above.
-        // description Filter by description. Wildcard, like above.
-        // limit How many results to return at once. Defaults to 100 and limited to 1000.
-        // before / after Show the next [limit] results before (higher ID than) or after (lower ID than) the given ID.
     }
 }
