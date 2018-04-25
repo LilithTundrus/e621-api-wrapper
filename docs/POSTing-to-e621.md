@@ -45,7 +45,7 @@ postObject.login = "YOUR_E621_USER_NAME";
 postObject.password_hash = "YOUR_API_KEY";
 ```
 
-This is typically not reuqired unless you are using this api-wrapper in a custom way, this is mostly so I don't forget how this API is finnicky with POSTing
+- This is typically not reuqired unless you are using this api-wrapper in a custom way, this is mostly so I don't forget how this API is finnicky with POSTing
 
 - When POSTing with information, any properties that look like this: `post[source]` are to be used in the POST object like so:
 
