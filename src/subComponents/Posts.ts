@@ -130,8 +130,8 @@ export default class Posts {
 
     /** Generate a post's URL by its ID
      * @param {(string | number)} postID ID of the e621 post (Can be pulled from the API)
-     * @returns {string} 
-     * @memberof e621
+     * @returns string 
+     * @memberof Posts
      */
     public generatePostUrl(postID: string | number): string {
         return `https://e621.net/post/show/${postID}/`;
