@@ -5,16 +5,16 @@
 e621 requires you to use the `form` header for POSTing data:
 
 ```typescript
-        let options = {
-            uri: url,
-            headers: {
-                'User-Agent': 'my-user-agent',
-                'content-type': 'application/x-www-form-urlencoded'
-            },
-            json: true,
-            // this is your data you are POSTing to e621
-            form: postObject
-        };
+let options = {
+    uri: url,
+    headers: {
+        'User-Agent': 'my-user-agent',
+        'content-type': 'application/x-www-form-urlencoded'
+    },
+    json: true,
+    // this is your data you are POSTing to e621
+    form: postObject
+};
 ```
 
 ## Typical Response
@@ -52,10 +52,10 @@ postObject.password_hash = "YOUR_API_KEY";
 - When POSTing with information, any properties that look like this: `post[source]` are to be used in the POST object like so:
 
 ```typescript
-    formOptions = {
-        "post[tags]": "your tags space_delimited",
-        "post[source]": "source url where the image came from, can be blank but is required",
-        "post[rating]": "rating string",
-        "post[file]": "multipart form/file stream"
-    };
+formOptions = {
+    "post[tags]": "your tags space_delimited",
+    "post[source]": "source url where the image came from, can be blank but is required",
+    "post[rating]": "rating string",
+    "post[file]": "multipart form/file stream"
+};
 ```
