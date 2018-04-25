@@ -7,7 +7,6 @@ declare const Promise: any;
 
 // TODO: Fill in ALL API endpoints
 // TODO: Document all of the class endpoints so the user knows what they do
-// TODO: Get logins working in a better way
 
 export default class e621 {
     private userAgent: string;

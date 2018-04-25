@@ -13,6 +13,7 @@ export default class Tags {
 
     /** Get an e621 tag's data by name
      * @param {string} tagName 
+     * @returns Promise<e621TagJSON[]>
      * @memberof Tags
      */
     public getByName(tagName: string): Promise<e621TagJSON[]> {
@@ -27,6 +28,7 @@ export default class Tags {
 
     /** Get a set of related tags by providing a valid e621 tag. Returns a 2D array. This may change in the future
      * @param {string} tagName The tag to get related results for
+     * @returns Promise<e621RelatedTagJSON[]>
      * @memberof Tags
      */
     public getRelatedTagsByName(tagName: string): Promise<e621RelatedTagJSON[]> {
@@ -96,10 +98,10 @@ export default class Tags {
     /** Update a tag's type
      * @param {string} name 
      * @param {e621TagTypes} tagType 
-     * @returns 
+     * @returns Promise<e621TagUpdateResponse>
      * @memberof Tags
      */
-    public updateTag(name: string, tagType: e621TagTypes) {
+    public updateTag(name: string, tagType: e621TagTypes): Promise<e621TagUpdateResponse> {
         let url = `https://e621.net/tag/update.json`;
         let postObj = {
             "tag[name]": name,
@@ -119,9 +121,10 @@ export default class Tags {
      * @param {number} [page] Page to start at (default is 1)
      * @param {string} [order] How to order the results. Can be tag, aliasedtag, reason, user, date, or forum_post
      * @param {boolean} [approved] Can be all, true, false.
+     * @returns Promise<e621TagAliases[]>
      * @memberof Tags
      */
-    public getAliases(query: string, page?: number, order?: string, approved?: boolean) {
+    public getAliases(query: string, page?: number, order?: string, approved?: boolean): Promise<e621TagAliases[]> {
         let url: string;
         if (!page) page = 1;
         url = `https://e621.net/tag_alias/index.json?page=${page}&query=${query}`;
