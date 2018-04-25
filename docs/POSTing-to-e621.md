@@ -22,13 +22,13 @@ e621 requires you to use the `form` header for POSTing data:
 Responses from the e621 API typically look like this:
 
 **On Error**
-```JSON
+```js
 { success: false, reason: 'Error Reason' }
 ```
 
 
 **On Success**
-```JSON
+```js
 { success: true }
 // ... Any additional information about the endpoint-specific POST results will also be returned
 ```
