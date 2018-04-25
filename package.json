@@ -19,7 +19,8 @@
   "license": "MIT",
   "dependencies": {
     "@types/node": "^9.6.6",
-    "request": "^2.85.0"
+    "request": "^2.85.0",
+    "xmldom": "^0.1.27"
   },
   "repository": {
     "url": "https://github.com/LilithTundrus/e621-api-wrapper"
