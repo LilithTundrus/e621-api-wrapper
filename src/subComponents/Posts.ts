@@ -73,7 +73,13 @@ export default class Posts {
         // post/flag.json --flag a post for delete through this method
     }
 
-    public delete() {
+    /** Delete a post by ID, given a reason
+     * @param {(string | number)} postID ID of the post to delete
+     * @param {string} reason given reason for deletion
+     * @param {(1 | null)} mode Set to 1 if you are attempting to permanently destroy this post (will only work if called on an already deleted post).
+     * @memberof Posts
+     */
+    public delete(postID: string | number, reason: string, mode?: 1) {
         // The base URL is /post/destroy.json
     }
 
@@ -225,8 +231,8 @@ export default class Posts {
         return this.requestServices.paginateE621Endpoint(`https://e621.net/post/index.json?${tagsString}&limit=${limitString}`, start, pageLimit, dataArray);
     }
 
-    public getTagHistoryByID() {
-        let url = `https://e621.net/post_tag_history/index.xml`;
+    public getTagHistoryByID(postID: string | number) {
+        let url = `https://e621.net/post_tag_history/index.xml?post_id=${postID}`;
         return this.requestServices.get(url)
             .then((response) => {
                 return response;
