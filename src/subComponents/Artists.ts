@@ -1,19 +1,30 @@
-// The methods for artists go here
+import { RequestServices } from '../RequestService';
+import { e621ArtistInfo } from '../interfaces';
 
 export default class Artists {
-    private userAgent: string;
     private pageLimit: number;
-    public constructor(userAgent: string, pageLimit: number) {
-        this.userAgent = userAgent;
-        this.pageLimit = pageLimit;
-    }
-    listArtists(name: string, limit?: number, order?: string, page?: number) {
-        //         The base URL is /artist/index.json.
+    private requestServices: RequestServices;
 
+    public constructor(pageLimit: number, requestServices: RequestServices) {
+        this.pageLimit = pageLimit;
+        this.requestServices = requestServices;
+    }
+
+    listArtists(name?: string, limit?: number, order?: string, page?: number) {
+        //         The base URL is /artist/index.json.
         // name The name (or a fragment of the name) of the artist or the artist URL.
         // limit How many records per page.
         // order Can be date or name.
         // page The page number.
+        let url = `https://e621.net/artist/index.json?`
+
+        return this.requestServices.get(url)
+            .then((response: e621ArtistInfo[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     createArtist() {

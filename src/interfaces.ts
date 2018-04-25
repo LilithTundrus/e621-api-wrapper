@@ -72,3 +72,14 @@ export interface e621RelatedTagJSON {
     popularity: string,
     type: string
 }
+
+export interface e621ArtistInfo {
+    id: number,
+    name: string,
+    other_names: string,
+    group_name: string,
+    urls: string[],
+    is_active: boolean,
+    version: number,
+    updater_id: number
+}
