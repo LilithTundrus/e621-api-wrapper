@@ -1,6 +1,8 @@
 import * as request from 'request'
 import Tags from './subComponents/Tags';
 import Posts from './subComponents/Posts';
+import Artists from './subComponents/Artists';
+
 import { RequestServices } from './RequestService';
 
 declare const Promise: any;
@@ -15,6 +17,7 @@ export default class e621 {
     public requestservices: RequestServices;
     public tags: Tags;
     public posts: Posts;
+    public artists: Artists;
 
     /**
      * Creates an instance of e621.
@@ -38,6 +41,7 @@ export default class e621 {
         // operations as arguments
         this.tags = new Tags(this.pageLimit, this.requestservices);
         this.posts = new Posts(this.pageLimit, this.requestservices);
+        this.artists = new Artists(this.pageLimit, this.requestservices);
     }
 
     public get agent() { return this.userAgent; }
