@@ -14,6 +14,7 @@ export default class Posts {
         this.requestServices = requestServices;
     }
 
+    // TODO: Have this user REST params, or a custom args object
     public create(tags: string, source: string, rating: string, file?: string, url?: string) {
         let formOptions;
         if (file) {
@@ -53,7 +54,18 @@ export default class Posts {
     }
 
     public update(postID: string) {
-        // Update e621 post API endpoint
+        //         The base URL is /post/update.json. Only the id parameter is required. Leave the other parameters blank if you don't want to change them. If submitting the post[tags] parameter, it is recommended to include the post[old_tags] parameter as well because it allows e621 to correctly handle simultaneous edits from multiple users.
+
+        // id The ID number of the post to update.
+        // post[tags] A space delimited list of tags.
+        // post[old_tags] A space delimited list of tags. Should include the same tags submitted to post[tags] minus any intended changes. Does nothing without post[tags].
+        // post[rating] The rating for the post. Can be: safe, questionable, or explicit.
+        // post[source] This will be used as the post's 'Source' text. Separate multiple URLs with %0A (url-encoded newline) to define multiple sources. Limit of five URLs
+        // post[description] This will be used as the post's 'Description' text.
+        // post[is_rating_locked] Set to true to prevent others from changing the rating.
+        // post[is_note_locked] Set to true to prevent others from adding notes.
+        // post[parent_id] The ID of the parent post.
+        // reason The reason for the submitted changes. Inline DText allowed.
     }
 
     /**Check if a post exists by MD5 hash string
@@ -70,8 +82,21 @@ export default class Posts {
             })
     }
 
-    public flagForDelete() {
-        // post/flag.json --flag a post for delete through this method
+    // TODO: Make the flag options an enum or interface
+    public flagForDelete(postID: string | number, flagOptions: string) {
+        //         The base URL is /post/flag.json. The id and flag_option parameters are required.
+
+        // id The ID number of the post to flag for deletion.
+        // inferior_parent The ID number of the post which is superior to the post being flagged. For duplicates, this should be the ID of the post which is older. Use only when flag_option is set to inferior.
+        // flag_option Indicates the reason the post should be deleted. Valid values are:
+        // uploader Uploader requests deletion
+        // inferior Repost/inferior version of existing post
+        // 1 Artist is on avoid-posting list
+        // 2 Post is paysite material
+        // 3 Uncredited trace
+        // 4 Real-life pornography
+        // 5 File corrupted
+        // 6 Image previously deleted
     }
 
     /** Delete a post by ID, given a reason
@@ -81,7 +106,11 @@ export default class Posts {
      * @memberof Posts
      */
     public delete(postID: string | number, reason: string, mode?: 1) {
-        // The base URL is /post/destroy.json
+        //         The base URL is /post/destroy.json. Both the id and reason parameters are required. The mode parameter is only required (to be 1) if you are attempting to permanently destroy the post (which must be called a second time, after the post has been normally deleted). You must be logged in to use this action. You must also be janitor or higher.
+
+        // id The ID number of the post to delete.
+        // reason The reason you are deleting the post.
+        // mode Set to 1 if you are attempting to permanently destroy this post (will only work if called on an already deleted post).
     }
 
     /** Navigate through deleted posts, delreason being populated.
@@ -113,12 +142,15 @@ export default class Posts {
 
     public revertTags() {
         //  This action reverts a post to a previous set of tags. The base URL is /post/revert_tags.json.
+
+        //         id The post ID number to update.
+        // history_id The ID number of the tag history.
     }
 
     /** Vote for a post by ID, Score must be 1 for updvote, -1 for downvote
      * @param {(string | number)} postID 
      * @param {(1 | -1)} score 
-     * @returns 
+     * @returns Promise<any>
      * @memberof Posts
      */
     public vote(postID: string | number, score: 1 | -1): Promise<any> {
@@ -139,7 +171,7 @@ export default class Posts {
 
     /** Get popular posts for a given timeframe by providing a *e621PopularityStrings* typeArg
      * @param {e621PopularityStrings} typeArg Type of popular endpoint to use
-     * @returns {Promise<[e621PostData]>}
+     * @returns Promise<e621PostData[]>
      * @memberof e621
      */
     public getPopularPosts(typeArg: e621PopularityStrings) {
@@ -162,7 +194,7 @@ export default class Posts {
                 throw Error(`Unsupported popularURLHandler typeArg: ${typeArg}`);
         }
         return this.requestServices.get(url)
-            .then((response: [e621PostData]) => {
+            .then((response: e621PostData[]) => {
                 return response;
             })
             .catch((err) => {
