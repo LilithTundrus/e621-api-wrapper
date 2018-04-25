@@ -36,6 +36,8 @@ Responses from the e621 API typically look like this:
 
 ## Notes
 
+- The e621 API does **NOT** use URL parameters when POSTing like it does for GET requests
+
 - You **must** provide a meaningful User-Agent to the API or your POST request will be denied
 
 - Sending POST messages to the e621 varies endpoint to endpoint but you need at provide two **required** properties in your `form` POST object:
