@@ -18,6 +18,7 @@
   "author": "Lilith Tundrus",
   "license": "MIT",
   "dependencies": {
+    "@types/node": "^9.6.6",
     "request": "^2.85.0"
   },
   "repository": {
