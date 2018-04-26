@@ -48,7 +48,7 @@ export default class Artists {
         if (groupName) postObj["artist[groups]"] = groupName;
         if (otherNames) postObj["artist[other_names]"] = otherNames;
 
-        console.log(postObj)
+        console.log(postObj);
 
         return this.requestServices.post(url, postObj)
             .then((response: any) => {
@@ -70,9 +70,18 @@ export default class Artists {
         // artist[other_names] List of comma separated names this artist is also known by.
     }
 
-    deleteArtist() {
+    deleteArtist(id: number | string) {
         //         The base URL is /artist/destroy.json. You must be logged in to delete artists.
 
         // id The ID of the artist to destroy.
+        let url = `https://e621.net/artist/destroy.json`;
+        let postObj = { "id": id }
+        return this.requestServices.post(url, postObj)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 }
