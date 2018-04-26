@@ -99,3 +99,14 @@ export interface e621ArtistUpdateJSON {
     "artist[other_names]"?: string,
     "artist[is_active]"?: boolean
 }
+
+export interface e621ArtistPOSTJSON {
+    success: boolean,
+    reason?: string
+}
+
+export interface e621POSTResponse {
+    success: boolean,
+    reason?: string,
+    message?: string
+}
