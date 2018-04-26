@@ -4,9 +4,9 @@
 
 ## About
 
-This is an API wrapper for the site [e621](https://e621.net)
+This is an API wrapper for the site [e621](https://e621.net) to assist in any projects you might have that need API use.
 
-If you're here you know what this site is for.
+If you're here, you know what this site is for.
 
 **PLEASE NOTE:**
 This is still in ALPHA development, if something doesn't work or isn't defined correctly, please let me know!
@@ -18,8 +18,6 @@ This project is available via NPM:
 ```
 npm install e621-api --save
 ```
-
-**--- After 0.3.0 is released this documentation is no longer accurate**
 
 You should have `Node 8.9.4` and `tsc 2.1` or higher to be safely running this.
 
@@ -37,7 +35,7 @@ import { e621TagTypes, e621PopularityStrings } from 'e621-api/build/enums';
 // First argument is your user agent, the second is the page limit per search result (pageLimit * 50 = maximum number of results returned)
 let wrapper = new e621('Node-test-1.0', 3);
  
-wrapper.getPopularPosts(e621PopularityStrings.daily)
+wrapper.posts.getPopularPosts(e621PopularityStrings.daily)
 .then((data) => {
     console.log(data[0].file_url);
 })
@@ -52,7 +50,7 @@ let enums = require('e621-api/build/enums');
 let wrapper = new e621('Node-test-1.0', 3);
  
 // First argument is your user agent, the second is the page limit per search result (pageLimit * 50 = maximum number of results returned)
-wrapper.getPopularPosts(enums.e621PopularityStrings.daily)
+wrapper.posts.getPopularPosts(enums.e621PopularityStrings.daily)
 .then((data) => {
     console.log(data[0].file_url);
 })
@@ -61,25 +59,132 @@ wrapper.getPopularPosts(enums.e621PopularityStrings.daily)
 
 ## Available methods
 
-This is a placeholder for all methods that will eventually be implemented!
+### Tags
+
+**getAliases**
+
+Get a given tag's aliases, parameters are `query`, `page?`, `order?`, and `approved?`
+
+```typescript
+wrapper.tags.getAliases('fox')
+    .then((response) => {
+        console.log(response[0].alias_id)
+    })
+```
+
+
+**getByID**
+
+Get a tag's information by its ID, parameters are `tagID`
+
+```typescript
+wrapper.tags.getByID(1)
+    .then((results) => {
+        console.log(results.name)
+    })
+```
+
+**getByName**
+
+Get a tag's information by its name, parameters are `tagName`
+
+```typescript
+wrapper.tags.getByName('fox')
+    .then((results) => {
+        console.log(results[0].name);
+    })
+```
+
+
+**getRelatedTagsByName**
+
+Get a tag's related tags by its name, parameters are `tagName`
+
+```typescript
+wrapper.tags.getRelatedTagsByName('fox')
+    .then((results) => {
+        console.log(results[0].type);
+    })
+```
+
+
+**listAllTags**
+
+A more advanced version of `getByName`, allowing you to filter tags more percisely, parameters are `limit?`, `page?`, `order?`, `tag?`, `tagPattern?`, `afterID?`
+
+```typescript
+wrapper.tags.listAllTags(5, 1, null, 'fox')
+    .then((results) => {
+        console.log(results);
+    })
+```
+
+
+**updateTag**
+
+Update a tag's type by its name. You **must** be logged in to be able to make changes
+
+```typescript
+wrapper.tags.updateTag('fox', 5)
+    .then((results) => {
+        console.log(results.success);
+    })
+```
+
+
+### Artists
+
+**createArtist**
+
+Create an artist, parameters are `name`, `artistURLs`, `groupNames?` `otherNames?`
+
+```typescript
+wrapper.artists.createArtist('test', 'artist_url other_url', 'artistGroupName', 'otherTestName')
+    .then((results) => {
+        console.log(results)
+    })
+```
 
 
 ## Logging in 
 
-PlaceHolder
+Logging in through the wrapper is required at the `new` keyword creation:
+
+```typescript
+// arguments are your user-agent, your login name and your API key (not the same as your password)
+let wrapper = new e621('my-user-agent', 'my-user-name', 'my-api-key');
+```
+
 
 ### Getting your API key
 
-PlaceHolder
+You can obtain your API key through your user settings on e621 or by using this url:
+
+```
+e621.net/user/login.json?name=USERNAME_HERE&password=PASSWORD_HERE
+```
 
 ## Interacting directly with the request layer
 
-Placeholder, will tell the user how to circumvent wrapped API calls to allow for more granular control using the public `requestservices` generated on new API instances
+You can use the `requestServices` part of the API wrapper to access any endpoints that are not yet available through the API:
 
+```typescript
+wrapper.requestservices.get(`https://e621.net/comment/index.json?post_id=8595`)
+    .then((results) => {
+        console.log(results)
+    })
+```
+
+Any POST calls you make to the API through `requestServices` will use your login information it it's given
 
 ## History
 
-**--- 0.3.0 will be a BREAKING release, too many changes to be backwards compatible**
+- **v0.3.0**
+    - `Artist`, `Tags`, and `Posts` are mostly available for use. Posts do not yet support Create/Update/Deletes
+    - Major changes, improved code structure and readability
+    - Created a way to GET and POST to the API when a certain endpoint is not supported
+    - Updated the docs and methods to be clearer
+
 
 - **v0.2.9**
     - Created a lot more support for e621 endpoints, starting to pull the project in a broader directions
