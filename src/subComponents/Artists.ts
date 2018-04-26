@@ -40,7 +40,7 @@ export default class Artists {
         // artist[urls] A list of URLs associated with the artist, whitespace delimited.
         // artist[group_name] The group or circle that this artist is a member of. Simply enter the group's name.
         // artist[other_names] List of comma separated names this artist is also known by.
-        let url = `https://e621.net/tag/update.json`;
+        let url = `https://e621.net/artist/create.json`;
         let postObj = <e621ArtistCreateJSON>{
             "artist[name]": name,
             "artist[urls]": artistURLs
@@ -50,13 +50,13 @@ export default class Artists {
 
         console.log(postObj)
 
-        // return this.requestServices.post(url, postObj)
-        // .then((response: any) => {
-        //     return response;
-        // })
-        // .catch((err) => {
-        //     throw Error(err);
-        // })
+        return this.requestServices.post(url, postObj)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     updateArtist() {
