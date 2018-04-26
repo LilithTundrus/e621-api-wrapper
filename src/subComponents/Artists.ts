@@ -97,10 +97,11 @@ export default class Artists {
      * @returns 
      * @memberof Artists
      */
-    deleteArtist(id: number | string) {
+    deleteArtist(artistID: number | string) {
         let url = `https://e621.net/artist/destroy.json`;
-        let postObj = { "id": `${id}` }
-        return this.requestServices.post(url, postObj)
+        return this.requestServices.post(url, {
+            "id": artistID
+        })
             .then((response: any) => {
                 return response;
             })
