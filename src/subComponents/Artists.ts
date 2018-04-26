@@ -1,5 +1,5 @@
 import { RequestServices } from '../RequestService';
-import { e621ArtistInfo, e621ArtistCreateJSON } from '../interfaces';
+import { e621ArtistInfo, e621ArtistCreateJSON, e621ArtistUpdateJSON } from '../interfaces';
 
 export default class Artists {
     private pageLimit: number;
@@ -33,18 +33,20 @@ export default class Artists {
             })
     }
 
+    /** Create an Artist
+     * @param {string} name Name of the artist
+     * @param {string} artistURLs A list of URLs associated with the artist, whitespace delimited.
+     * @param {string} [groupName] The group or circle that this artist is a member of. Simply give the group's name.
+     * @param {string} [otherNames] List of comma separated names this artist is also known by.
+     * @returns 
+     * @memberof Artists
+     */
     createArtist(name: string, artistURLs: string, groupName?: string, otherNames?: string) {
-        //         The base URL is /artist/create.json.
-
-        // artist[name] The artist's name.
-        // artist[urls] A list of URLs associated with the artist, whitespace delimited.
-        // artist[group_name] The group or circle that this artist is a member of. Simply enter the group's name.
-        // artist[other_names] List of comma separated names this artist is also known by.
         let url = `https://e621.net/artist/create.json`;
         let postObj = <e621ArtistCreateJSON>{
             "artist[name]": name,
             "artist[urls]": artistURLs
-        }
+        };
         if (groupName) postObj["artist[groups]"] = groupName;
         if (otherNames) postObj["artist[other_names]"] = otherNames;
 
@@ -59,7 +61,7 @@ export default class Artists {
             })
     }
 
-    updateArtist() {
+    updateArtist(artistID, name?: string, artistURLs?: string, isActive?: boolean, groupName?: string, otherNames?: string) {
         //         The base URL is /artist/update.json. Only the id parameter is required. The other parameters are optional.
 
         // id The ID of the artist to update.
@@ -68,6 +70,24 @@ export default class Artists {
         // artist[is_active] Whether or not the artist is active.
         // artist[group_name] The group or circle that this artist is a member of. Simply enter the group's name.
         // artist[other_names] List of comma separated names this artist is also known by.
+        let url = `https://e621.net/artist/update.json`;
+
+        let postObj = <e621ArtistUpdateJSON>{
+            id: artistID
+        };
+        if (name) postObj["artist[name]"] = name;
+        if (artistURLs) postObj["artist[urls]"] = artistURLs;
+        if (groupName) postObj["artist[groups]"] = groupName;
+        if (otherNames) postObj["artist[other_names]"] = otherNames;
+        if (isActive !== null) postObj["artist[is_active]"] = isActive;
+
+        return this.requestServices.post(url, postObj)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     deleteArtist(id: number | string) {
@@ -75,7 +95,7 @@ export default class Artists {
 
         // id The ID of the artist to destroy.
         let url = `https://e621.net/artist/destroy.json`;
-        let postObj = { "id": id }
+        let postObj = { "id": `${id}` }
         return this.requestServices.post(url, postObj)
             .then((response: any) => {
                 return response;

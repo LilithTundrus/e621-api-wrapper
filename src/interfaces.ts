@@ -90,3 +90,12 @@ export interface e621ArtistCreateJSON {
     "artist[groups]"?: string,
     "artist[other_names]"?: string,
 }
+
+export interface e621ArtistUpdateJSON {
+    "id": string | number
+    "artist[name]": string,
+    "artist[urls]": string,
+    "artist[groups]"?: string,
+    "artist[other_names]"?: string,
+    "artist[is_active]"?: boolean
+}
