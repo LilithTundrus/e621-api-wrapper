@@ -14,59 +14,59 @@ export default class Posts {
         this.requestServices = requestServices;
     }
 
-    // TODO: Have this user REST params, or a custom args object
-    public create(tags: string, source: string, rating: string, file?: string, url?: string) {
-        let formOptions;
-        if (file) {
-            formOptions = {
-                "post[tags]": tags,
-                "post[source]": source,
-                "post[rating]": rating,
-                "post[file]": fs.createReadStream(file)
-            };
-        } else if (url) {
-            formOptions = {
-                "post[tags]": tags,
-                "post[source]": source,
-                "post[rating]": rating,
-                "post[url]": url
-            };
-        }
-        // The base URL is /post/create.json. There are only four mandatory fields: you need to supply the tags, and you need to supply the file, either through a multipart form or through a source URL. A source, even if blank, and a rating are also required.
+    // // TODO: Have this user REST params, or a custom args object
+    // public create(tags: string, source: string, rating: string, file?: string, url?: string) {
+    //     let formOptions;
+    //     if (file) {
+    //         formOptions = {
+    //             "post[tags]": tags,
+    //             "post[source]": source,
+    //             "post[rating]": rating,
+    //             "post[file]": fs.createReadStream(file)
+    //         };
+    //     } else if (url) {
+    //         formOptions = {
+    //             "post[tags]": tags,
+    //             "post[source]": source,
+    //             "post[rating]": rating,
+    //             "post[url]": url
+    //         };
+    //     }
+    //     // The base URL is /post/create.json. There are only four mandatory fields: you need to supply the tags, and you need to supply the file, either through a multipart form or through a source URL. A source, even if blank, and a rating are also required.
 
-        // post[tags] A space delimited list of tags.
-        // post[file] The file data encoded as a multipart form.
-        // post[rating] The rating for the post. Can be: safe, questionable, or explicit.
-        // post[upload_url] If this is a URL, e621 will download the file.
-        // post[source] This will be used as the post's 'Source' text. Separate multiple URLs with %0A (url-encoded newline) to define multiple sources. Limit of five URLs
-        // post[description] The description for the post.
-        // post[is_rating_locked] Set to true to prevent others from changing the rating.
-        // post[is_note_locked] Set to true to prevent others from adding notes.
-        // post[parent_id] The ID of the parent post.
-        // If the call fails, the following response reasons are possible:
+    //     // post[tags] A space delimited list of tags.
+    //     // post[file] The file data encoded as a multipart form.
+    //     // post[rating] The rating for the post. Can be: safe, questionable, or explicit.
+    //     // post[upload_url] If this is a URL, e621 will download the file.
+    //     // post[source] This will be used as the post's 'Source' text. Separate multiple URLs with %0A (url-encoded newline) to define multiple sources. Limit of five URLs
+    //     // post[description] The description for the post.
+    //     // post[is_rating_locked] Set to true to prevent others from changing the rating.
+    //     // post[is_note_locked] Set to true to prevent others from adding notes.
+    //     // post[parent_id] The ID of the parent post.
+    //     // If the call fails, the following response reasons are possible:
 
-        // MD5 mismatch This means you supplied an MD5 parameter and what e621 got doesn't match. Try uploading the file again.
-        // duplicate This post already exists in e621 (based on the MD5 hash). An additional attribute called location will be set, pointing to the (relative) URL of the original post.
-        // other Any other error will have its error message printed.
-        // If the post upload succeeded, you'll get an attribute called location in the response pointing to the relative URL of your newly uploaded post.
-        console.log(formOptions)
-        return this.requestServices.post('https://e621.net/post/create.json', formOptions)
-    }
+    //     // MD5 mismatch This means you supplied an MD5 parameter and what e621 got doesn't match. Try uploading the file again.
+    //     // duplicate This post already exists in e621 (based on the MD5 hash). An additional attribute called location will be set, pointing to the (relative) URL of the original post.
+    //     // other Any other error will have its error message printed.
+    //     // If the post upload succeeded, you'll get an attribute called location in the response pointing to the relative URL of your newly uploaded post.
+    //     console.log(formOptions)
+    //     return this.requestServices.post('https://e621.net/post/create.json', formOptions)
+    // }
 
-    public update(postID: string) {
-        //         The base URL is /post/update.json. Only the id parameter is required. Leave the other parameters blank if you don't want to change them. If submitting the post[tags] parameter, it is recommended to include the post[old_tags] parameter as well because it allows e621 to correctly handle simultaneous edits from multiple users.
+    // public update(postID: string) {
+    //     //         The base URL is /post/update.json. Only the id parameter is required. Leave the other parameters blank if you don't want to change them. If submitting the post[tags] parameter, it is recommended to include the post[old_tags] parameter as well because it allows e621 to correctly handle simultaneous edits from multiple users.
 
-        // id The ID number of the post to update.
-        // post[tags] A space delimited list of tags.
-        // post[old_tags] A space delimited list of tags. Should include the same tags submitted to post[tags] minus any intended changes. Does nothing without post[tags].
-        // post[rating] The rating for the post. Can be: safe, questionable, or explicit.
-        // post[source] This will be used as the post's 'Source' text. Separate multiple URLs with %0A (url-encoded newline) to define multiple sources. Limit of five URLs
-        // post[description] This will be used as the post's 'Description' text.
-        // post[is_rating_locked] Set to true to prevent others from changing the rating.
-        // post[is_note_locked] Set to true to prevent others from adding notes.
-        // post[parent_id] The ID of the parent post.
-        // reason The reason for the submitted changes. Inline DText allowed.
-    }
+    //     // id The ID number of the post to update.
+    //     // post[tags] A space delimited list of tags.
+    //     // post[old_tags] A space delimited list of tags. Should include the same tags submitted to post[tags] minus any intended changes. Does nothing without post[tags].
+    //     // post[rating] The rating for the post. Can be: safe, questionable, or explicit.
+    //     // post[source] This will be used as the post's 'Source' text. Separate multiple URLs with %0A (url-encoded newline) to define multiple sources. Limit of five URLs
+    //     // post[description] This will be used as the post's 'Description' text.
+    //     // post[is_rating_locked] Set to true to prevent others from changing the rating.
+    //     // post[is_note_locked] Set to true to prevent others from adding notes.
+    //     // post[parent_id] The ID of the parent post.
+    //     // reason The reason for the submitted changes. Inline DText allowed.
+    // }
 
     /**Check if a post exists by MD5 hash string
      * @param {string} md5String 
@@ -82,36 +82,36 @@ export default class Posts {
             })
     }
 
-    // TODO: Make the flag options an enum or interface
-    public flagForDelete(postID: string | number, flagOptions: string) {
-        //         The base URL is /post/flag.json. The id and flag_option parameters are required.
+    // // TODO: Make the flag options an enum or interface
+    // public flagForDelete(postID: string | number, flagOptions: string) {
+    //     //         The base URL is /post/flag.json. The id and flag_option parameters are required.
 
-        // id The ID number of the post to flag for deletion.
-        // inferior_parent The ID number of the post which is superior to the post being flagged. For duplicates, this should be the ID of the post which is older. Use only when flag_option is set to inferior.
-        // flag_option Indicates the reason the post should be deleted. Valid values are:
-        // uploader Uploader requests deletion
-        // inferior Repost/inferior version of existing post
-        // 1 Artist is on avoid-posting list
-        // 2 Post is paysite material
-        // 3 Uncredited trace
-        // 4 Real-life pornography
-        // 5 File corrupted
-        // 6 Image previously deleted
-    }
+    //     // id The ID number of the post to flag for deletion.
+    //     // inferior_parent The ID number of the post which is superior to the post being flagged. For duplicates, this should be the ID of the post which is older. Use only when flag_option is set to inferior.
+    //     // flag_option Indicates the reason the post should be deleted. Valid values are:
+    //     // uploader Uploader requests deletion
+    //     // inferior Repost/inferior version of existing post
+    //     // 1 Artist is on avoid-posting list
+    //     // 2 Post is paysite material
+    //     // 3 Uncredited trace
+    //     // 4 Real-life pornography
+    //     // 5 File corrupted
+    //     // 6 Image previously deleted
+    // }
 
-    /** Delete a post by ID, given a reason
-     * @param {(string | number)} postID ID of the post to delete
-     * @param {string} reason given reason for deletion
-     * @param {(1 | null)} mode Set to 1 if you are attempting to permanently destroy this post (will only work if called on an already deleted post).
-     * @memberof Posts
-     */
-    public delete(postID: string | number, reason: string, mode?: 1) {
-        //         The base URL is /post/destroy.json. Both the id and reason parameters are required. The mode parameter is only required (to be 1) if you are attempting to permanently destroy the post (which must be called a second time, after the post has been normally deleted). You must be logged in to use this action. You must also be janitor or higher.
+    // /** Delete a post by ID, given a reason
+    //  * @param {(string | number)} postID ID of the post to delete
+    //  * @param {string} reason given reason for deletion
+    //  * @param {(1 | null)} mode Set to 1 if you are attempting to permanently destroy this post (will only work if called on an already deleted post).
+    //  * @memberof Posts
+    //  */
+    // public delete(postID: string | number, reason: string, mode?: 1) {
+    //     //         The base URL is /post/destroy.json. Both the id and reason parameters are required. The mode parameter is only required (to be 1) if you are attempting to permanently destroy the post (which must be called a second time, after the post has been normally deleted). You must be logged in to use this action. You must also be janitor or higher.
 
-        // id The ID number of the post to delete.
-        // reason The reason you are deleting the post.
-        // mode Set to 1 if you are attempting to permanently destroy this post (will only work if called on an already deleted post).
-    }
+    //     // id The ID number of the post to delete.
+    //     // reason The reason you are deleting the post.
+    //     // mode Set to 1 if you are attempting to permanently destroy this post (will only work if called on an already deleted post).
+    // }
 
     /** Navigate through deleted posts, delreason being populated.
      * @param {number} [page] Page number to return (if more than 1)
@@ -140,12 +140,12 @@ export default class Posts {
         }
     }
 
-    public revertTags() {
-        //  This action reverts a post to a previous set of tags. The base URL is /post/revert_tags.json.
+    // public revertTags() {
+    //     //  This action reverts a post to a previous set of tags. The base URL is /post/revert_tags.json.
 
-        //         id The post ID number to update.
-        // history_id The ID number of the tag history.
-    }
+    //     //         id The post ID number to update.
+    //     // history_id The ID number of the tag history.
+    // }
 
     /** Vote for a post by ID, Score must be 1 for updvote, -1 for downvote
      * @param {(string | number)} postID 
