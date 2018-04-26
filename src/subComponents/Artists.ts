@@ -10,14 +10,20 @@ export default class Artists {
         this.requestServices = requestServices;
     }
 
+    /** List artists by name and or/order through the e621 API
+     * @param {string} [name] Name The name (or a fragment of the name) of the artist or the artist URL
+     * @param {number} [limit] Limit How many records per page
+     * @param {string} [order] Order, Can be date or name
+     * @param {number} [page] The page number
+     * @returns Promise<e621ArtistInfo[]>
+     * @memberof Artists
+     */
     listArtists(name?: string, limit?: number, order?: string, page?: number) {
-        //         The base URL is /artist/index.json.
-        // name The name (or a fragment of the name) of the artist or the artist URL.
-        // limit How many records per page.
-        // order Can be date or name.
-        // page The page number.
-        let url = `https://e621.net/artist/index.json?`
-
+        let url = `https://e621.net/artist/index.json?`;
+        if (name) url = `https://e621.net/artist/index.json?name=${name}`;
+        if (limit) url = url + `&limit=${limit}`;
+        if (order) url = url + `&order=${order}`;
+        if (page) url = url + `&page=${page}`;
         return this.requestServices.get(url)
             .then((response: e621ArtistInfo[]) => {
                 return response;
