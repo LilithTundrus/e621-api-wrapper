@@ -83,3 +83,10 @@ export interface e621ArtistInfo {
     version: number,
     updater_id: number
 }
+
+export interface e621ArtistCreateJSON {
+    "artist[name]": string,
+    "artist[urls]": string,
+    "artist[groups]"?: string,
+    "artist[other_names]"?: string,
+}

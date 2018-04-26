@@ -1,5 +1,5 @@
 import { RequestServices } from '../RequestService';
-import { e621ArtistInfo } from '../interfaces';
+import { e621ArtistInfo, e621ArtistCreateJSON } from '../interfaces';
 
 export default class Artists {
     private pageLimit: number;
@@ -33,13 +33,30 @@ export default class Artists {
             })
     }
 
-    createArtist() {
+    createArtist(name: string, artistURLs: string, groupName?: string, otherNames?: string) {
         //         The base URL is /artist/create.json.
 
         // artist[name] The artist's name.
         // artist[urls] A list of URLs associated with the artist, whitespace delimited.
         // artist[group_name] The group or circle that this artist is a member of. Simply enter the group's name.
         // artist[other_names] List of comma separated names this artist is also known by.
+        let url = `https://e621.net/tag/update.json`;
+        let postObj = <e621ArtistCreateJSON>{
+            "artist[name]": name,
+            "artist[urls]": artistURLs
+        }
+        if (groupName) postObj["artist[groups]"] = groupName;
+        if (otherNames) postObj["artist[other_names]"] = otherNames;
+
+        console.log(postObj)
+
+        // return this.requestServices.post(url, postObj)
+        // .then((response: any) => {
+        //     return response;
+        // })
+        // .catch((err) => {
+        //     throw Error(err);
+        // })
     }
 
     updateArtist() {
