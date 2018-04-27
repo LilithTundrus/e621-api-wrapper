@@ -1,5 +1,5 @@
 import { RequestServices } from '../RequestService';
-import { e621ArtistInfo, e621ArtistCreateJSON, e621ArtistUpdateJSON, e621ArtistPOSTJSON } from '../interfaces';
+import { e621ArtistInfo, e621ArtistCreateJSON, e621ArtistUpdateJSON, e621ArtistPOSTJSON, e621POSTResponse } from '../interfaces';
 
 export default class Artists {
     private pageLimit: number;
@@ -38,7 +38,7 @@ export default class Artists {
      * @param {string} artistURLs A list of URLs associated with the artist, whitespace delimited.
      * @param {string} [groupName] The group or circle that this artist is a member of. Simply give the group's name.
      * @param {string} [otherNames] List of comma separated names this artist is also known by.
-     * @returns 
+     * @returns Promise<e621ArtistPOSTJSON>
      * @memberof Artists
      */
     createArtist(name: string, artistURLs: string, groupName?: string, otherNames?: string) {
@@ -68,7 +68,7 @@ export default class Artists {
      * @param {boolean} [isActive] If the Artist is active (true or false)
      * @param {string} [groupName] The group or circle that this artist is a member of. Simply give the group's name.
      * @param {string} [otherNames] List of comma separated names this artist is also known by.
-     * @returns 
+     * @returns Promise<e621ArtistPOSTJSON>
      * @memberof Artists
      */
     updateArtist(artistID: number | string, name?: string, artistURLs?: string, isActive?: boolean, groupName?: string, otherNames?: string) {
@@ -94,7 +94,7 @@ export default class Artists {
 
     /** DELETE an artist, you must be logged in
      * @param {(number | string)} id ID of the artist to delete
-     * @returns 
+     * @returns Promise<e621POSTResponse>
      * @memberof Artists
      */
     deleteArtist(artistID: number | string) {
@@ -102,7 +102,7 @@ export default class Artists {
         return this.requestServices.post(url, {
             "id": artistID
         })
-            .then((response: any) => {
+            .then((response: e621POSTResponse) => {
                 return response;
             })
             .catch((err) => {
