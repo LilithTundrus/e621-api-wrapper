@@ -4,13 +4,9 @@ import Posts from './subComponents/Posts';
 import Artists from './subComponents/Artists';
 import Comments from './subComponents/Comments';
 
-
 import { RequestServices } from './RequestService';
 
 declare const Promise: any;
-
-// TODO: Fill in ALL API endpoints
-// TODO: Document all of the class endpoints so the user knows what they do
 
 export default class e621 {
     private userAgent: string;
@@ -20,7 +16,7 @@ export default class e621 {
     public tags: Tags;
     public posts: Posts;
     public artists: Artists;
-    public comments: Comments
+    public comments: Comments;
 
     /**
      * Creates an instance of e621.
