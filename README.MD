@@ -213,7 +213,7 @@ wrapper.posts.getIndexPaginate('fox bear order:favcount', 1, 35, 3)
 
 **getPopularPosts**
 
-Get a set of the popular posts using the `e621PopularityStrings` enum 
+Get a set of the popular posts using the `e621PopularityStrings` enum, parameter is `typeArg`
 
 ```typescript
 wrapper.posts.getPopularPosts(e621PopularityStrings.daily)
