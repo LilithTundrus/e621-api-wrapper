@@ -126,3 +126,8 @@ export interface e621CommentCreateJSON {
     "comment[anonymous]": 1 | 0,
     "comment[body]": string,
 }
+
+export interface e621CommentUpdateJSON {
+    "id": string | number
+    "comment[body]": string,
+}

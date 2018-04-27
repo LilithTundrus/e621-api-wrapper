@@ -1,5 +1,5 @@
 import { RequestServices } from '../RequestService';
-import { e621CommentJSON, e621POSTResponse, e621CommentCreateJSON } from '../interfaces';
+import { e621CommentJSON, e621POSTResponse, e621CommentCreateJSON, e621CommentUpdateJSON } from '../interfaces';
 
 export default class Comments {
     private pageLimit: number;
@@ -63,18 +63,16 @@ export default class Comments {
         // user Returns comments created by the user with the given username.
         // user_id Returns comments created by the user with the given ID number. Takes precedence over user.
         // status Returns hidden comments when set to hidden, visible comments when set to active, or both when set to any. Note that whether or not you can see other user's hidden comments is affected by your permission levels.
-
     }
 
-    /**
+    /** Create a comment for a post given the ID and comment text
      * @param {(string | number)} postID The post ID number to which you are responding
      * @param {string} commentText The body of the comment
      * @param {boolean} [anonymous] Set to 1 if you want to post this comment anonymously
-     * @returns 
+     * @returns Promise<e621POSTResponse>
      * @memberof Comments
      */
     create(postID: string | number, commentText: string, anonymous?: boolean) {
-
         let postObj = <e621CommentCreateJSON>{
             "comment[body]": commentText,
             "comment[post_id": postID
@@ -91,28 +89,58 @@ export default class Comments {
             })
     }
 
-    update() {
-        //         The base URL is /comment/update.json. Depending on your permission level, comments may only be editable for the first 5 minutes after they are created.
-
-        // id The ID number of the comment being edited.
-        // comment[body] The body of the comment.
+    /** 
+     * @param {number} commentID 
+     * @param {any} commentTextUpdate 
+     * @returns Promise<e621POSTResponse>
+     * @memberof Comments
+     */
+    update(commentID: number, commentTextUpdate: string) {
+        let postObj = <e621CommentUpdateJSON>{
+            "id": commentID,
+            "comment[body]": commentTextUpdate,
+        }
+        let url = `https://e621.net/comment/update.json`;
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
-    destroy() {
-        //         The base url is /comment/destroy.json. You must be logged in to use this action. You must also be the owner of the comment, or you must be a moderator.
+    /** Delete a comment by its ID
+     * @param {number} commentID 
+     * @returns 
+     * @memberof Comments
+     */
+    destroy(commentID: number) {
 
-        // id The ID number of the comment to delete.
+        let url = `https://e621.net/comment/destroy.json`;
+        return this.requestServices.post(url,
+            {
+                "id": commentID
+            })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
-    vote() {
-        //         The base URL is /comment/vote.json. This action requires an AJAX-like call. That is, your request header must contain X-Requested-With: XMLHttpRequest
 
-        // id Vote on the comment with the given ID number.
-        // score
-        // up
-        // down
-        // To remove a vote, send a request using the same score given previously (e.g. if it was voted up, vote up again to return to neutral).
-    }
+    // TODO: Comment voting requires a complex call: new Ajax.Request("/post/vote.json", {params}, callback)
+    // vote() {
+    //     //         The base URL is /comment/vote.json. This action requires an AJAX-like call. That is, your request header must contain X-Requested-With: XMLHttpRequest
+
+    //     // id Vote on the comment with the given ID number.
+    //     // score
+    //     // up
+    //     // down
+    //     // To remove a vote, send a request using the same score given previously (e.g. if it was voted up, vote up again to return to neutral).
+    // }
 
 
 }
