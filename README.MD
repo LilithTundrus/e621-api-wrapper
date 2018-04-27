@@ -189,7 +189,38 @@ wrapper.artists.updateArtist(12345, 'new_name', null, true, null, 'other_new_tes
 **Posts have a lot of endpoints, some common endpoints are below**
 
 
+**generatePostUrl**
 
+Generate a post's URL by ID, parameters are `postID`
+
+```typescript
+let postURL = wrapper.posts.generatePostUrl(12345);
+console.log(postURL);
+```
+
+
+**getIndexPaginate**
+
+Get the post index of e621, using pagination to iterate over a set of pages. Useful for getting a lot of images. Parameters are `tags?`,  `start?`, `limitPerPage?`, `pageLimit?`. Providing no arguments paginates over e621's index (most recent).
+
+```typescript
+wrapper.posts.getIndexPaginate('fox bear order:favcount', 1, 35, 3)
+    .then((results) => {
+        console.log(results[0][0].file_url);
+    })
+```
+
+
+**getPopularPosts**
+
+Get a set of the popular posts using the `e621PopularityStrings` enum 
+
+```typescript
+wrapper.posts.getPopularPosts(e621PopularityStrings.daily)
+    .then((results) => {
+        console.log(results[0].artist);
+    })
+```
 
 ## Logging in 
 
@@ -209,6 +240,7 @@ You can obtain your API key through your user settings on e621 or by using this 
 e621.net/user/login.json?name=USERNAME_HERE&password=PASSWORD_HERE
 ```
 
+
 ## Interacting directly with the request layer
 
 You can use the `requestServices` part of the API wrapper to access any endpoints that are not yet available through the API:
@@ -221,6 +253,7 @@ wrapper.requestservices.get(`https://e621.net/comment/index.json?post_id=8595`)
 ```
 
 Any POST calls you make to the API through `requestServices` will use your login information it it's given
+
 
 ## History
 
@@ -254,6 +287,7 @@ Any POST calls you make to the API through `requestServices` will use your login
 
 ## Issues
 
+
 Do you have any issues or recommendations for this package? Feel free to open an issue in the [issue](https://github.com/LilithTundrus/e621-api/issues) section. I'm always happy to help :D
 
 
@@ -263,5 +297,6 @@ If you would like to contribute to this project feel free to make some changes a
 
 
 ## License
+
 
 This project is licensed under the MIT License - see the LICENSE.md file for details
