@@ -33,7 +33,7 @@ import e621 from 'e621-api'
 import { e621PostData } from 'e621-api/build/interfaces';
 import { e621TagTypes, e621PopularityStrings } from 'e621-api/build/enums';
  
-// First argument is your user agent, the second is the page limit per search result (pageLimit * 50 = maximum number of results returned)
+// First argument is your user agent, the second is your optional user_name login. The third is your optional passwrod and the last is the page limit per search result (pageLimit * 50 = maximum number of results returned)
 let wrapper = new e621('Node-test-1.0', null, null, 3);
  
 wrapper.posts.getPopularPosts(e621PopularityStrings.daily)
@@ -50,7 +50,7 @@ let e621 = require('e621-api').default;
 let enums = require('e621-api/build/enums');
 let wrapper = new e621('Node-test-1.0', null, null, 3);
  
-// First argument is your user agent, the second is the page limit per search result (pageLimit * 50 = maximum number of results returned)
+// First argument is your user agent, the second is your optional user_name login. The third is your optional passwrod and the last is the page limit per search result (pageLimit * 50 = maximum number of results returned)
 wrapper.posts.getPopularPosts(enums.e621PopularityStrings.daily)
 .then((data) => {
     console.log(data[0].file_url);
