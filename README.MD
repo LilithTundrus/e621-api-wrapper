@@ -243,7 +243,7 @@ e621.net/user/login.json?name=USERNAME_HERE&password=PASSWORD_HERE
 
 ## Interacting directly with the request layer
 
-You can use the `requestServices` part of the API wrapper to access any endpoints that are not yet available through the API:
+You can use the `requestServices` part of the API wrapper to access any endpoints that are not yet available through the wrapper:
 
 ```typescript
 wrapper.requestservices.get(`https://e621.net/comment/index.json?post_id=8595`)
