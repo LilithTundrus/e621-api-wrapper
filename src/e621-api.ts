@@ -2,6 +2,8 @@ import * as request from 'request'
 import Tags from './subComponents/Tags';
 import Posts from './subComponents/Posts';
 import Artists from './subComponents/Artists';
+import Comments from './subComponents/Comments';
+
 
 import { RequestServices } from './RequestService';
 
@@ -18,6 +20,7 @@ export default class e621 {
     public tags: Tags;
     public posts: Posts;
     public artists: Artists;
+    public comments: Comments
 
     /**
      * Creates an instance of e621.
@@ -42,6 +45,7 @@ export default class e621 {
         this.tags = new Tags(this.pageLimit, this.requestservices);
         this.posts = new Posts(this.pageLimit, this.requestservices);
         this.artists = new Artists(this.pageLimit, this.requestservices);
+        this.comments = new Comments(this.pageLimit, this.requestservices);
     }
 
     public get agent() { return this.userAgent; }
