@@ -71,7 +71,7 @@ export default class Artists {
      * @returns 
      * @memberof Artists
      */
-    updateArtist(artistID, name?: string, artistURLs?: string, isActive?: boolean, groupName?: string, otherNames?: string) {
+    updateArtist(artistID: number | string, name?: string, artistURLs?: string, isActive?: boolean, groupName?: string, otherNames?: string) {
         let url = `https://e621.net/artist/update.json`;
 
         let postObj = <e621ArtistUpdateJSON>{
