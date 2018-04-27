@@ -124,7 +124,7 @@ wrapper.tags.listAllTags(5, 1, null, 'fox')
 
 **updateTag**
 
-Update a tag's type by its name. You **must** be logged in to be able to make changes
+Update a tag's type by its name. You **must** be logged in to be able to make changes. Parameters are `name` and `tagType`, string enums are labeled `e621TagTypes` in `enums`
 
 ```typescript
 wrapper.tags.updateTag('fox', 5)
