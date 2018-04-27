@@ -110,3 +110,13 @@ export interface e621POSTResponse {
     reason?: string,
     message?: string
 }
+
+export interface e621CommentJSON {
+    id: number,
+    created_at: string,
+    post_id: number,
+    creator: string,
+    creator_id: number,
+    body: string,
+    score: number
+}
