@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/LilithTundrus/e621-api-wrapper.svg?branch=master)](https://travis-ci.org/LilithTundrus/e621-api-wrapper)
 
+
 ## About
 
 This is an API wrapper for the site [e621](https://e621.net) to assist in any projects you might have that need API use.
@@ -10,6 +11,7 @@ If you're here, you know what this site is for.
 
 **PLEASE NOTE:**
 This is still in ALPHA development, if something doesn't work or isn't defined correctly, please let me know!
+
 
 ## Getting Started
 
@@ -26,14 +28,13 @@ You should have `Node 8.9.4` and `tsc 2.1` or higher to be safely running this.
 
 **For typeScript setup is easy:**
 
-
 ```typescript
 import e621 from 'e621-api'
 import { e621PostData } from 'e621-api/build/interfaces';
 import { e621TagTypes, e621PopularityStrings } from 'e621-api/build/enums';
  
 // First argument is your user agent, the second is the page limit per search result (pageLimit * 50 = maximum number of results returned)
-let wrapper = new e621('Node-test-1.0', 3);
+let wrapper = new e621('Node-test-1.0', null, null, 3);
  
 wrapper.posts.getPopularPosts(e621PopularityStrings.daily)
 .then((data) => {
@@ -47,7 +48,7 @@ wrapper.posts.getPopularPosts(e621PopularityStrings.daily)
 ```javascript
 let e621 = require('e621-api').default;
 let enums = require('e621-api/build/enums');
-let wrapper = new e621('Node-test-1.0', 3);
+let wrapper = new e621('Node-test-1.0', null, null, 3);
  
 // First argument is your user agent, the second is the page limit per search result (pageLimit * 50 = maximum number of results returned)
 wrapper.posts.getPopularPosts(enums.e621PopularityStrings.daily)
@@ -58,6 +59,7 @@ wrapper.posts.getPopularPosts(enums.e621PopularityStrings.daily)
 
 
 ## Available methods
+
 
 ### Tags
 
@@ -134,6 +136,7 @@ wrapper.tags.updateTag('fox', 5)
 
 ### Artists
 
+
 **createArtist**
 
 Create an artist, parameters are `name`, `artistURLs`, `groupNames?` `otherNames?`
@@ -144,6 +147,48 @@ wrapper.artists.createArtist('test', 'artist_url other_url', 'artistGroupName', 
         console.log(results)
     })
 ```
+
+**deleteArtist**
+
+Delete an artist by their id, parameters are `artistID`. You **must** be logged in for this to work
+
+```typescript
+wrapper.artists.deleteArtist(12345)
+    .then((results) => {
+        console.log(results)
+    })
+```
+
+
+**listArtists**
+
+List all artists by a set of options, parameters are `name?`, `limit?`, `order?`, `page?`
+
+```typescript
+wrapper.artists.listArtists('test', 25, 'date', 1)
+    .then((results) => {
+        console.log(results)
+    })
+```
+
+
+**updateArtist**
+
+Update an artist's information, parameters are `artistID`, `name?`, `artistURLs?`. `isActive?`, `groupName?`, `otherName?`
+
+```typescript
+wrapper.artists.updateArtist(12345, 'new_name', null, true, null, 'other_new_test')
+    .then((results) => {
+        console.log(results)
+    })
+```
+
+
+### Posts
+
+**Posts have a lot of endpoints, some common endpoints are below**
+
+
 
 
 ## Logging in 
