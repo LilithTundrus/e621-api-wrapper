@@ -1,5 +1,8 @@
 import { RequestServices } from '../RequestService';
-import { e621CommentJSON, e621POSTResponse, e621CommentCreateJSON, e621CommentUpdateJSON } from '../interfaces';
+import {
+    e621CommentJSON, e621POSTResponse,
+    e621CommentCreateJSON, e621CommentUpdateJSON
+} from '../interfaces';
 
 export default class Comments {
     private pageLimit: number;
@@ -29,7 +32,7 @@ export default class Comments {
      * @param {(string | number)} postID The ID number of the post to retrieve comments for
      * @param {number} [page] The Page number
      * @param {string} [commentStatus] Returns hidden comments when set to hidden, visible comments when set to active, or both when set to any. Note that whether or not you can see other user's hidden comments is affected by your permission levels
-     * @returns 
+     * @returns Promise<e621CommentJSON[]>
      * @memberof Comments
      */
     list(postID: string | number, page?: number, commentStatus?: string) {
@@ -112,11 +115,10 @@ export default class Comments {
 
     /** Delete a comment by its ID
      * @param {number} commentID 
-     * @returns 
+     * @returns Promise<e621POSTResponse>
      * @memberof Comments
      */
     destroy(commentID: number) {
-
         let url = `https://e621.net/comment/destroy.json`;
         return this.requestServices.post(url,
             {
@@ -130,7 +132,6 @@ export default class Comments {
             })
     }
 
-
     // TODO: Comment voting requires a complex call: new Ajax.Request("/post/vote.json", {params}, callback)
     // vote() {
     //     //         The base URL is /comment/vote.json. This action requires an AJAX-like call. That is, your request header must contain X-Requested-With: XMLHttpRequest
@@ -141,6 +142,4 @@ export default class Comments {
     //     // down
     //     // To remove a vote, send a request using the same score given previously (e.g. if it was voted up, vote up again to return to neutral).
     // }
-
-
 }
