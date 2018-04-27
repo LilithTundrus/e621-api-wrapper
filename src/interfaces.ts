@@ -120,3 +120,9 @@ export interface e621CommentJSON {
     body: string,
     score: number
 }
+
+export interface e621CommentCreateJSON {
+    "comment[post_id": string | number
+    "comment[anonymous]": 1 | 0,
+    "comment[body]": string,
+}

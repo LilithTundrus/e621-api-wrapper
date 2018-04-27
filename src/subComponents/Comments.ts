@@ -1,7 +1,5 @@
 import { RequestServices } from '../RequestService';
-import { e621CommentJSON } from '../interfaces';
-
-
+import { e621CommentJSON, e621POSTResponse, e621CommentCreateJSON } from '../interfaces';
 
 export default class Comments {
     private pageLimit: number;
@@ -26,6 +24,7 @@ export default class Comments {
                 throw Error(err);
             })
     }
+
     /** List a set of comments by post ID
      * @param {(string | number)} postID The ID number of the post to retrieve comments for
      * @param {number} [page] The Page number
@@ -64,14 +63,32 @@ export default class Comments {
         // user Returns comments created by the user with the given username.
         // user_id Returns comments created by the user with the given ID number. Takes precedence over user.
         // status Returns hidden comments when set to hidden, visible comments when set to active, or both when set to any. Note that whether or not you can see other user's hidden comments is affected by your permission levels.
+
     }
 
-    create() {
-        //         The base URL is /comment/create.json.
+    /**
+     * @param {(string | number)} postID The post ID number to which you are responding
+     * @param {string} commentText The body of the comment
+     * @param {boolean} [anonymous] Set to 1 if you want to post this comment anonymously
+     * @returns 
+     * @memberof Comments
+     */
+    create(postID: string | number, commentText: string, anonymous?: boolean) {
 
-        // comment[anonymous] Set to 1 if you want to post this comment anonymously.
-        // comment[post_id] The post ID number to which you are responding.
-        // comment[body] The body of the comment.
+        let postObj = <e621CommentCreateJSON>{
+            "comment[body]": commentText,
+            "comment[post_id": postID
+        }
+        if (anonymous) postObj["comment[anonymous]"] = 1
+
+        let url = `https://e621.net/comment/create.json`;
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     update() {
