@@ -49,23 +49,68 @@ export default class Comments {
             })
     }
 
-    search() {
-        //         The base URL is /comment/search.json. A maximum of 25 comments are retrieved per request. If you don't specify any parameters you'll get a list of the most recent comments.
+    /** Search for comments matching the given `query` text
+     * @param {string} query String query which contains the given text for the comment body
+     * @param {boolean} [fuzzy] If set to true, fuzzy logic for the query will be used, otherwise it's exact matched
+     * @param {boolean} [page] Page number to return 
+     * @param {string} [order] Sorts the results. Can be one of the following: date, date_asc, score, score_asc
+     * @returns Promise<e621CommentJSON[]>
+     * @memberof Comments
+     */
+    searchByCommentText(query: string, fuzzy?: boolean, page?: number, order?: string) {
+        let url = `https://e621.net/comment/search.json?query=${query}`;
+        if (fuzzy) url = url + `&results=fuzzy`;
+        else url = url + `&results=exact`;
+        if (order) url = url + `&order=${order}`;
+        if (page) url = url + `&page=${page}`;
 
-        // query Returns comments which contain the given text.
-        // results Affects how query is handled??? Can be either fuzzy or exact
-        // date_start Returns comments that were created on or after the given date. Format is yyyy-mm-dd.
-        // date_end Returns comments that were created before the given date. Format is yyyy-mm-dd.
-        // order Sorts the results. Can be one of the following:
-        // date
-        // date_asc
-        // score
-        // score_asc
-        // post_id The ID number of the post to retrieve comments for.
-        // page The page number.
-        // user Returns comments created by the user with the given username.
-        // user_id Returns comments created by the user with the given ID number. Takes precedence over user.
-        // status Returns hidden comments when set to hidden, visible comments when set to active, or both when set to any. Note that whether or not you can see other user's hidden comments is affected by your permission levels.
+        return this.requestServices.get(url)
+            .then((response: e621CommentJSON[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /** Search for comments by a single user's ID
+     * @param {(number | string)} userID ID of the user to search
+     * @param {number} [page] Page number to return
+     * @param {string} [order] Sorts the results. Can be one of the following: date, date_asc, score, score_asc
+     * @returns Promise<e621CommentJSON[]>
+     * @memberof Comments
+     */
+    searchByCommentCreatorID(userID: number | string, page?: number, order?: string): Promise<e621CommentJSON[]> {
+        let url = `https://e621.net/comment/search.json?user_id=${userID}`;
+        if (order) url = url + `&order=${order}`;
+        if (page) url = url + `&page=${page}`;
+        return this.requestServices.get(url)
+            .then((response: e621CommentJSON[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /** Search for comments by a single user's name
+     * @param {string} userName name of the user to search
+     * @param {number} [page] Page number to return
+     * @param {string} [order] Sorts the results. Can be one of the following: date, date_asc, score, score_asc
+     * @returns Promise<e621CommentJSON[]>
+     * @memberof Comments
+     */
+    searchByCommentCreatorName(userName: number | string, page?: number, order?: string) {
+        let url = `https://e621.net/comment/search.json?user=${userName}`;
+        if (order) url = url + `&order=${order}`;
+        if (page) url = url + `&page=${page}`;
+        return this.requestServices.get(url)
+            .then((response: e621CommentJSON[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     /** Create a comment for a post given the ID and comment text
