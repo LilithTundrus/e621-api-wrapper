@@ -12,10 +12,12 @@ export default class Comments {
         this.requestServices = requestServices;
     }
 
+    /** Get a single comment's data by ID
+     * @param {(string | number)} commentID The ID number of the comment to retrieve
+     * @returns Promise<e621CommentJSON>
+     * @memberof Comments
+     */
     show(commentID: string | number) {
-        // The base URL is /comment/show.json. This retrieves a single comment.
-
-        // id The ID number of the comment to retrieve.
         return this.requestServices.get(`https://e621.net/comment/show.json?id=${commentID}`)
             .then((response: e621CommentJSON) => {
                 return response;
@@ -24,13 +26,25 @@ export default class Comments {
                 throw Error(err);
             })
     }
-
-    list(postID?: string, page?: number, commentStatus?: string) {
-        //         The base URL is /comment/index.json. A maximum of 25 comments are retrieved per request. If you don't specify any parameters you'll get a list of the most recent comments.
-
-        // post_id The ID number of the post to retrieve comments for.
-        // page The page number.
-        // status Returns hidden comments when set to hidden, visible comments when set to active, or both when set to any. Note that whether or not you can see other user's hidden comments is affected by your permission levels.
+    /** List a set of comments by post ID
+     * @param {(string | number)} postID The ID number of the post to retrieve comments for
+     * @param {number} [page] The Page number
+     * @param {string} [commentStatus] Returns hidden comments when set to hidden, visible comments when set to active, or both when set to any. Note that whether or not you can see other user's hidden comments is affected by your permission levels
+     * @returns 
+     * @memberof Comments
+     */
+    list(postID: string | number, page?: number, commentStatus?: string) {
+        let url = `https://e621.net/comment/index.json?`;
+        if (postID) url = url + `&post_id=${postID}`;
+        if (page) url = url + `&page=${page}`;
+        if (commentStatus) url = url + `&status=${commentStatus}`;
+        return this.requestServices.get(url)
+            .then((response: e621CommentJSON[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     search() {
