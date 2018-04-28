@@ -131,3 +131,14 @@ export interface e621CommentUpdateJSON {
     "id": string | number
     "comment[body]": string,
 }
+
+export interface e621PoolInfo {
+     id: number,
+        name: string,
+        created_at: { json_class: 'Time', s: number, n: number },
+        updated_at: { json_class: 'Time', s: number, n: number },
+        user_id: number,
+        is_locked: boolean,
+        post_count: number,
+    
+}
