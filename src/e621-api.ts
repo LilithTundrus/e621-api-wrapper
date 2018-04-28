@@ -12,10 +12,30 @@ export default class e621 {
     private userAgent: string;
     private pageLimit: number;
     // these delcarations are how we attach new classes to properties
+
+    /** Directly GET and POST to the e621 API using this service wrapper
+     * @memberof e621
+     */
     public requestservices: RequestServices;
+
+    /** Contains all methods for performing GET/POST operations on the e621 `tag` endpoints
+     * @memberof e621
+     */
     public tags: Tags;
+
+    /** Contains all methods for performing GET/POST operations on the e621 `post` endpoints
+     * @memberof e621
+     */
     public posts: Posts;
+
+    /** Contains all methods for performing GET/POST operations on the e621 `artist` endpoints
+     * @memberof e621
+     */
     public artists: Artists;
+
+    /** Contains all methods for performing GET/POST operations on the e621 `comment` endpoints
+     * @memberof e621
+     */
     public comments: Comments;
 
     /**
