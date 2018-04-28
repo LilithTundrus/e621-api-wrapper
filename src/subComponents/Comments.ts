@@ -113,6 +113,24 @@ export default class Comments {
             })
     }
 
+    /** Get ALL recent comments visible on e621
+     * @param {number} [page] Page number to return
+     * @returns Promise<e621CommentJSON[]>
+     * @memberof Comments
+     */
+    getRecentComments(page?: number) {
+        let url = `https://e621.net/comment/search.json?`;
+        if (page) url = url + `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: e621CommentJSON[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
     /** Create a comment for a post given the ID and comment text
      * @param {(string | number)} postID The post ID number to which you are responding
      * @param {string} commentText The body of the comment
