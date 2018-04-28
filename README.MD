@@ -11,7 +11,7 @@ This is an API wrapper for the site [e621](https://e621.net) to assist in any pr
 If you're here, you know what this site is for.
 
 **PLEASE NOTE:**
-This is still in ALPHA development, if something doesn't work or isn't defined correctly, please let me know!
+This is still in **early BETA** development, if something doesn't work or isn't defined correctly, please let me know!
 
 
 
@@ -65,6 +65,8 @@ wrapper.posts.getPopularPosts(enums.e621PopularityStrings.daily)
 ## Available methods
 
 If you want more information for any method, check the `docs/` folder.
+
+Any time a `GET` request is made (you receiving data), if invalid parameters are given they will typically be ignored by the API.  
 
 
 ### Tags
@@ -292,9 +294,14 @@ wrapper.comments.lsit(391224, 2, 'visible')
 
 **searchByCommentText**
 
-Search for comments matching the given `query` text
+Search for comments matching the given `query` text. Parameters are `query`, `fuzzy?`, `page?` and `order?`
 
-
+```typescript
+wrapper.comments.searchByCommentText('test', true, 1, 'date_asc')
+    .then((results) => {
+        console.log(results[0].creator)
+    })
+```
 
 ## Logging in 
 
