@@ -1,6 +1,7 @@
 import { RequestServices } from '../RequestService';
 import {
-    e621POSTResponse, e621PoolInfo
+    e621POSTResponse, e621PoolInfo,
+    e621PoolPostSet
 } from '../interfaces';
 
 export default class Pools {
@@ -19,7 +20,7 @@ export default class Pools {
      */
     listPools(page?: number) {
         let url = `https://e621.net/pool/index.json?`;
-        if (page) url = url + `page=${page}`;
+        if (page) url = url + `&page=${page}`;
 
         return this.requestServices.get(url)
             .then((response: e621PoolInfo[]) => {
@@ -30,8 +31,21 @@ export default class Pools {
             })
     }
 
-    listPoolPosts() {
+    listPoolPosts(poolID: number | string, page?: number) {
+        //         The base URL is /pool/show.xml.
 
+        // id The pool ID number.
+        // page The page.
+        let url = `https://e621.net/pool/show.json?id=${poolID}`;
+        if (page) url = url + `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: e621PoolPostSet) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     /** Get a pool or set of pools matched by name
@@ -42,7 +56,7 @@ export default class Pools {
      */
     getPoolsByName(query: string, page?: number) {
         let url = `https://e621.net/pool/index.json?query=${query}`;
-        if (page) url = url + `page=${page}`;
+        if (page) url = url + `&page=${page}`;
 
         return this.requestServices.get(url)
             .then((response: e621PoolInfo[]) => {
