@@ -34,11 +34,23 @@ export default class Pools {
 
     }
 
-    getPoolsByName() {
-        // The base URL is /pool/index.xml. If you don't specify any parameters you'll get a list of all pools.
+    /** Get a pool or set of pools matched by name
+     * @param {string} query The text to match to a pool's title
+     * @param {number} [page] The page number to return
+     * @returns Promise<e621PoolInfo[]>
+     * @memberof Pools
+     */
+    getPoolsByName(query: string, page?: number) {
+        let url = `https://e621.net/pool/index.json?query=${query}`;
+        if (page) url = url + `page=${page}`;
 
-        // query The title.
-        // page The page.
+        return this.requestServices.get(url)
+            .then((response: e621PoolInfo[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     update() {
