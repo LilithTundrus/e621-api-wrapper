@@ -11,6 +11,7 @@ This is an API wrapper for the site [e621](https://e621.net) to assist in any pr
 If you're here, you know what this site is for.
 
 **PLEASE NOTE:**
+
 This is still in **early BETA** development, if something doesn't work or isn't defined correctly, please let me know!
 
 
@@ -335,7 +336,7 @@ wrapper.requestservices.get(`https://e621.net/comment/index.json?post_id=8595`)
     })
 ```
 
-Any POST calls you make to the API through `requestServices` will use your login information it it's given
+Any POST calls you make to the API through `requestServices` will use your login information if it was passed to the class
 
 
 
