@@ -1,44 +1,44 @@
 import { e621TagTypes, e621RelatedTagArrayTypes } from './enums';
 
 export interface e621PostData {
-    id: Number,
-    tags: String,
-    locked_tags: String,
-    description: String,
+    id: number,
+    tags: string,
+    locked_tags: string,
+    description: string,
     created_at: {
-        json_class: String,
-        s: Date,
-        n: Date
+        json_class: string,
+        s: number,
+        n: number
     },
-    creator_id: Number,
-    author: String,
-    change: Number,
-    source: String,
-    score: Number,
-    fav_count: Number,
-    md5: String,
+    creator_id: number,
+    author: string,
+    change: number,
+    source: string,
+    score: number,
+    fav_count: number,
+    md5: string,
     // in bytes
-    file_size: Number,
-    file_url: String,
-    file_ext: String,
-    preview_url: String,
-    preview_width: Number,
-    preview_height: Number,
-    sample_url: String,
-    sample_width: Number,
-    sample_height: Number,
-    rating: String,
-    status: String,
-    width: Number,
-    height: Number,
-    has_comments: Boolean,
-    has_notes: Boolean,
-    has_children: Boolean,
-    children: Number,
-    parent_id: Number,
+    file_size: number,
+    file_url: string,
+    file_ext: string,
+    preview_url: string,
+    preview_width: number,
+    preview_height: number,
+    sample_url: string,
+    sample_width: number,
+    sample_height: number,
+    rating: string,
+    status: string,
+    width: number,
+    height: number,
+    has_comments: boolean,
+    has_notes: boolean,
+    has_children: boolean,
+    children: number,
+    parent_id: number,
     artist: string[],
     sources: string[],
-    delreason: String
+    delreason: string
 }
 
 export interface e621TagJSON {
@@ -140,4 +140,17 @@ export interface e621PoolInfo {
     user_id: number,
     is_locked: boolean,
     post_count: number,
+}
+
+export interface e621PoolPostSet {
+    created_at: { json_class: 'Time', s: number, n: number },
+    description: string,
+    id: number,
+    is_active: boolean,
+    is_locked: boolean,
+    name: string,
+    post_count: 14,
+    updated_at: { json_class: 'Time', s: number, n: number },
+    user_id: number,
+    posts: e621PostData[]
 }
