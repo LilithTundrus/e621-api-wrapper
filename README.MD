@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/LilithTundrus/e621-api-wrapper.svg?branch=master)](https://travis-ci.org/LilithTundrus/e621-api-wrapper)
 
 
+
 ## About
 
 This is an API wrapper for the site [e621](https://e621.net) to assist in any projects you might have that need API use.
@@ -11,6 +12,7 @@ If you're here, you know what this site is for.
 
 **PLEASE NOTE:**
 This is still in ALPHA development, if something doesn't work or isn't defined correctly, please let me know!
+
 
 
 ## Getting Started
@@ -43,6 +45,7 @@ wrapper.posts.getPopularPosts(e621PopularityStrings.daily)
 ```
 
 
+
 **ES6 requires slightly different setup**
 
 ```javascript
@@ -58,10 +61,14 @@ wrapper.posts.getPopularPosts(enums.e621PopularityStrings.daily)
 ```
 
 
+
 ## Available methods
+
+If you want more information for any method, check the `docs/` folder.
 
 
 ### Tags
+
 
 **getAliases**
 
@@ -70,7 +77,7 @@ Get a given tag's aliases, parameters are `query`, `page?`, `order?`, and `appro
 ```typescript
 wrapper.tags.getAliases('fox')
     .then((response) => {
-        console.log(response[0].alias_id)
+        console.log(response[0].alias_id);
     })
 ```
 
@@ -82,9 +89,10 @@ Get a tag's information by its ID, parameters are `tagID`
 ```typescript
 wrapper.tags.getByID(1)
     .then((results) => {
-        console.log(results.name)
+        console.log(results.name);
     })
 ```
+
 
 **getByName**
 
@@ -134,6 +142,7 @@ wrapper.tags.updateTag('fox', 5)
 ```
 
 
+
 ### Artists
 
 
@@ -144,9 +153,10 @@ Create an artist, parameters are `name`, `artistURLs`, `groupNames?` `otherNames
 ```typescript
 wrapper.artists.createArtist('test', 'artist_url other_url', 'artistGroupName', 'otherTestName')
     .then((results) => {
-        console.log(results)
+        console.log(results);
     })
 ```
+
 
 **deleteArtist**
 
@@ -155,7 +165,7 @@ Delete an artist by their id, parameters are `artistID`. You **must** be logged 
 ```typescript
 wrapper.artists.deleteArtist(12345)
     .then((results) => {
-        console.log(results)
+        console.log(results);
     })
 ```
 
@@ -167,7 +177,7 @@ List all artists by a set of options, parameters are `name?`, `limit?`, `order?`
 ```typescript
 wrapper.artists.listArtists('test', 25, 'date', 1)
     .then((results) => {
-        console.log(results)
+        console.log(results);
     })
 ```
 
@@ -179,9 +189,10 @@ Update an artist's information, parameters are `artistID`, `name?`, `artistURLs?
 ```typescript
 wrapper.artists.updateArtist(12345, 'new_name', null, true, null, 'other_new_test')
     .then((results) => {
-        console.log(results)
+        console.log(results);
     })
 ```
+
 
 
 ### Posts
@@ -222,6 +233,69 @@ wrapper.posts.getPopularPosts(e621PopularityStrings.daily)
     })
 ```
 
+
+
+### Comments
+
+Comments are fairly straightforward, but these are some of the important methods
+
+All comments methods have a max per page of 25
+
+
+**create**
+
+Create a comment for a given post, parameters are `postID`, `commentText` and `annonymous?`
+
+```typescript
+wrapper.comments.create(12345, 'test comment through the api!', true)
+    .then((results) => {
+        console.log(results);
+    })
+```
+
+
+**destroy**
+
+Destroy a comment by its ID. You **must** be logged in for this operation, parameter is `commentID`
+
+```typescript
+wrapper.comments.destroy(12345)
+    .then((results) => {
+        console.log(results);
+    })
+```
+
+
+**show**
+
+Get a single comment's data by ID, parameter is `commentID`
+
+```typescript
+wrapper.comments.show(12345)
+    .then((results) => {
+        console.log(results.body);
+    })
+```
+
+
+**list**
+
+List a set of comments by post ID, parameters are `postID`, `page?` `commentStatus?`
+
+```typescript
+wrapper.comments.lsit(391224, 2, 'visible')
+    .then((results) => {
+        console.log(results[0].body);
+    })
+```
+
+
+**searchByCommentText**
+
+Search for comments matching the given `query` text
+
+
+
 ## Logging in 
 
 Logging in through the wrapper is required at the `new` keyword creation:
@@ -241,9 +315,11 @@ e621.net/user/login.json?name=USERNAME_HERE&password=PASSWORD_HERE
 ```
 
 
+
 ## Interacting directly with the request layer
 
 You can use the `requestServices` part of the API wrapper to access any endpoints that are not yet available through the wrapper:
+
 
 ```typescript
 wrapper.requestservices.get(`https://e621.net/comment/index.json?post_id=8595`)
@@ -253,6 +329,7 @@ wrapper.requestservices.get(`https://e621.net/comment/index.json?post_id=8595`)
 ```
 
 Any POST calls you make to the API through `requestServices` will use your login information it it's given
+
 
 
 ## History
@@ -285,15 +362,18 @@ Any POST calls you make to the API through `requestServices` will use your login
     - Added support for getting tag data through the wrapper
 
 
+
 ## Issues
 
 
 Do you have any issues or recommendations for this package? Feel free to open an issue in the [issue](https://github.com/LilithTundrus/e621-api/issues) section. I'm always happy to help :D
 
 
+
 ## Contributing
 
 If you would like to contribute to this project feel free to make some changes and open a pull request! I'm not very good at Typescript just yet.
+
 
 
 ## License
