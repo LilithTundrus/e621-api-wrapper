@@ -385,7 +385,8 @@ wrapper.pools.updatePoolDescription(123456, 'Some very descriptive update')
         console.log(response);
     })
 ```
-<br>
+</br>
+
 ## Logging in 
 
 Logging in through the wrapper is required at the `new` keyword creation:
