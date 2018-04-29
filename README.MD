@@ -438,6 +438,10 @@ Any POST calls you make to the API through `requestServices` will use your login
 ## History
 </br>
 
+- **v0.3.2**
+    - Fixed a really bad typings issue (Thanks node)
+
+
 - **v0.3.1**
     - Added support for all `Pools` endpoints
     - Improved interface definitions for the wrapper (less any: keyword)
