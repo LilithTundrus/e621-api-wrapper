@@ -64,20 +64,15 @@ export default class Pools {
             })
     }
 
-    /** 
+    /** Create a pool, giving a name and description. You can add posts to the pool using the `pools.addPost` method
      * @param {string} poolName The name of the pool to create
      * @param {string} poolDescription A description of the pool
-     * @param {boolean} isLocked 
-     * @returns Promise<e621POSTResponse>s
+     * @returns Promise<e621POSTResponse>
      * @memberof Pools
      */
     create(poolName: string, poolDescription: string) {
-        //         The base URL is /pool/create.xml.
-
-        // pool[name] The name.
-        // pool[is_locked] 1 or 0, whether or not the pool is locked. Mod+ only function.
-        // pool[description] A description of the pool.
         let url = `https://e621.net/pool/create.json`;
+
         let postObj = {
             "pool[name]": poolName,
             "pool[description]": poolDescription,
@@ -101,23 +96,66 @@ export default class Pools {
         // pool[description] A description of the pool.
     }
 
+    /** DELETE a pool by its ID
+     * @param {(number | string)} poolID 
+     * @returns Promise<e621POSTResponse>
+     * @memberof Pools
+     */
     destroy(poolID: number | string) {
-        // The base URL is /pool/destroy.xml.
+        let url = `https://e621.net/pool/destroy.json`;
 
-        // id The pool ID number.
+        return this.requestServices.post(url, { "id": poolID })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
-    addPost(poolID, postID) {
-        //         The base URL is /pool/add_post.xml. Potential error reasons: "Post already exists", "access denied"
+    /** Add a post from a pool by the pool and post ID
+     * @param {number} poolID ID of the pool to add to
+     * @param {number} postID ID of the post to add
+     * @returns Promise<e621POSTResponse>
+     * @memberof Pools
+     */
+    addPost(poolID: number, postID: number) {
+        let url = `https://e621.net/pool/add_post.json`;
 
-        // pool_id The pool to add the post to.
-        // post_id The post to add.
+        let postObj = {
+            "pool_id": poolID,
+            "post_id": postID
+        }
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
-    removePost(poolID, postID) {
-        // The base URL is / pool / remove_post.xml.Potential error reasons: "access denied"
+    /** Remove a post from a pool by the pool and post ID
+     * @param {number} poolID ID to the pool to remove the post from
+     * @param {number} postID ID of the post to remove
+     * @returns Promise<e621POSTResponse>
+     * @memberof Pools
+     */
+    removePost(poolID: number, postID: number) {
+        let url = `https://e621.net/pool/remove_post.json`;
 
-        // pool_id The pool to remove the post from.
-        // post_id The post to remove.
+        let postObj = {
+            "pool_id": poolID,
+            "post_id": postID
+        }
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 }
