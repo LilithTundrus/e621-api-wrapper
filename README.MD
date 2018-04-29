@@ -351,6 +351,40 @@ wrapper.pools.destroy(12463)
 ```
 
 
+**listPoolPosts**
+
+List the posts contained in a pool, parameters are `poolID` and `page?`. `page` is typically not needed if the pool's number of posts is under 25. you can get the count from the API using the `response.post_count` property from the returned JSON
+
+```typescript
+wrapper.pools.listPoolPosts(12463)
+    .then((response) => {
+        console.log(response.post_count);
+    })
+```
+
+
+**removePost**
+
+Remove a post to a pool by both the `poolID` and `postID`
+
+```typescript
+wrapper.pools.removePost(12345, 56789)
+    .then((response) => {
+        console.log(response.success);
+    })
+```
+
+
+**updatePoolDescription**
+
+Update a pool's description, parameters are `poolID` and `poolDescription`
+
+```typescript
+wrapper.pools.updatePoolDescription(123456, 'Some very descriptive update')
+    .then((response) => {
+        console.log(response);
+    })
+```
 
 
 
