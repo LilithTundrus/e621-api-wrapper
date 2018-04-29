@@ -1,6 +1,6 @@
 import { RequestServices } from '../RequestService';
 import {
-    e621POSTResponse
+    e621POSTResponse, e621UserInfo
 } from '../interfaces';
 
 export default class Users {
@@ -60,6 +60,15 @@ export default class Users {
         // neg_user_records
         // subscriptions User tag subscriptions, if any. In JSON responses this is represented by a subscriptions object. In XML responses it is represented by one or more subscription child elements.
         // artist_tags Artist tags associated with the user. Represented by a child element in XML responses or an array in JSON responses.
+        let url = `https://e621.net/user/index.json?`;
+
+        return this.requestServices.get(url)
+            .then((response: e621UserInfo[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     getUserInfoByID(userID: number) {

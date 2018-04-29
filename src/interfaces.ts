@@ -1,4 +1,4 @@
-import { e621TagTypes, e621RelatedTagArrayTypes } from './enums';
+import { e621TagTypes, e621RelatedTagArrayTypes, e621UserLevels } from './enums';
 
 export interface e621PostData {
     id: number,
@@ -153,4 +153,31 @@ export interface e621PoolPostSet {
     updated_at: { json_class: 'Time', s: number, n: number },
     user_id: number,
     posts: e621PostData[]
+}
+
+
+export interface e621UserInfo {
+    name: string,
+    id: number
+    level: e621UserLevels,
+    created_at: string,
+    avatar_id: number,
+    stats:
+    {
+        post_count: number,
+        del_post_count: number,
+        edit_count: number,
+        favorite_count: number,
+        wiki_count: number,
+        forum_post_count: number,
+        note_count: number,
+        comment_count: number,
+        blip_count: number,
+        set_count: number,
+        pool_update_count: number,
+        pos_user_records: number,
+        neutral_user_records: number,
+        neg_user_records: number
+    },
+    artist_tags: string[]
 }

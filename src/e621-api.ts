@@ -5,6 +5,10 @@ import Artists from './subComponents/Artists';
 import Comments from './subComponents/Comments';
 import Pools from './subComponents/Pools';
 
+import Users from './subComponents/Users';
+
+
+
 import { RequestServices } from './RequestService';
 Pools
 declare const Promise: any;
@@ -44,6 +48,11 @@ export default class e621 {
      */
     public pools: Pools;
 
+    /** Contains all methods for performing GET/POST operations on the e621 `user` endpoints
+     * @memberof e621
+     */
+    public users: Users;
+
     /**
      * Creates an instance of e621.
      * @param {string} userAgent This identifies you to the API
@@ -69,6 +78,7 @@ export default class e621 {
         this.artists = new Artists(this.pageLimit, this.requestservices);
         this.comments = new Comments(this.pageLimit, this.requestservices);
         this.pools = new Pools(this.pageLimit, this.requestservices);
+        this.users = new Users(this.pageLimit, this.requestservices);
     }
 
     public get agent() { return this.userAgent; }
