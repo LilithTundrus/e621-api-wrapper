@@ -67,10 +67,12 @@ wrapper.posts.getPopularPosts(enums.e621PopularityStrings.daily)
 
 If you want more information for any method, check the `docs/` folder.
 
-Any time a `GET` request is made (you receiving data), if invalid parameters are given they will typically be ignored by the API.  
+Any time a `GET` request is made (you receiving data), if invalid parameters are given they will typically be ignored by the API.
 
 
 ### Tags
+
+Tags help classify posts and allow you to narrow down any searches
 
 
 **getAliases**
@@ -147,6 +149,8 @@ wrapper.tags.updateTag('fox', 5)
 
 
 ### Artists
+
+Artists have fairly few endpoints, so all are listed below
 
 
 **createArtist**
@@ -240,7 +244,7 @@ wrapper.posts.getPopularPosts(e621PopularityStrings.daily)
 
 ### Comments
 
-Comments are fairly straightforward, but these are some of the important methods
+Comments are fairly straightforward, but these are some of the commonly needed methods
 
 All comments methods have a max per page of 25
 
@@ -303,6 +307,52 @@ wrapper.comments.searchByCommentText('test', true, 1, 'date_asc')
         console.log(results[0].creator)
     })
 ```
+
+
+
+### Pools
+
+Pools contain sets of posts related to a specific topic or series. **Note that locking pools through the wrapper is supported, as it required moderator+ access**. These are just a common examples.
+
+
+**addPost**
+
+Add a post to a pool by both the `poolID` and `postID`
+
+```typescript
+wrapper.pools.addPost(12345, 56789)
+    .then((response) => {
+        console.log(response.success);
+    })
+```
+
+
+**create**
+
+Create a pool to insert a set of posts into, parameters are `poolName` and `poolDescription`
+
+```typescript
+wrapper.pools.create('A new Pool Pt. 2', 'Some very descriptive description')
+    .then((response) => {
+        console.log(response);
+    })
+```
+
+
+**destroy** 
+
+Delete a pool by its ID, parameters are `poolID`
+
+```typescript
+wrapper.pools.destroy(12463)
+    .then((response) => {
+        console.log(response);
+    })
+```
+
+
+
+
 
 ## Logging in 
 
