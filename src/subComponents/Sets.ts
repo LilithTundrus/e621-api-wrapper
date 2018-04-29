@@ -102,10 +102,38 @@ export default class Sets {
         // status - Either "pending", "approved", or "blocked"
     }
 
+    //     List Invites
+    // Use this to view your personal invites. The base URL is /set_maintainer/index.xml
+
+    // Returns:
+
+    // invites
+    // invite
+    // id
+    // post-set-id
+    // user-id
+    // status - Either "pending", "approved", or "blocked"
+
     createMaintainer() {
         //         The base URL is /set_maintainer/create.xml
 
         // username / user_id The username or user ID of the maintainer to add
         // set_id The ID of the set to add the maintainer to
     }
+
+    destroyMaintainer() {
+        //         The base URL is /set_maintainer/destroy.xml. You must supply the id, user_id or username of the maintainer. user_id and username must be accompanied by a set_id.
+
+        // id The ID of the maintainer to destroy
+        // username The username of the maintainer to destroy
+        // user_id The user ID of the maintainer to destroy
+        // set_id The ID of the set
+    }
+
+
+    //     Approve/Deny/Block Maintainer Invite
+    // The base URL is /set_maintainer/approve.xml (or deny.xml, or block.xml). You must supply either id or set_id.
+
+    // id The ID of the maintainer invite to approve/deny/block
+    // set_id The ID of the set to approve/deny/block the invite to
 }
