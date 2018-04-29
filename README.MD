@@ -68,7 +68,7 @@ wrapper.posts.getPopularPosts(enums.e621PopularityStrings.daily)
 
 ## Available methods
 
-If you want more information for any method, check the `docs/` folder.
+If you want more information for any method, check the `docs/` folder. Not all methods per endpoint are listed here.
 
 Any time a `GET` request is made (you receiving data), if invalid parameters are given they will typically be ignored by the API.
 </br>
@@ -211,7 +211,7 @@ wrapper.artists.updateArtist(12345, 'new_name', null, true, null, 'other_new_tes
 
 ### Posts
 
-**Posts have a lot of endpoints, some common endpoints are below**
+**Posts have a lot of endpoints, some common endpoints are below**. Posts are the main data type of e621, these can be pictures, videos or flash animations
 
 
 **generatePostUrl**
