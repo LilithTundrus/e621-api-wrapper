@@ -1,8 +1,8 @@
 # e621-api
 
 [![Build Status](https://travis-ci.org/LilithTundrus/e621-api-wrapper.svg?branch=master)](https://travis-ci.org/LilithTundrus/e621-api-wrapper)
-
-
+</br>
+</br>
 
 ## About
 
@@ -13,7 +13,8 @@ If you're here, you know what this site is for.
 **PLEASE NOTE:**
 
 This is still in **early BETA** development, if something doesn't work or isn't defined correctly, please let me know!
-
+</br>
+</br>
 
 
 ## Getting Started
@@ -27,7 +28,7 @@ npm install e621-api --save
 You should have `Node 8.9.4` and `tsc 2.1` or higher to be safely running this.
 
 **Note**: When calling the wrapper class you __must__ provide a user-agent or e621 will deny your API requests.
-
+</br>
 
 **For typeScript setup is easy:**
 
@@ -44,6 +45,7 @@ wrapper.posts.getPopularPosts(e621PopularityStrings.daily)
     console.log(data[0].file_url);
 })
 ```
+</br>
 
 
 
@@ -60,7 +62,8 @@ wrapper.posts.getPopularPosts(enums.e621PopularityStrings.daily)
     console.log(data[0].file_url);
 })
 ```
-
+</br>
+</br>
 
 
 ## Available methods
@@ -68,7 +71,8 @@ wrapper.posts.getPopularPosts(enums.e621PopularityStrings.daily)
 If you want more information for any method, check the `docs/` folder.
 
 Any time a `GET` request is made (you receiving data), if invalid parameters are given they will typically be ignored by the API.
-
+</br>
+</br>
 
 ### Tags
 
@@ -85,7 +89,7 @@ wrapper.tags.getAliases('fox')
         console.log(response[0].alias_id);
     })
 ```
-
+</br>
 
 **getByID**
 
@@ -97,7 +101,7 @@ wrapper.tags.getByID(1)
         console.log(results.name);
     })
 ```
-
+</br>
 
 **getByName**
 
@@ -109,7 +113,7 @@ wrapper.tags.getByName('fox')
         console.log(results[0].name);
     })
 ```
-
+</br>
 
 **getRelatedTagsByName**
 
@@ -121,7 +125,7 @@ wrapper.tags.getRelatedTagsByName('fox')
         console.log(results[0].type);
     })
 ```
-
+</br>
 
 **listAllTags**
 
@@ -133,7 +137,7 @@ wrapper.tags.listAllTags(5, 1, null, 'fox')
         console.log(results);
     })
 ```
-
+</br>
 
 **updateTag**
 
@@ -145,7 +149,8 @@ wrapper.tags.updateTag('fox', 5)
         console.log(results.success);
     })
 ```
-
+</br>
+</br>
 
 
 ### Artists
@@ -163,6 +168,7 @@ wrapper.artists.createArtist('test', 'artist_url other_url', 'artistGroupName', 
         console.log(results);
     })
 ```
+</br>
 
 
 **deleteArtist**
@@ -175,7 +181,7 @@ wrapper.artists.deleteArtist(12345)
         console.log(results);
     })
 ```
-
+</br>
 
 **listArtists**
 
@@ -187,7 +193,7 @@ wrapper.artists.listArtists('test', 25, 'date', 1)
         console.log(results);
     })
 ```
-
+</br>
 
 **updateArtist**
 
@@ -199,7 +205,8 @@ wrapper.artists.updateArtist(12345, 'new_name', null, true, null, 'other_new_tes
         console.log(results);
     })
 ```
-
+</br>
+</br>
 
 
 ### Posts
@@ -215,7 +222,7 @@ Generate a post's URL by ID, parameters are `postID`
 let postURL = wrapper.posts.generatePostUrl(12345);
 console.log(postURL);
 ```
-
+</br>
 
 **getIndexPaginate**
 
@@ -227,7 +234,7 @@ wrapper.posts.getIndexPaginate('fox bear order:favcount', 1, 35, 3)
         console.log(results[0][0].file_url);
     })
 ```
-
+</br>
 
 **getPopularPosts**
 
@@ -239,7 +246,8 @@ wrapper.posts.getPopularPosts(e621PopularityStrings.daily)
         console.log(results[0].artist);
     })
 ```
-
+</br>
+</br>
 
 
 ### Comments
@@ -259,7 +267,7 @@ wrapper.comments.create(12345, 'test comment through the api!', true)
         console.log(results);
     })
 ```
-
+</br>
 
 **destroy**
 
@@ -271,7 +279,7 @@ wrapper.comments.destroy(12345)
         console.log(results);
     })
 ```
-
+</br>
 
 **show**
 
@@ -283,7 +291,7 @@ wrapper.comments.show(12345)
         console.log(results.body);
     })
 ```
-
+</br>
 
 **list**
 
@@ -295,7 +303,7 @@ wrapper.comments.lsit(391224, 2, 'visible')
         console.log(results[0].body);
     })
 ```
-
+</br>
 
 **searchByCommentText**
 
@@ -307,7 +315,8 @@ wrapper.comments.searchByCommentText('test', true, 1, 'date_asc')
         console.log(results[0].creator)
     })
 ```
-
+</br>
+</br>
 
 
 ### Pools
@@ -325,7 +334,7 @@ wrapper.pools.addPost(12345, 56789)
         console.log(response.success);
     })
 ```
-
+</br>
 
 **create**
 
@@ -337,7 +346,7 @@ wrapper.pools.create('A new Pool Pt. 2', 'Some very descriptive description')
         console.log(response);
     })
 ```
-
+</br>
 
 **destroy** 
 
@@ -349,7 +358,7 @@ wrapper.pools.destroy(12463)
         console.log(response);
     })
 ```
-
+</br>
 
 **listPoolPosts**
 
@@ -361,7 +370,7 @@ wrapper.pools.listPoolPosts(12463)
         console.log(response.post_count);
     })
 ```
-
+</br>
 
 **removePost**
 
@@ -373,7 +382,7 @@ wrapper.pools.removePost(12345, 56789)
         console.log(response.success);
     })
 ```
-
+</br>
 
 **updatePoolDescription**
 
@@ -386,6 +395,7 @@ wrapper.pools.updatePoolDescription(123456, 'Some very descriptive update')
     })
 ```
 </br>
+</br>
 
 ## Logging in 
 
@@ -395,7 +405,7 @@ Logging in through the wrapper is required at the `new` keyword creation:
 // arguments are your user-agent, your login name and your API key (not the same as your password)
 let wrapper = new e621('my-user-agent', 'my-user-name', 'my-api-key');
 ```
-
+</br>
 
 ### Getting your API key
 
@@ -404,13 +414,14 @@ You can obtain your API key through your user settings on e621 or by using this 
 ```
 e621.net/user/login.json?name=USERNAME_HERE&password=PASSWORD_HERE
 ```
-
+</br>
+</br>
 
 
 ## Interacting directly with the request layer
 
 You can use the `requestServices` part of the API wrapper to access any endpoints that are not yet available through the wrapper:
-
+</br>
 
 ```typescript
 wrapper.requestservices.get(`https://e621.net/comment/index.json?post_id=8595`)
@@ -420,7 +431,8 @@ wrapper.requestservices.get(`https://e621.net/comment/index.json?post_id=8595`)
 ```
 
 Any POST calls you make to the API through `requestServices` will use your login information if it was passed to the class
-
+</br>
+</br>
 
 
 ## History
@@ -451,20 +463,23 @@ Any POST calls you make to the API through `requestServices` will use your login
 
 - **v0.1.4**
     - Added support for getting tag data through the wrapper
-
+</br>
+</br>
 
 
 ## Issues
 
 
 Do you have any issues or recommendations for this package? Feel free to open an issue in the [issue](https://github.com/LilithTundrus/e621-api/issues) section. I'm always happy to help :D
-
+</br>
+</br>
 
 
 ## Contributing
 
 If you would like to contribute to this project feel free to make some changes and open a pull request! I'm not very good at Typescript just yet.
-
+</br>
+</br>
 
 
 ## License
