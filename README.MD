@@ -436,6 +436,12 @@ Any POST calls you make to the API through `requestServices` will use your login
 
 
 ## History
+</br>
+
+- **v0.3.1**
+    - Added support for all `Pools` endpoints
+    - Improved interface definitions for the wrapper (less any: keyword)
+
 
 - **v0.3.0**
     - `Artist`, `Tags`, and `Posts` are mostly available for use. Posts do not yet support Create/Update/Deletes
