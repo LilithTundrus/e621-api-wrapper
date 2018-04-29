@@ -149,7 +149,7 @@ export interface e621PoolPostSet {
     is_active: boolean,
     is_locked: boolean,
     name: string,
-    post_count: 14,
+    post_count: number,
     updated_at: { json_class: 'Time', s: number, n: number },
     user_id: number,
     posts: e621PostData[]
