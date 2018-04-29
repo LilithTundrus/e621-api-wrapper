@@ -110,6 +110,12 @@ export default class Pools {
             })
     }
 
+    /** Update a pool's description by ID
+     * @param {(number | string)} poolID 
+     * @param {string} poolName 
+     * @returns Promise<e621POSTResponse>
+     * @memberof Pools
+     */
     updatePoolDescription(poolID: number | string, poolDescription: string) {
         let url = `https://e621.net/pool/update.json`;
 
