@@ -87,13 +87,44 @@ export default class Pools {
             })
     }
 
-    update(poolID: number | string, poolName?: string, poolDescription?: string, isLocked?: boolean) {
-        //         The base URL is /pool/update.xml.
+    /** Update a pool's name by ID
+     * @param {(number | string)} poolID 
+     * @param {string} poolName 
+     * @returns Promise<e621POSTResponse>
+     * @memberof Pools
+     */
+    updatePoolName(poolID: number | string, poolName: string) {
+        let url = `https://e621.net/pool/update.json`;
 
-        // id The pool ID number.
-        // pool[name] The name.
-        // pool[is_locked] 1 or 0, whether or not the pool is locked. Mod+ only function.
-        // pool[description] A description of the pool.
+        let postObj = {
+            "id": poolID,
+            "pool[name]": poolName,
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    updatePoolDescription(poolID: number | string, poolDescription: string) {
+        let url = `https://e621.net/pool/update.json`;
+
+        let postObj = {
+            "id": poolID,
+            "pool[description]": poolDescription,
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     /** DELETE a pool by its ID
@@ -125,7 +156,7 @@ export default class Pools {
         let postObj = {
             "pool_id": poolID,
             "post_id": postID
-        }
+        };
 
         return this.requestServices.post(url, postObj)
             .then((response: e621POSTResponse) => {
@@ -148,7 +179,7 @@ export default class Pools {
         let postObj = {
             "pool_id": poolID,
             "post_id": postID
-        }
+        };
 
         return this.requestServices.post(url, postObj)
             .then((response: e621POSTResponse) => {
