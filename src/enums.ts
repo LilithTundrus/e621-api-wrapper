@@ -110,3 +110,15 @@ export enum e621RelatedTagArrayTypes {
     'count' = 1,
     'type' = 2
 }
+
+export enum e621UserLevels {
+    'Unactivated' = 0,
+    'Blocked' = 10,
+    'Member' = 20,
+    'Privileged' = 30,
+    'Former Staff' = 34,
+    'Contributor' = 33,
+    'Janitor' = 35,
+    'Mode' = 40,
+    'Admin' = 50
+}
