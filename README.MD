@@ -440,7 +440,17 @@ wrapper.users.listUsers(e621UserLevels.Member, 'date')
 </br>
 </br>
 
-## Logging in 
+
+### Blips
+
+To get a list of the supported `blip` methods, check the `docs/` folder.
+</br>
+</br>
+
+## Logging in through the API
+
+Some API actions require you to log in.
+</br>
 
 Logging in through the wrapper is required at the `new` keyword creation:
 
@@ -481,6 +491,8 @@ Any POST calls you make to the API through `requestServices` will use your login
 ## History
 </br>
 
+- **v0.3.3**
+    - Added support for `Blips`
 
 
 - **v0.3.2**
