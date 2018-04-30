@@ -12,11 +12,32 @@ export default class Blips {
         this.requestServices = requestServices;
     }
 
-    public create(bodyText: string, bodyResponse?: string) {
+    public create(bodyText: string, responseID?: number) {
         // The base URL is /blip/create.json.
 
         // blip[body] The blip's content.
         // blip[response] Blip ID number of the blip that the new blip is in response to, if any.
+
+        let url = `https://e621.net/blip/create.json`;
+        let postObj;
+        if (!responseID) {
+            postObj = {
+                "blip[body]": bodyText,
+                "blip[response]": responseID
+            };
+        } else {
+            postObj = {
+                "blip[body]": bodyText,
+            };
+        }
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     public update(blipID: number, bodyText: string) {
