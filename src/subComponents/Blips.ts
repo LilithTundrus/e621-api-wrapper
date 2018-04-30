@@ -17,8 +17,8 @@ export default class Blips {
 
         // blip[body] The blip's content.
         // blip[response] Blip ID number of the blip that the new blip is in response to, if any.
-
     }
+
     update() {
         // The base URL is /blip/update.json.
 
@@ -27,8 +27,6 @@ export default class Blips {
     }
 
     list() {
-        // [ Example XML output ][ Example JSON output ]
-
         // The base URL is /blip/index.json. If you don't specify any parameters you'll get a list of the most recent blips.
 
         // name Return blips created by the user with the given name
@@ -39,9 +37,7 @@ export default class Blips {
         // response_to ID number of a blip. Returns blips which are in response to the blip with the given ID.
     }
 
-    show() {
-        // [ Example XML output ][ Example JSON output ]
-
+    getBlipByID() {
         // The base URL is /blip/show.json.
 
         // id Returns the blip with the given ID number
