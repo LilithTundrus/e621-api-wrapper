@@ -12,14 +12,14 @@ export default class Blips {
         this.requestServices = requestServices;
     }
 
-    public create() {
+    public create(bodyText: string, bodyResponse?: string) {
         // The base URL is /blip/create.json.
 
         // blip[body] The blip's content.
         // blip[response] Blip ID number of the blip that the new blip is in response to, if any.
     }
 
-    public update() {
+    public update(blipID: number, bodyText: string) {
         // The base URL is /blip/update.json.
 
         // id The ID number of the blip being edited.
@@ -37,9 +37,14 @@ export default class Blips {
         // response_to ID number of a blip. Returns blips which are in response to the blip with the given ID.
     }
 
-    public getBlipByID() {
-        // The base URL is /blip/show.json.
+    public getBlipByID(blipID: number) {
 
-        // id Returns the blip with the given ID number
+        return this.requestServices.get(`https://e621.net/blip/show.json?id=${blipID}`)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 }
