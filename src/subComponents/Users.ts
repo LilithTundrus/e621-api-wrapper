@@ -71,27 +71,38 @@ export default class Users {
             })
     }
 
+    /** Get a single user's info by their ID (Returns an array from e621 with a single entry)
+     * @param {number} userID 
+     * @returns Promise<e621UserInfo[]>
+     * @memberof Users
+     */
     getUserInfoByID(userID: number) {
-        // The base URL is /user/show.xml. If you don't specify any parameters you'll get the currently logged in user.
+        let url = `https://e621.net/user/index.json?id=${userID}`;
 
-        // id The ID number of the user.
-        // name Text exactly matching a user's name.
-        // Returns:
-        // The same attributes given by the List function above, but only for a single user.
+        return this.requestServices.get(url)
+            .then((response: e621UserInfo[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
+    /** Get a single user's info by their name (Returns an array from e621 with a single entry)
+     * @param {string} userName Text exactly matching a user's name
+     * @returns Promise<e621UserInfo[]>
+     * @memberof Users
+     */
     getUserInfoByName(userName: string) {
-        // The base URL is /user/show.xml. If you don't specify any parameters you'll get the currently logged in user.
+        let url = `https://e621.net/user/index.json?name=${userName}`;
 
-        // id The ID number of the user.
-        // name Text exactly matching a user's name.
-        // Returns:
-        // The same attributes given by the List function above, but only for a single user.
+        return this.requestServices.get(url)
+            .then((response: e621UserInfo[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
-    getUserRecords() {
-        //         The base URL is /user_record/show.xml.
-
-        // id The ID number of the user record.
-    }
 }
