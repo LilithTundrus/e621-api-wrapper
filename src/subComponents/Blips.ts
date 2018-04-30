@@ -37,6 +37,11 @@ export default class Blips {
         // response_to ID number of a blip. Returns blips which are in response to the blip with the given ID.
     }
 
+    /** Get a set of recent blips
+     * @param {number} [page] 
+     * @returns Promise<e621BlipInfo[]>
+     * @memberof Blips
+     */
     public getRecentBlips(page?: number) {
         let url = `https://e621.net/blip/index.json?`;
         if (page) url += `page=${page}`;
@@ -50,10 +55,33 @@ export default class Blips {
             })
     }
 
+    /** Get a blip's information by ID, returns a single blip
+     * @param {number} blipID ID for the blip to retrieve
+     * @returns Promise<e621BlipInfo>
+     * @memberof Blips
+     */
     public getBlipByID(blipID: number) {
 
         return this.requestServices.get(`https://e621.net/blip/show.json?id=${blipID}`)
-            .then((response: any) => {
+            .then((response: e621BlipInfo) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /** Get a blip's responses (if any). If an error is thrown, then their are no responses for the first (or given) page
+     * @param {number} blipID ID for the blip to retrieve the responses ofs
+     * @returns Promise<e621BlipInfo[]>
+     * @memberof Blips
+     */
+    public getBlipResponses(blipID: number, page?: number) {
+        let url = `https://e621.net/blip/index.json?response_to=${blipID}`;
+
+        if (page) url += `page=${page}`;
+        return this.requestServices.get(url)
+            .then((response: e621BlipInfo[]) => {
                 return response;
             })
             .catch((err) => {
