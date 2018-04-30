@@ -397,6 +397,49 @@ wrapper.pools.updatePoolDescription(123456, 'Some very descriptive update')
 </br>
 </br>
 
+
+### Users
+
+Relatively few methods are exposed for users, bellow is **all** user methods for the API
+
+**getUserInfoByID**
+
+Get a user's info by their `userID`
+
+```typescript
+wrapper.users.getUserInfoByID(12345)
+    .then((response) => {
+        console.log(response[0].name);
+    })
+```
+</br>
+
+**getUserInfoByName**
+
+Get a user's info by their `userName`
+
+```typescript
+wrapper.users.getUserInfoByName('test')
+    .then((response) => {
+        console.log(response[0].name);
+    })
+```
+</br>
+
+
+**lisUsers**
+
+List users that match an optional `level?` or `order?`
+
+```typescript
+wrapper.users.listUsers(e621UserLevels.Member, 'date')
+    .then((response) => {
+        console.log(response);
+    })
+```
+</br>
+</br>
+
 ## Logging in 
 
 Logging in through the wrapper is required at the `new` keyword creation:
@@ -437,6 +480,8 @@ Any POST calls you make to the API through `requestServices` will use your login
 
 ## History
 </br>
+
+
 
 - **v0.3.2**
     - Fixed a really bad typings issue (Thanks node)
