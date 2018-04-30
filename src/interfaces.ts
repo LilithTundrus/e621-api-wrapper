@@ -180,3 +180,11 @@ export interface e621UserInfo {
     },
     artist_tags: string[]
 }
+
+export interface e621BlipInfo {
+    body: string,
+    user: string,
+    user_id: number,
+    id: number,
+    response: number
+}

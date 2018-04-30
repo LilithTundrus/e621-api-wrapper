@@ -1,6 +1,6 @@
 import { RequestServices } from '../RequestService';
 import {
-    e621POSTResponse
+    e621POSTResponse, e621BlipInfo
 } from '../interfaces';
 
 export default class Blips {
@@ -35,6 +35,19 @@ export default class Blips {
         // limit How many blips to retrieve. Hard limit of 100.
         // status Returns hidden blips when set to hidden, visible blips when set to active, or both when set to any. Note that whether or not you can see other user's hidden blips is affected by your permission levels.
         // response_to ID number of a blip. Returns blips which are in response to the blip with the given ID.
+    }
+
+    public getRecentBlips(page?: number) {
+        let url = `https://e621.net/blip/index.json?`;
+        if (page) url += `page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: e621BlipInfo[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     public getBlipByID(blipID: number) {
