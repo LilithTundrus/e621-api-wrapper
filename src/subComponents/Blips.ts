@@ -12,14 +12,16 @@ export default class Blips {
         this.requestServices = requestServices;
     }
 
+    /** Create a blip, either in response to another blip or standalone
+     * @param {string} bodyText Text of the blip's body to create
+     * @param {number} [responseID] ID of another blip to respond to
+     * @returns Promise<e621POSTResponse>
+     * @memberof Blips
+     */
     public create(bodyText: string, responseID?: number) {
-        // The base URL is /blip/create.json.
-
-        // blip[body] The blip's content.
-        // blip[response] Blip ID number of the blip that the new blip is in response to, if any.
-
         let url = `https://e621.net/blip/create.json`;
         let postObj;
+
         if (!responseID) {
             postObj = {
                 "blip[body]": bodyText,
@@ -40,11 +42,27 @@ export default class Blips {
             })
     }
 
+    /** Update a blip's body by ID
+     * @param {number} blipID ID of the blip to update
+     * @param {string} bodyText New text of the blip body
+     * @returns 
+     * @memberof Blips
+     */
     public update(blipID: number, bodyText: string) {
-        // The base URL is /blip/update.json.
+        let url = `https://e621.net/blip/update.json`;
 
-        // id The ID number of the blip being edited.
-        // blip[body] The blip's content.
+        let postObj = {
+            "id": blipID,
+            "blip[body]": bodyText
+        }
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     /** Get a set of recent blips
