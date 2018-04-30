@@ -18,7 +18,7 @@ export default class Pools {
      * @returns Promise<e621PoolInfo[]>
      * @memberof Pools
      */
-    listPools(page?: number) {
+    public listPools(page?: number) {
         let url = `https://e621.net/pool/index.json?`;
         if (page) url = url + `&page=${page}`;
 
@@ -31,7 +31,7 @@ export default class Pools {
             })
     }
 
-    listPoolPosts(poolID: number | string, page?: number) {
+    public listPoolPosts(poolID: number | string, page?: number) {
 
         let url = `https://e621.net/pool/show.json?id=${poolID}`;
         if (page) url = url + `&page=${page}`;
@@ -51,7 +51,7 @@ export default class Pools {
      * @returns Promise<e621PoolInfo[]>
      * @memberof Pools
      */
-    getPoolsByName(query: string, page?: number) {
+    public getPoolsByName(query: string, page?: number) {
         let url = `https://e621.net/pool/index.json?query=${query}`;
         if (page) url = url + `&page=${page}`;
 
@@ -70,7 +70,7 @@ export default class Pools {
      * @returns Promise<e621POSTResponse>
      * @memberof Pools
      */
-    create(poolName: string, poolDescription: string) {
+    public create(poolName: string, poolDescription: string) {
         let url = `https://e621.net/pool/create.json`;
 
         let postObj = {
@@ -93,7 +93,7 @@ export default class Pools {
      * @returns Promise<e621POSTResponse>
      * @memberof Pools
      */
-    updatePoolName(poolID: number | string, poolName: string) {
+    public updatePoolName(poolID: number | string, poolName: string) {
         let url = `https://e621.net/pool/update.json`;
 
         let postObj = {
@@ -116,7 +116,7 @@ export default class Pools {
      * @returns Promise<e621POSTResponse>
      * @memberof Pools
      */
-    updatePoolDescription(poolID: number | string, poolDescription: string) {
+    public updatePoolDescription(poolID: number | string, poolDescription: string) {
         let url = `https://e621.net/pool/update.json`;
 
         let postObj = {
@@ -138,7 +138,7 @@ export default class Pools {
      * @returns Promise<e621POSTResponse>
      * @memberof Pools
      */
-    destroy(poolID: number | string) {
+    public destroy(poolID: number | string) {
         let url = `https://e621.net/pool/destroy.json`;
 
         return this.requestServices.post(url, { "id": poolID })
@@ -156,7 +156,7 @@ export default class Pools {
      * @returns Promise<e621POSTResponse>
      * @memberof Pools
      */
-    addPost(poolID: number, postID: number) {
+    public addPost(poolID: number, postID: number) {
         let url = `https://e621.net/pool/add_post.json`;
 
         let postObj = {
@@ -179,7 +179,7 @@ export default class Pools {
      * @returns Promise<e621POSTResponse>
      * @memberof Pools
      */
-    removePost(poolID: number, postID: number) {
+    public removePost(poolID: number, postID: number) {
         let url = `https://e621.net/pool/remove_post.json`;
 
         let postObj = {

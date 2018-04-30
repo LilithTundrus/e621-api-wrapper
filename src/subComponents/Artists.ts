@@ -18,7 +18,7 @@ export default class Artists {
      * @returns Promise<e621ArtistInfo[]>
      * @memberof Artists
      */
-    listArtists(name?: string, limit?: number, order?: string, page?: number) {
+    public listArtists(name?: string, limit?: number, order?: string, page?: number) {
         let url = `https://e621.net/artist/index.json?`;
         if (name) url = `https://e621.net/artist/index.json?name=${name}`;
         if (limit) url = url + `&limit=${limit}`;
@@ -41,7 +41,7 @@ export default class Artists {
      * @returns Promise<e621ArtistPOSTJSON>
      * @memberof Artists
      */
-    createArtist(name: string, artistURLs: string, groupName?: string, otherNames?: string) {
+    public createArtist(name: string, artistURLs: string, groupName?: string, otherNames?: string) {
         let url = `https://e621.net/artist/create.json`;
         let postObj = <e621ArtistCreateJSON>{
             "artist[name]": name,
@@ -71,7 +71,7 @@ export default class Artists {
      * @returns Promise<e621ArtistPOSTJSON>
      * @memberof Artists
      */
-    updateArtist(artistID: number | string, name?: string, artistURLs?: string, isActive?: boolean, groupName?: string, otherNames?: string) {
+    public updateArtist(artistID: number | string, name?: string, artistURLs?: string, isActive?: boolean, groupName?: string, otherNames?: string) {
         let url = `https://e621.net/artist/update.json`;
 
         let postObj = <e621ArtistUpdateJSON>{
@@ -97,7 +97,7 @@ export default class Artists {
      * @returns Promise<e621POSTResponse>
      * @memberof Artists
      */
-    deleteArtist(artistID: number | string) {
+    public deleteArtist(artistID: number | string) {
         let url = `https://e621.net/artist/destroy.json`;
         return this.requestServices.post(url, {
             "id": artistID

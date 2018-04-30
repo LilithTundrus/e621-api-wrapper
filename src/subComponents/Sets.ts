@@ -13,7 +13,7 @@ export default class Sets {
     }
 
 
-    listSets() {
+    public listSets() {
         // The base URL is /set/index.xml
 
         // page The page number (50 sets per page)
@@ -36,7 +36,7 @@ export default class Sets {
         // transfer-to-parent-on-delete
     }
 
-    showSet() {
+    public showSet() {
         // The base URL is / set / show.xml
 
         // id The ID number of the set to retrieve
@@ -57,7 +57,7 @@ export default class Sets {
         // post
     }
 
-    create() {
+    public create() {
         //         The base URL is /set/create.xml
 
         // set[name] The name of the set
@@ -67,27 +67,27 @@ export default class Sets {
         // set[transfer_to_parent_on_delete] Whether to replace deleted posts with their parents
     }
 
-    addPost() {
+    public addPost() {
         //         The base URL is /set/add_post.xml
 
         // set_id ID of the set to add a post to
         // post_id ID of the post to add
     }
 
-    removePost() {
+    public removePost() {
         //         The base URL is /set/remove_post.xml
 
         // set_id ID of the set to remove a post from
         // post_id ID of the post to remove
     }
 
-    destroy() {
+    public destroy() {
         //         The base URL is /set/destroy.xml
 
         // id The name of the set to destroy
     }
 
-    listSetMaintainers() {
+    public listSetMaintainers() {
         //         List
         // Use this to view maintainers/invites for a given set. The base URL is /set/maintainers.xml
 
@@ -114,14 +114,14 @@ export default class Sets {
     // user-id
     // status - Either "pending", "approved", or "blocked"
 
-    createMaintainer() {
+    public createMaintainer() {
         //         The base URL is /set_maintainer/create.xml
 
         // username / user_id The username or user ID of the maintainer to add
         // set_id The ID of the set to add the maintainer to
     }
 
-    destroyMaintainer() {
+    public destroyMaintainer() {
         //         The base URL is /set_maintainer/destroy.xml. You must supply the id, user_id or username of the maintainer. user_id and username must be accompanied by a set_id.
 
         // id The ID of the maintainer to destroy

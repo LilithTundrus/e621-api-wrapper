@@ -155,7 +155,6 @@ export interface e621PoolPostSet {
     posts: e621PostData[]
 }
 
-
 export interface e621UserInfo {
     name: string,
     id: number

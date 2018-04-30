@@ -18,7 +18,7 @@ export default class Comments {
      * @returns Promise<e621CommentJSON>
      * @memberof Comments
      */
-    show(commentID: string | number) {
+    public show(commentID: string | number) {
         return this.requestServices.get(`https://e621.net/comment/show.json?id=${commentID}`)
             .then((response: e621CommentJSON) => {
                 return response;
@@ -35,7 +35,7 @@ export default class Comments {
      * @returns Promise<e621CommentJSON[]>
      * @memberof Comments
      */
-    list(postID: string | number, page?: number, commentStatus?: string) {
+    public list(postID: string | number, page?: number, commentStatus?: string) {
         let url = `https://e621.net/comment/index.json?`;
         if (postID) url = url + `&post_id=${postID}`;
         if (page) url = url + `&page=${page}`;
@@ -57,7 +57,7 @@ export default class Comments {
      * @returns Promise<e621CommentJSON[]>
      * @memberof Comments
      */
-    searchByCommentText(query: string, fuzzy?: boolean, page?: number, order?: string) {
+    public searchByCommentText(query: string, fuzzy?: boolean, page?: number, order?: string) {
         let url = `https://e621.net/comment/search.json?query=${query}`;
         if (fuzzy) url = url + `&results=fuzzy`;
         else url = url + `&results=exact`;
@@ -80,7 +80,7 @@ export default class Comments {
      * @returns Promise<e621CommentJSON[]>
      * @memberof Comments
      */
-    searchByCommentCreatorID(userID: number | string, page?: number, order?: string): Promise<e621CommentJSON[]> {
+    public searchByCommentCreatorID(userID: number | string, page?: number, order?: string): Promise<e621CommentJSON[]> {
         let url = `https://e621.net/comment/search.json?user_id=${userID}`;
         if (order) url = url + `&order=${order}`;
         if (page) url = url + `&page=${page}`;
@@ -100,7 +100,7 @@ export default class Comments {
      * @returns Promise<e621CommentJSON[]>
      * @memberof Comments
      */
-    searchByCommentCreatorName(userName: number | string, page?: number, order?: string) {
+    public searchByCommentCreatorName(userName: number | string, page?: number, order?: string) {
         let url = `https://e621.net/comment/search.json?user=${userName}`;
         if (order) url = url + `&order=${order}`;
         if (page) url = url + `&page=${page}`;
@@ -118,7 +118,7 @@ export default class Comments {
      * @returns Promise<e621CommentJSON[]>
      * @memberof Comments
      */
-    getRecentComments(page?: number) {
+    public getRecentComments(page?: number) {
         let url = `https://e621.net/comment/search.json?`;
         if (page) url = url + `&page=${page}`;
 
@@ -138,7 +138,7 @@ export default class Comments {
      * @returns Promise<e621POSTResponse>
      * @memberof Comments
      */
-    create(postID: string | number, commentText: string, anonymous?: boolean) {
+    public create(postID: string | number, commentText: string, anonymous?: boolean) {
         let postObj = <e621CommentCreateJSON>{
             "comment[body]": commentText,
             "comment[post_id": postID
@@ -161,7 +161,7 @@ export default class Comments {
      * @returns Promise<e621POSTResponse>
      * @memberof Comments
      */
-    update(commentID: number, commentTextUpdate: string) {
+    public update(commentID: number, commentTextUpdate: string) {
         let postObj = <e621CommentUpdateJSON>{
             "id": commentID,
             "comment[body]": commentTextUpdate,
@@ -181,7 +181,7 @@ export default class Comments {
      * @returns Promise<e621POSTResponse>
      * @memberof Comments
      */
-    destroy(commentID: number) {
+    public destroy(commentID: number) {
         let url = `https://e621.net/comment/destroy.json`;
         return this.requestServices.post(url,
             {

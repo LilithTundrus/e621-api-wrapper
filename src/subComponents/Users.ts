@@ -19,7 +19,7 @@ export default class Users {
      * @returns Promise<e621UserInfo[]>
      * @memberof Users
      */
-    listUsers(level?: e621UserLevels, order?: string) {
+    public listUsers(level?: e621UserLevels, order?: string) {
         let url = `https://e621.net/user/index.json?`;
 
         // if no level set but order set
@@ -43,7 +43,7 @@ export default class Users {
      * @returns Promise<e621UserInfo[]>
      * @memberof Users
      */
-    getUserInfoByID(userID: number) {
+    public getUserInfoByID(userID: number) {
         let url = `https://e621.net/user/index.json?id=${userID}`;
 
         return this.requestServices.get(url)
@@ -60,7 +60,7 @@ export default class Users {
      * @returns Promise<e621UserInfo[]>
      * @memberof Users
      */
-    getUserInfoByName(userName: string) {
+    public getUserInfoByName(userName: string) {
         let url = `https://e621.net/user/index.json?name=${userName}`;
 
         return this.requestServices.get(url)

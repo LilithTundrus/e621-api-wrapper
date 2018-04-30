@@ -12,21 +12,21 @@ export default class Blips {
         this.requestServices = requestServices;
     }
 
-    create() {
+    public create() {
         // The base URL is /blip/create.json.
 
         // blip[body] The blip's content.
         // blip[response] Blip ID number of the blip that the new blip is in response to, if any.
     }
 
-    update() {
+    public update() {
         // The base URL is /blip/update.json.
 
         // id The ID number of the blip being edited.
         // blip[body] The blip's content.
     }
 
-    list() {
+    public list() {
         // The base URL is /blip/index.json. If you don't specify any parameters you'll get a list of the most recent blips.
 
         // name Return blips created by the user with the given name
@@ -37,7 +37,7 @@ export default class Blips {
         // response_to ID number of a blip. Returns blips which are in response to the blip with the given ID.
     }
 
-    getBlipByID() {
+    public getBlipByID() {
         // The base URL is /blip/show.json.
 
         // id Returns the blip with the given ID number
