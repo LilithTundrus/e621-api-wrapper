@@ -4,19 +4,15 @@ import Posts from './subComponents/Posts';
 import Artists from './subComponents/Artists';
 import Comments from './subComponents/Comments';
 import Pools from './subComponents/Pools';
-
 import Users from './subComponents/Users';
-
-
+import Blips from './subComponents/Blips';
 
 import { RequestServices } from './RequestService';
-Pools
-declare const Promise: any;
 
 export default class e621 {
     private userAgent: string;
     private pageLimit: number;
-    // these delcarations are how we attach new classes to properties
+    // These delcarations are how we attach new classes to properties
 
     /** Directly GET and POST to the e621 API using this service wrapper
      * @memberof e621
@@ -53,6 +49,11 @@ export default class e621 {
      */
     public users: Users;
 
+    /** Contains all methods for performing GET/POST operations on the e621 `blip` endpoints
+     * @memberof e621
+     */
+    public blips: Blips;
+
     /**
      * Creates an instance of e621.
      * @param {string} userAgent This identifies you to the API
@@ -79,6 +80,7 @@ export default class e621 {
         this.comments = new Comments(this.pageLimit, this.requestservices);
         this.pools = new Pools(this.pageLimit, this.requestservices);
         this.users = new Users(this.pageLimit, this.requestservices);
+        this.blips = new Blips(this.pageLimit, this.requestservices);
     }
 
     public get agent() { return this.userAgent; }
