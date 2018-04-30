@@ -427,7 +427,7 @@ wrapper.users.getUserInfoByName('test')
 </br>
 
 
-**lisUsers**
+**listUsers**
 
 List users that match an optional `level?` or `order?`
 
