@@ -37,9 +37,9 @@ export default class Comments {
      */
     public list(postID: string | number, page?: number, commentStatus?: string) {
         let url = `https://e621.net/comment/index.json?`;
-        if (postID) url = url + `&post_id=${postID}`;
-        if (page) url = url + `&page=${page}`;
-        if (commentStatus) url = url + `&status=${commentStatus}`;
+        if (postID) url += `&post_id=${postID}`;
+        if (page) url += `&page=${page}`;
+        if (commentStatus) url += `&status=${commentStatus}`;
         return this.requestServices.get(url)
             .then((response: e621CommentJSON[]) => {
                 return response;
@@ -59,10 +59,10 @@ export default class Comments {
      */
     public searchByCommentText(query: string, fuzzy?: boolean, page?: number, order?: string) {
         let url = `https://e621.net/comment/search.json?query=${query}`;
-        if (fuzzy) url = url + `&results=fuzzy`;
-        else url = url + `&results=exact`;
-        if (order) url = url + `&order=${order}`;
-        if (page) url = url + `&page=${page}`;
+        if (fuzzy) url += `&results=fuzzy`;
+        else url += `&results=exact`;
+        if (order) url += `&order=${order}`;
+        if (page) url += `&page=${page}`;
 
         return this.requestServices.get(url)
             .then((response: e621CommentJSON[]) => {
@@ -82,8 +82,8 @@ export default class Comments {
      */
     public searchByCommentCreatorID(userID: number | string, page?: number, order?: string): Promise<e621CommentJSON[]> {
         let url = `https://e621.net/comment/search.json?user_id=${userID}`;
-        if (order) url = url + `&order=${order}`;
-        if (page) url = url + `&page=${page}`;
+        if (order) url += `&order=${order}`;
+        if (page) url += `&page=${page}`;
         return this.requestServices.get(url)
             .then((response: e621CommentJSON[]) => {
                 return response;
@@ -102,8 +102,8 @@ export default class Comments {
      */
     public searchByCommentCreatorName(userName: number | string, page?: number, order?: string) {
         let url = `https://e621.net/comment/search.json?user=${userName}`;
-        if (order) url = url + `&order=${order}`;
-        if (page) url = url + `&page=${page}`;
+        if (order) url += `&order=${order}`;
+        if (page) url += `&page=${page}`;
         return this.requestServices.get(url)
             .then((response: e621CommentJSON[]) => {
                 return response;
@@ -120,7 +120,7 @@ export default class Comments {
      */
     public getRecentComments(page?: number) {
         let url = `https://e621.net/comment/search.json?`;
-        if (page) url = url + `&page=${page}`;
+        if (page) url += `&page=${page}`;
 
         return this.requestServices.get(url)
             .then((response: e621CommentJSON[]) => {
