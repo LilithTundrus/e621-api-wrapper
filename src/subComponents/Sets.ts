@@ -12,7 +12,6 @@ export default class Sets {
         this.requestServices = requestServices;
     }
 
-
     public listSets() {
         // The base URL is /set/index.xml
 
@@ -34,6 +33,20 @@ export default class Sets {
         // public
         // post-count
         // transfer-to-parent-on-delete
+    }
+
+    public listAllSets(page?: number) {
+        let url = `https://e621.net/set/index.xml?`;
+
+        if (page) url += `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     public showSet() {
