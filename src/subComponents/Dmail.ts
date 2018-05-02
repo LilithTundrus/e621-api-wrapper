@@ -26,7 +26,35 @@ export default class Dmail {
         // *If the inbox does not contain any dmails with the given username, this parameter will be ignored. Thus it is not safe to rely on this function to return dmails from/to specific users. The dmails returned should be checked individually for the desired senders/recipients.
     }
 
-    create() {
+    getInbox(page?: number) {
+        let url = `https://e621.net/dmail/inbox.json?show=in`;
+
+        if (page) url += `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    getOutbox(page?: number) {
+        let url = `https://e621.net/dmail/inbox.json?show=out`;
+
+        if (page) url += `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    create(to: string, title: string, body: string, parentID?: number) {
         //         The base URL is /dmail/create.xml.
 
         // dmail[parent_id] Dmail ID number of the dmail that the new dmail is in response to, if any.
@@ -35,7 +63,7 @@ export default class Dmail {
         // dmail[body]
     }
 
-    show() {
+    show(dmailID: number) {
         //         The base URL is /dmail/show.xml.
 
         // id Returns the dmail with the given ID number.
