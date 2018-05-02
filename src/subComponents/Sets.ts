@@ -1,6 +1,6 @@
 import { RequestServices } from '../RequestService';
 import {
-    e621POSTResponse
+    e621POSTResponse, e621SetJSON
 } from '../interfaces';
 
 export default class Sets {
@@ -35,19 +35,45 @@ export default class Sets {
         // transfer-to-parent-on-delete
     }
 
+    /** List most recent sets, limit of 50 per page
+     * 
+     * PLEASE NOTE THAT THIS IS VERY INTENSIVE AND CAN TAKE OVER A MINUTE TO RETURN ANY DATA
+     * @param {number} [page] Page number to return
+     * @returns An Array of set data
+     * @memberof Sets
+     */
     public listAllSets(page?: number) {
-        let url = `https://e621.net/set/index.xml?`;
+        let url = `https://e621.net/set/index.json?limit=50`;
 
         if (page) url += `&page=${page}`;
 
         return this.requestServices.get(url)
-            .then((response: any) => {
+            .then((response: e621SetJSON[]) => {
+                // format the XML to JSON
                 return response;
             })
             .catch((err) => {
                 throw Error(err);
             })
     }
+    // 10134
+
+    public getSetByUserID(userID: number, page?: number) {
+        let url = `https://e621.net/set/index.json?limit=1&user_id=${userID}`;
+
+        if (page) url += `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: e621SetJSON[]) => {
+                // format the XML to JSON
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    // 412503
 
     public showSet() {
         // The base URL is / set / show.xml
