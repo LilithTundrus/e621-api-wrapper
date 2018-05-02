@@ -188,3 +188,15 @@ export interface e621BlipInfo {
     id: number,
     response: number
 }
+
+export interface e621SetJSON {
+    id: number,
+    name: string,
+    created_at: { json_class: string, s: number, n: number },
+    updated_at: { json_class: string, s: number, n: number },
+    user_id: number,
+    description: string,
+    shortname: string,
+    post_count: number,
+    posts: e621PostData[]
+}
