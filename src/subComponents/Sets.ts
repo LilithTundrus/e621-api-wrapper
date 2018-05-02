@@ -2,6 +2,9 @@ import { RequestServices } from '../RequestService';
 import {
     e621POSTResponse, e621SetJSON
 } from '../interfaces';
+import { xmlToJson } from '../lib/xml2json';
+import { DOMParser } from 'xmldom'
+let parser = new DOMParser();
 
 export default class Sets {
     private pageLimit: number;
@@ -56,17 +59,18 @@ export default class Sets {
                 throw Error(err);
             })
     }
-    // 10134
 
     public getSetByUserID(userID: number, page?: number) {
-        let url = `https://e621.net/set/index.json?limit=1&user_id=${userID}`;
+        let url = `https://e621.net/set/index.xml?user_id=${userID}`;
 
         if (page) url += `&page=${page}`;
 
         return this.requestServices.get(url)
-            .then((response: e621SetJSON[]) => {
+            .then((response) => {
                 // format the XML to JSON
-                return response;
+                var document = parser.parseFromString(response, 'text/xml');
+                let json = xmlToJson(document)
+                return json.sets;
             })
             .catch((err) => {
                 throw Error(err);
