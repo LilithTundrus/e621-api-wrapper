@@ -26,13 +26,23 @@ export class RequestServices {
      * @returns Promise<any>
      */
     public get(url: string): Promise<any> {
-        let options = {
+        let options: any;
+
+        options = {
             uri: url,
             headers: {
                 'User-Agent': this.userAgent
             },
-            json: true
+            json: true,
+            form: {}
         };
+
+        // The username and hash still go into the form even on a GET for some reaso???
+        if (this.userName && this.apiKey) {
+            options.form.login = this.userName;
+            options.form.password_hash = this.apiKey;
+        }
+
         console.log(url);
         return new Promise((resolve, reject) => {
             request.get(options, function (err: Error, response, body) {
@@ -40,10 +50,10 @@ export class RequestServices {
                     return reject(err);
                 }
                 if (response.statusCode !== e621ResponseCodes.OK) {
-                    return reject('GET did not return OK');
+                    return reject(`GET did not return OK: Code ${response.statusCode}`);
                 }
                 // typescript wouldn't leave me alone on this
-                if (response.statusCode == e621ResponseCodes.FORBIDDEN.valueOf()) {
+                if (response.statusCode == e621ResponseCodes.FORBIDDEN) {
                     return reject('Incorrect password given');
                 }
                 return resolve(body);
@@ -51,9 +61,15 @@ export class RequestServices {
         })
     }
 
-    // post method goes here
+
+    /** POST a `postObject` to the e621 API, authorization keys are automatically pulled from the parent class
+     * @param {string} url 
+     * @param {*} postObject 
+     * @returns {Promise<any>} 
+     * @memberof RequestServices
+     */
     public post(url: string, postObject: any): Promise<any> {
-        let options: object
+        let options: any;
         options = {
             uri: url,
             headers: {
@@ -68,7 +84,6 @@ export class RequestServices {
             postObject.password_hash = this.apiKey;
         }
         console.log(url);
-        console.log(options);
         return new Promise((resolve, reject) => {
             request.post(options, function (err: Error, response, body) {
                 if (err) {
