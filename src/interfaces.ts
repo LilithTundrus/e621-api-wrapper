@@ -200,3 +200,16 @@ export interface e621SetJSON {
     post_count: number,
     posts: e621PostData[]
 }
+
+export interface e621DmailMessage {
+    id: number,
+    parent_id: number,
+    title: string,
+    body: string,
+    has_seen: boolean,
+    created_at: { json_class: string, s: number, n: number },
+    from_id: number,
+    from: string,
+    to_id: number,
+    to: string
+}
