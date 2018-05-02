@@ -54,6 +54,36 @@ export default class Dmail {
             })
     }
 
+
+    searchInbox(query: string, page?: number) {
+        let url = `https://e621.net/dmail/inbox.json?show=in&title=${query}`;
+
+        if (page) url += `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    searchOutbox(query: string, page?: number) {
+        let url = `https://e621.net/dmail/inbox.json?show=out&title=${query}`;
+
+        if (page) url += `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+
     create(to: string, title: string, body: string, parentID?: number) {
         //         The base URL is /dmail/create.xml.
 
