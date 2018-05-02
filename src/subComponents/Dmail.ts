@@ -1,6 +1,6 @@
 import { RequestServices } from '../RequestService';
 import {
-    e621POSTResponse
+    e621POSTResponse, e621DmailMessage
 } from '../interfaces';
 
 export default class Dmail {
@@ -26,13 +26,18 @@ export default class Dmail {
         // *If the inbox does not contain any dmails with the given username, this parameter will be ignored. Thus it is not safe to rely on this function to return dmails from/to specific users. The dmails returned should be checked individually for the desired senders/recipients.
     }
 
+    /** Get your Dmail inbox, will return an empty array if page number is empty
+     * @param {number} [page] Page number to retrieve
+     * @returns Array of dmail data
+     * @memberof Dmail
+     */
     getInbox(page?: number) {
         let url = `https://e621.net/dmail/inbox.json?show=in`;
 
         if (page) url += `&page=${page}`;
 
         return this.requestServices.get(url)
-            .then((response: any) => {
+            .then((response: e621DmailMessage[]) => {
                 return response;
             })
             .catch((err) => {
@@ -40,13 +45,37 @@ export default class Dmail {
             })
     }
 
+    /** Get your Dmail outbox (sent messages) Will return an empty array if page number is empty
+     * @param {number} [page] Page number to retrieve
+     * @returns Array of dmail data
+     * @memberof Dmail
+     */
     getOutbox(page?: number) {
         let url = `https://e621.net/dmail/inbox.json?show=out`;
 
         if (page) url += `&page=${page}`;
 
         return this.requestServices.get(url)
-            .then((response: any) => {
+            .then((response: e621DmailMessage[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /** Get ALL dmail messages, will return an empty array if page number is empty
+     * @param {number} [page] Page number to retrieve
+     * @returns Array of dmail data
+     * @memberof Dmail
+     */
+    getAllMail(page?: number) {
+        let url = `https://e621.net/dmail/inbox.json?show=all`;
+
+        if (page) url += `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: e621DmailMessage[]) => {
                 return response;
             })
             .catch((err) => {
@@ -71,6 +100,20 @@ export default class Dmail {
 
     searchOutbox(query: string, page?: number) {
         let url = `https://e621.net/dmail/inbox.json?show=out&title=${query}`;
+
+        if (page) url += `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    searchAllMail(query: string, page?: number) {
+        let url = `https://e621.net/dmail/inbox.json?show=all&title=${query}`;
 
         if (page) url += `&page=${page}`;
 
