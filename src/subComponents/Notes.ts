@@ -1,6 +1,6 @@
 import { RequestServices } from '../RequestService';
 import {
-    e621POSTResponse
+    e621POSTResponse, e621PostNote
 } from '../interfaces';
 
 export default class Notes {
@@ -12,12 +12,16 @@ export default class Notes {
         this.requestServices = requestServices;
     }
 
-    getPostNotes() {
-        //     List
-        // The base URL is /note/index.xml.
+    getPostNotes(postID: number | string) {
+        let url = `https://e621.net/note/index.json?post_id=${postID}`;
 
-        // post_id The post ID number to retrieve notes for.
-
+        return this.requestServices.get(url)
+            .then((response: e621PostNote[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     search() {
