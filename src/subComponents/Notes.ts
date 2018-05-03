@@ -17,7 +17,7 @@ export default class Notes {
      * @returns Promise<e621PostNote[]>
      * @memberof Notes
      */
-    getPostNotes(postID: number | string) {
+    public getPostNotes(postID: number | string) {
         let url = `https://e621.net/note/index.json?post_id=${postID}`;
 
         return this.requestServices.get(url)
@@ -34,7 +34,7 @@ export default class Notes {
      * @returns Promise<e621PostNote[]>
      * @memberof Notes
      */
-    searchNotes(query: string) {
+    public searchNotes(query: string) {
         let url = `https://e621.net/note/search.json?query=${query}`;
 
         return this.requestServices.get(url)
@@ -51,7 +51,7 @@ export default class Notes {
      * @returns Promise<e621PostNote[]>
      * @memberof Notes
      */
-    getNoteHistory(noteID: number) {
+    public getNoteHistory(noteID: number) {
         let url = `https://e621.net/note/history.json?id=${noteID}`;
 
         return this.requestServices.get(url)
@@ -69,7 +69,7 @@ export default class Notes {
      * @returns Promise<e621POSTResponse>
      * @memberof Notes
      */
-    revertNote(noteID: number, version: number) {
+    public revertNote(noteID: number, version: number) {
         let url = `https://e621.net/note/revert.json`;
 
         return this.requestServices.post(url, {
@@ -90,7 +90,7 @@ export default class Notes {
      * @returns Promise<e621POSTResponse>
      * @memberof Notes
      */
-    updateNoteBody(noteID: number, body: string) {
+    public updateNoteBody(noteID: number, body: string) {
         let url = `https://e621.net/note/update.json`;
 
         return this.requestServices.post(url, {
@@ -112,7 +112,7 @@ export default class Notes {
      * @returns Promise<e621POSTResponse>
      * @memberof Notes
      */
-    updateNoteLocation(noteID: number, x: number, y: number) {
+    public updateNoteLocation(noteID: number, x: number, y: number) {
         let url = `https://e621.net/note/update.json`;
 
         return this.requestServices.post(url, {
@@ -135,7 +135,7 @@ export default class Notes {
      * @returns Promise<e621POSTResponse>
      * @memberof Notes
      */
-    updateNoteWidthAndHeight(noteID: number, width: number, height: number) {
+    public updateNoteWidthAndHeight(noteID: number, width: number, height: number) {
         let url = `https://e621.net/note/update.json`;
 
         return this.requestServices.post(url, {
@@ -157,7 +157,7 @@ export default class Notes {
      * @returns Promise<e621POSTResponse>
      * @memberof Notes
      */
-    updateNoteVisibility(noteID: number, isVisible: boolean) {
+    public updateNoteVisibility(noteID: number, isVisible: boolean) {
         let visibility = 1;
         if (isVisible == false) visibility = 0;
 
@@ -185,7 +185,7 @@ export default class Notes {
      * @returns Promise<e621POSTResponse>
      * @memberof Notes
      */
-    create(postID: number, body: string, x: number, y: number, width: number, height: number) {
+    public create(postID: number, body: string, x: number, y: number, width: number, height: number) {
         let url = `https://e621.net/note/update.json`;
 
         return this.requestServices.post(url, {
