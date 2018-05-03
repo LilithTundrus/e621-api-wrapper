@@ -1,4 +1,7 @@
-import { e621PostData, e621MD5CheckJSON } from '../interfaces';
+import {
+    e621PostData, e621MD5CheckJSON,
+    e621FavoritedUsers
+} from '../interfaces';
 import { RequestServices } from '../RequestService';
 import { e621PopularityStrings } from '../enums';
 import * as fs from 'fs';
@@ -280,6 +283,18 @@ export default class Posts {
                     let json = xmlToJson(document)
                     return json;
                 }
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    public getFavorites(postID: string | number) {
+        let url = `https://e621.net/favorite/list_users.json?id=${postID}`;
+
+        return this.requestServices.get(url)
+            .then((response: e621FavoritedUsers) => {
                 return response;
             })
             .catch((err) => {
