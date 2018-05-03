@@ -98,7 +98,98 @@ export default class Notes {
         // note[body] The note message.
     }
 
-    create() {
+    /** Update a note's `body` by its `postID`
+     * @param {number} noteID ID of the note to update
+     * @param {string} body The new body message
+     * @returns Promise<e621POSTResponse>
+     * @memberof Notes
+     */
+    updateNoteBody(noteID: number, body: string) {
+        let url = `https://e621.net/note/update.json`;
+
+        return this.requestServices.post(url, {
+            "id": noteID,
+            "note[body]": body
+        })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /** Update a note's location on the assocaited post by its `noteID`
+     * @param {number} noteID ID of the note to update
+     * @param {number} x The X position of the note
+     * @param {number} y The Y position of the note
+     * @returns Promise<e621POSTResponse>
+     * @memberof Notes
+     */
+    updateNoteLocation(noteID: number, x: number, y: number) {
+        let url = `https://e621.net/note/update.json`;
+
+        return this.requestServices.post(url, {
+            "id": noteID,
+            "note[x]": x,
+            "note[y]": y
+        })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /** Update a note's `width` and `height` by its `postID`
+     * @param {number} noteID ID of the note to update
+     * @param {number} width New Width of the note
+     * @param {number} height New height of the note
+     * @returns Promise<e621POSTResponse>
+     * @memberof Notes
+     */
+    updateNoteWidthAndHeight(noteID: number, width: number, height: number) {
+        let url = `https://e621.net/note/update.json`;
+
+        return this.requestServices.post(url, {
+            "id": noteID,
+            "note[width]": width,
+            "note[height]": height
+        })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /** Set a note with `postID` to visible or invisible using `isVisible` (true or false)
+     * @param {number} noteID ID of the note to update
+     * @param {boolean} isVisible True or false
+     * @returns Promise<e621POSTResponse>
+     * @memberof Notes
+     */
+    updateNoteVisibility(noteID: number, isVisible: boolean) {
+        let visibility = 1;
+        if (isVisible == false) visibility = 0;
+
+        let url = `https://e621.net/note/update.json`;
+
+        return this.requestServices.post(url, {
+            "id": noteID,
+            "note[is_active]": visibility
+        })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    create(postID: number, body: string, x: number, y: number, width: number, height: number) {
 
     }
 }
