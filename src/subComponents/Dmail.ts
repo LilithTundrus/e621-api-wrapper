@@ -206,22 +206,64 @@ export default class Dmail {
             })
     }
 
+    /** Mark all Dmails in your inbox as read
+     * @returns e621 success boolean
+     * @memberof Dmail
+     */
     markAllAsRead() {
-        // The base URL is / dmail / mark_all_read.xml.
+        let url = `https://e621.net/dmail/mark_all_read.json`;
 
-        // Marks all dmails in the inbox as read.
+        return this.requestServices.get(url)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     getHidden() {
 
     }
 
-    showMail() {
+    hideDmail(dmailID: number) {
 
     }
 
-    hideMail() {
+    unhideDmail(dmailID: number) {
 
+    }
+
+    /** Hide all dmails in the inbox
+     * @returns e621 success boolean
+     * @memberof Dmail
+     */
+    hideAll() {
+        let url = `https://e621.net/dmail/hide_all.json`;
+
+        return this.requestServices.get(url)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /** Unhide all dmails in the inbox
+     * @returns e621 success boolean
+     * @memberof Dmail
+     */
+    unhideAll() {
+        let url = `https://e621.net/dmail/unhide_all.json`;
+
+        return this.requestServices.get(url)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 }
 
