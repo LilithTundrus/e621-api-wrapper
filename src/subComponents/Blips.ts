@@ -45,7 +45,7 @@ export default class Blips {
     /** Update a blip's body by ID
      * @param {number} blipID ID of the blip to update
      * @param {string} bodyText New text of the blip body
-     * @returns 
+     * @returns Promise<e621POSTResponse>
      * @memberof Blips
      */
     public update(blipID: number, bodyText: string) {
