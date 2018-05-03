@@ -12,6 +12,11 @@ export default class Notes {
         this.requestServices = requestServices;
     }
 
+    /** Get a post's Notes by the `postID` of the post
+     * @param {(number | string)} postID ID of the post to retrieve Notes for
+     * @returns Promise<e621PostNote[]>
+     * @memberof Notes
+     */
     getPostNotes(postID: number | string) {
         let url = `https://e621.net/note/index.json?post_id=${postID}`;
 
@@ -24,33 +29,60 @@ export default class Notes {
             })
     }
 
-    search() {
-        // Search
+    /** Search ALL notes that match a given `query`
+     * @param {string} query String query to search Notes for
+     * @returns Promise<e621PostNote[]>
+     * @memberof Notes
+     */
+    searchNotes(query: string) {
+        let url = `https://e621.net/note/search.json?query=${query}`;
 
-        // The base URL is /note/search.xml.
-
-        // query A word or phrase to search for.
+        return this.requestServices.get(url)
+            .then((response: e621PostNote[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
-    getHistory() {
-        // History
-        // The base URL is /note/history.xml. You can either specify id, post_id, user_id, or nothing. Specifying nothing will give you a list of every note version.
+    /** Get the history of a note by its `noteID`
+     * @param {number} noteID ID of the note to get the history of
+     * @returns Promise<e621PostNote[]>
+     * @memberof Notes
+     */
+    getNoteHistory(noteID: number) {
+        let url = `https://e621.net/note/history.json?id=${noteID}`;
 
-        // limit How many versions to retrieve.
-        // page The offset.
-        // post_id The ID number of the post to retrieve note versions for.
-        // id The ID number of the note to retrieve versions for.
-        // user_id Returns notes created by the user with the given ID number.
+        return this.requestServices.get(url)
+            .then((response: e621PostNote[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
-    revertNotea() {
-        // Revert
-        // The base URL is /note/revert.xml. Potential error reasons: "Post is locked"
+    /** Rever a note to a given previous `version` by `noteID`
+     * @param {number} noteID ID of the note to revert
+     * @param {number} version Version number to revert the note to
+     * @returns Promise<e621POSTResponse>
+     * @memberof Notes
+     */
+    revertNotea(noteID: number, version: number) {
+        let url = `https://e621.net/note/revert.json`;
 
-        // id The ID of the note to update.
-        // version The version to revert to.
+        return this.requestServices.post(url, {
+            "id": noteID,
+            "version": version
+        })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
-
 
     update(noteID: number) {
         // Create/Update
