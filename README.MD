@@ -460,6 +460,13 @@ To get a list of `dmail` methods, check the `docs/` folder.
 </br>
 
 
+### Notes
+
+To get a list of `note` methods, check the `docs/` folder.
+</br>
+</br>
+
+
 ## Logging in through the API
 
 Some API actions require you to log in.
