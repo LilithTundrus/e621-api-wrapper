@@ -213,3 +213,18 @@ export interface e621DmailMessage {
     to_id: number,
     to: string
 }
+
+export interface e621PostNote {
+    id: number,
+    created_at: { json_class: string, s: number, n: number },
+    updated_at: { json_class: string, s: number, n: number },
+    creator_id: number,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    is_active: true,
+    post_id: number,
+    body: string,
+    version: number
+}
