@@ -228,3 +228,7 @@ export interface e621PostNote {
     body: string,
     version: number
 }
+
+export interface e621FavoritedUsers {
+    favorited_users: string
+}
