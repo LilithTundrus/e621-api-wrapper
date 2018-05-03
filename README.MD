@@ -452,6 +452,14 @@ To get a list of the supported `blip` methods, check the `docs/` folder.
 </br>
 </br>
 
+
+### Dmail
+
+To get a list of `dmail` methods, check the `docs/` folder.
+</br>
+</br>
+
+
 ## Logging in through the API
 
 Some API actions require you to log in.
