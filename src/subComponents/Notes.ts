@@ -69,7 +69,7 @@ export default class Notes {
      * @returns Promise<e621POSTResponse>
      * @memberof Notes
      */
-    revertNotea(noteID: number, version: number) {
+    revertNote(noteID: number, version: number) {
         let url = `https://e621.net/note/revert.json`;
 
         return this.requestServices.post(url, {
@@ -82,20 +82,6 @@ export default class Notes {
             .catch((err) => {
                 throw Error(err);
             })
-    }
-
-    update(noteID: number) {
-        // Create/Update
-        // The base URL is /note/update.xml. Notes differ from the other controllers in that the interface for creation and updates is the same. If you supply an id parameter, then e621 will assume you're updating an existing note. Otherwise, it will create a new note. Potential error reasons: "Post is locked"
-
-        // id If you are updating a note, this is the ID number of the note to update.
-        // note[post_id] The ID number of the post this note belongs to.
-        // note[x] The x coordinate of the note.
-        // note[y] The y coordinate of the note.
-        // note[width] The width of the note.
-        // note[height] The height of the note.
-        // note[is_active] Whether or not the note is visible. Set to 1 for active, 0 for inactive.
-        // note[body] The note message.
     }
 
     /** Update a note's `body` by its `postID`
@@ -190,6 +176,21 @@ export default class Notes {
     }
 
     create(postID: number, body: string, x: number, y: number, width: number, height: number) {
+        let url = `https://e621.net/note/update.json`;
 
+        return this.requestServices.post(url, {
+            "note[post_id]": postID,
+            "note[width]": width,
+            "note[height]": height,
+            "note[body]": body,
+            "note[x]": x,
+            "note[y]": y
+        })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 }
