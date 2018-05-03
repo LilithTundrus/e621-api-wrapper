@@ -511,6 +511,11 @@ Any POST calls you make to the API through `requestServices` will use your login
 ## History
 </br>
 
+- **v0.3.5**
+    - Added support for `Notes`
+    - Added `getFavorites` method to `Posts`
+    - Moving closer to completing the API wrapping
+
 - **v0.3.4**
     - Added support for `Dmail`
     - Modified the `RequestServices` get method to support API-key form submission (required for personal info GET requests)
