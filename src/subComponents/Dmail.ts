@@ -166,7 +166,7 @@ export default class Dmail {
      * @param {string} to Who to send the message to (Their user name)
      * @param {string} title Title of the Dmail to send
      * @param {string} body Body of the Dmail to send
-     * @param {number} parentID ID of the parent message to reply to
+     * @param {number} parentID ID of the parent message to reply ('Re:') to
      * @returns HTML redirect message on success
      * @memberof Dmail
      */
@@ -189,10 +189,21 @@ export default class Dmail {
             })
     }
 
-    show(dmailID: number) {
-        //         The base URL is /dmail/show.xml.
+    /** Get a dmail by its `dmailID`
+     * @param {number} dmailID ID of the message to retrieve
+     * @returns A single dmail's data
+     * @memberof Dmail
+     */
+    getDmailByID(dmailID: number) {
+        let url = `https://e621.net/dmail/show.json?id=${dmailID}`;
 
-        // id Returns the dmail with the given ID number.
+        return this.requestServices.get(url)
+            .then((response: e621DmailMessage) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     markAllAsRead() {
