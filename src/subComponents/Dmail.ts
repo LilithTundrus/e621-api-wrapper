@@ -241,6 +241,11 @@ export default class Dmail {
             })
     }
 
+    /** Hide a dmail by its `dmailID`
+     * @param {number} dmailID ID of the message to hide
+     * @returns e621 success boolean
+     * @memberof Dmail
+     */
     hideDmail(dmailID: number) {
         let url = `https://e621.net/dmail/hide.json`;
         return this.requestServices.post(url,
@@ -254,6 +259,11 @@ export default class Dmail {
             })
     }
 
+    /** Unhide a dmail by its `dmailID`
+     * @param {number} dmailID ID of the message to unhide
+     * @returns e621 success boolean
+     * @memberof Dmail
+     */
     unhideDmail(dmailID: number) {
         let url = `https://e621.net/dmail/unhide.json`;
         return this.requestServices.post(url,
