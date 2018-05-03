@@ -135,14 +135,58 @@ export default class Dmail {
             })
     }
 
+    /**
+     * @param {string} to Who to send the message to (Their user name)
+     * @param {string} title Title of the Dmail to send
+     * @param {string} body Body of the Dmail to send
+     * @returns HTML redirect message on success
+     * @memberof Dmail
+     */
+    create(to: string, title: string, body: string) {
+        let postObj = {
+            "dmail[to_name]": to,
+            "dmail[title]": title,
+            "dmail[body]": body
+        };
 
-    create(to: string, title: string, body: string, parentID?: number) {
-        //         The base URL is /dmail/create.xml.
+        let url = `https://e621.net/dmail/create.json`;
+        return this.requestServices.post(url, postObj)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
 
-        // dmail[parent_id] Dmail ID number of the dmail that the new dmail is in response to, if any.
-        // dmail[to_name]
-        // dmail[title]
-        // dmail[body]
+    /** Respond to a message with the given `parentID`, automatically
+     * adding the 'Re:' title pretext.
+     * 
+     * **NOTE** this will NOT automatically quote the previous message. You will need to do this yourself.
+     * @param {string} to Who to send the message to (Their user name)
+     * @param {string} title Title of the Dmail to send
+     * @param {string} body Body of the Dmail to send
+     * @param {number} parentID ID of the parent message to reply to
+     * @returns HTML redirect message on success
+     * @memberof Dmail
+     */
+    responsdToParent(to: string, title: string, body: string, parentID: number) {
+
+        let postObj = {
+            "dmail[parent_id]": parentID,
+            "dmail[to_name]": to,
+            "dmail[title]": title,
+            "dmail[body]": body
+        };
+
+        let url = `https://e621.net/dmail/create.json`;
+        return this.requestServices.post(url, postObj)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     show(dmailID: number) {
