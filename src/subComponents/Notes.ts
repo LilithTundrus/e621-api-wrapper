@@ -63,7 +63,7 @@ export default class Notes {
             })
     }
 
-    /** Rever a note to a given previous `version` by `noteID`
+    /** Revert a note to a given previous `version` by `noteID`
      * @param {number} noteID ID of the note to revert
      * @param {number} version Version number to revert the note to
      * @returns Promise<e621POSTResponse>
@@ -84,7 +84,7 @@ export default class Notes {
             })
     }
 
-    /** Update a note's `body` by its `postID`
+    /** Update a note's `body` by its `noteID`
      * @param {number} noteID ID of the note to update
      * @param {string} body The new body message
      * @returns Promise<e621POSTResponse>
@@ -128,7 +128,7 @@ export default class Notes {
             })
     }
 
-    /** Update a note's `width` and `height` by its `postID`
+    /** Update a note's `width` and `height` by its `noteID`
      * @param {number} noteID ID of the note to update
      * @param {number} width New Width of the note
      * @param {number} height New height of the note
@@ -151,7 +151,7 @@ export default class Notes {
             })
     }
 
-    /** Set a note with `postID` to visible or invisible using `isVisible` (true or false)
+    /** Set a note with `noteID` to visible or invisible using `isVisible` (true or false)
      * @param {number} noteID ID of the note to update
      * @param {boolean} isVisible True or false
      * @returns Promise<e621POSTResponse>
@@ -175,6 +175,16 @@ export default class Notes {
             })
     }
 
+    /** Create a note, given the `postID` to add the note to
+     * @param {number} postID ID of the post to attach the note to
+     * @param {string} body Text body of the note
+     * @param {number} x X position of the note
+     * @param {number} y Y position of the note
+     * @param {number} width Width of the note
+     * @param {number} height Height of the note
+     * @returns Promise<e621POSTResponse>
+     * @memberof Notes
+     */
     create(postID: number, body: string, x: number, y: number, width: number, height: number) {
         let url = `https://e621.net/note/update.json`;
 
