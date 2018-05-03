@@ -222,16 +222,49 @@ export default class Dmail {
             })
     }
 
-    getHidden() {
+    /** Get a list of ALL of your hidden dmails
+     * @param {number} [page] Page number to retrieve
+     * @returns Array of dmail data
+     * @memberof Dmail
+     */
+    getHidden(page?: number) {
+        let url = `https://e621.net/dmail/inbox.json?visibility=hidden`;
 
+        if (page) url += `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: e621DmailMessage[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     hideDmail(dmailID: number) {
-
+        let url = `https://e621.net/dmail/hide.json`;
+        return this.requestServices.post(url,
+            { "id": dmailID }
+        )
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     unhideDmail(dmailID: number) {
-
+        let url = `https://e621.net/dmail/unhide.json`;
+        return this.requestServices.post(url,
+            { "id": dmailID }
+        )
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     /** Hide all dmails in the inbox
