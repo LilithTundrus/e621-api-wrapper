@@ -17,7 +17,7 @@ export default class Dmail {
      * @returns Array of dmail data
      * @memberof Dmail
      */
-    getInbox(page?: number) {
+    public getInbox(page?: number) {
         let url = `https://e621.net/dmail/inbox.json?show=in`;
 
         if (page) url += `&page=${page}`;
@@ -36,7 +36,7 @@ export default class Dmail {
      * @returns Array of dmail data
      * @memberof Dmail
      */
-    getOutbox(page?: number) {
+    public getOutbox(page?: number) {
         let url = `https://e621.net/dmail/inbox.json?show=out`;
 
         if (page) url += `&page=${page}`;
@@ -55,7 +55,7 @@ export default class Dmail {
      * @returns Array of dmail data
      * @memberof Dmail
      */
-    getAllMail(page?: number) {
+    public getAllMail(page?: number) {
         let url = `https://e621.net/dmail/inbox.json?show=all`;
 
         if (page) url += `&page=${page}`;
@@ -77,7 +77,7 @@ export default class Dmail {
      * @returns Array of dmail data that match your query
      * @memberof Dmail
      */
-    searchInbox(query: string, page?: number) {
+    public searchInbox(query: string, page?: number) {
         let url = `https://e621.net/dmail/inbox.json?show=in&title=${query}`;
 
         if (page) url += `&page=${page}`;
@@ -99,7 +99,7 @@ export default class Dmail {
      * @returns Array of dmail data that match your query
      * @memberof Dmail
      */
-    searchOutbox(query: string, page?: number) {
+    public searchOutbox(query: string, page?: number) {
         let url = `https://e621.net/dmail/inbox.json?show=out&title=${query}`;
 
         if (page) url += `&page=${page}`;
@@ -121,7 +121,7 @@ export default class Dmail {
      * @returns Array of dmail data that match your query
      * @memberof Dmail
      */
-    searchAllMail(query: string, page?: number) {
+    public searchAllMail(query: string, page?: number) {
         let url = `https://e621.net/dmail/inbox.json?show=all&title=${query}`;
 
         if (page) url += `&page=${page}`;
@@ -142,7 +142,7 @@ export default class Dmail {
      * @returns HTML redirect message on success
      * @memberof Dmail
      */
-    create(to: string, title: string, body: string) {
+    public create(to: string, title: string, body: string) {
         let postObj = {
             "dmail[to_name]": to,
             "dmail[title]": title,
@@ -170,7 +170,7 @@ export default class Dmail {
      * @returns HTML redirect message on success
      * @memberof Dmail
      */
-    responsdToParent(to: string, title: string, body: string, parentID: number) {
+    public responsdToParent(to: string, title: string, body: string, parentID: number) {
 
         let postObj = {
             "dmail[parent_id]": parentID,
@@ -194,7 +194,7 @@ export default class Dmail {
      * @returns A single dmail's data
      * @memberof Dmail
      */
-    getDmailByID(dmailID: number) {
+    public getDmailByID(dmailID: number) {
         let url = `https://e621.net/dmail/show.json?id=${dmailID}`;
 
         return this.requestServices.get(url)
@@ -210,7 +210,7 @@ export default class Dmail {
      * @returns e621 success boolean
      * @memberof Dmail
      */
-    markAllAsRead() {
+    public markAllAsRead() {
         let url = `https://e621.net/dmail/mark_all_read.json`;
 
         return this.requestServices.get(url)
@@ -227,7 +227,7 @@ export default class Dmail {
      * @returns Array of dmail data
      * @memberof Dmail
      */
-    getHidden(page?: number) {
+    public getHidden(page?: number) {
         let url = `https://e621.net/dmail/inbox.json?visibility=hidden`;
 
         if (page) url += `&page=${page}`;
@@ -246,7 +246,7 @@ export default class Dmail {
      * @returns e621 success boolean
      * @memberof Dmail
      */
-    hideDmail(dmailID: number) {
+    public hideDmail(dmailID: number) {
         let url = `https://e621.net/dmail/hide.json`;
         return this.requestServices.post(url,
             { "id": dmailID }
@@ -264,7 +264,7 @@ export default class Dmail {
      * @returns e621 success boolean
      * @memberof Dmail
      */
-    unhideDmail(dmailID: number) {
+    public unhideDmail(dmailID: number) {
         let url = `https://e621.net/dmail/unhide.json`;
         return this.requestServices.post(url,
             { "id": dmailID }
@@ -281,7 +281,7 @@ export default class Dmail {
      * @returns e621 success boolean
      * @memberof Dmail
      */
-    hideAll() {
+    public hideAll() {
         let url = `https://e621.net/dmail/hide_all.json`;
 
         return this.requestServices.get(url)
@@ -297,7 +297,7 @@ export default class Dmail {
      * @returns e621 success boolean
      * @memberof Dmail
      */
-    unhideAll() {
+    public unhideAll() {
         let url = `https://e621.net/dmail/unhide_all.json`;
 
         return this.requestServices.get(url)
@@ -308,5 +308,6 @@ export default class Dmail {
                 throw Error(err);
             })
     }
+
 }
 

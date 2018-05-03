@@ -54,7 +54,7 @@ export default class Blips {
         let postObj = {
             "id": blipID,
             "blip[body]": bodyText
-        }
+        };
 
         return this.requestServices.post(url, postObj)
             .then((response: e621POSTResponse) => {
@@ -89,7 +89,6 @@ export default class Blips {
      * @memberof Blips
      */
     public getBlipByID(blipID: number) {
-
         return this.requestServices.get(`https://e621.net/blip/show.json?id=${blipID}`)
             .then((response: e621BlipInfo) => {
                 return response;

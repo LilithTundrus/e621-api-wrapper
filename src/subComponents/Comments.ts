@@ -142,8 +142,8 @@ export default class Comments {
         let postObj = <e621CommentCreateJSON>{
             "comment[body]": commentText,
             "comment[post_id": postID
-        }
-        if (anonymous) postObj["comment[anonymous]"] = 1
+        };
+        if (anonymous) postObj["comment[anonymous]"] = 1;
 
         let url = `https://e621.net/comment/create.json`;
         return this.requestServices.post(url, postObj)
