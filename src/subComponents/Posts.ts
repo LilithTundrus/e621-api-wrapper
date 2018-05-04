@@ -1,6 +1,6 @@
 import {
     e621PostData, e621MD5CheckJSON,
-    e621FavoritedUsers
+    e621FavoritedUsers, e621PostTagHistory
 } from '../interfaces';
 import { RequestServices } from '../RequestService';
 import { e621PopularityStrings } from '../enums';
@@ -275,14 +275,9 @@ export default class Posts {
      * @memberof Posts
      */
     public getTagHistoryByID(postID: string | number, returnJSON?: boolean) {
-        let url = `https://e621.net/post_tag_history/index.xml?post_id=${postID}`;
+        let url = `https://e621.net/post_tag_history/index.json?post_id=${postID}`;
         return this.requestServices.get(url)
-            .then((response) => {
-                if (returnJSON) {
-                    var document = parser.parseFromString(response, 'text/xml');
-                    let json = xmlToJson(document)
-                    return json;
-                }
+            .then((response: e621PostTagHistory[]) => {
                 return response;
             })
             .catch((err) => {
