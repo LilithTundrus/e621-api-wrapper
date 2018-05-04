@@ -1,6 +1,6 @@
 import { RequestServices } from '../RequestService';
 import {
-    e621POSTResponse
+    e621POSTResponse, e621WikiEntry
 } from '../interfaces';
 
 export default class Wiki {
@@ -42,7 +42,7 @@ export default class Wiki {
         let url = `https://e621.net/wiki/show.json?title=${wikiTitle}`;
 
         return this.requestServices.get(url)
-            .then((response: any) => {
+            .then((response: e621WikiEntry) => {
                 return response;
             })
             .catch((err) => {
