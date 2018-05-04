@@ -20,6 +20,7 @@ export default class Pools {
      */
     public listPools(page?: number) {
         let url = `https://e621.net/pool/index.json?`;
+
         if (page) url = url + `&page=${page}`;
 
         return this.requestServices.get(url)
@@ -31,9 +32,15 @@ export default class Pools {
             })
     }
 
+    /** List the posts contained in a pool
+     * @param {(number | string)} poolID ID of the pool to list the posts of
+     * @param {number} [page] The page number to return
+     * @returns Promise<e621PoolPostSet>
+     * @memberof Pools
+     */
     public listPoolPosts(poolID: number | string, page?: number) {
-
         let url = `https://e621.net/pool/show.json?id=${poolID}`;
+
         if (page) url = url + `&page=${page}`;
 
         return this.requestServices.get(url)
@@ -53,6 +60,7 @@ export default class Pools {
      */
     public getPoolsByName(query: string, page?: number) {
         let url = `https://e621.net/pool/index.json?query=${query}`;
+
         if (page) url = url + `&page=${page}`;
 
         return this.requestServices.get(url)
@@ -76,7 +84,7 @@ export default class Pools {
         let postObj = {
             "pool[name]": poolName,
             "pool[description]": poolDescription,
-        }
+        };
 
         return this.requestServices.post(url, postObj)
             .then((response: e621POSTResponse) => {
@@ -88,8 +96,8 @@ export default class Pools {
     }
 
     /** Update a pool's name by ID
-     * @param {(number | string)} poolID 
-     * @param {string} poolName 
+     * @param {(number | string)} poolID ID of the pool to update
+     * @param {string} poolName The updated name for the given `poolID`
      * @returns Promise<e621POSTResponse>
      * @memberof Pools
      */
@@ -111,8 +119,8 @@ export default class Pools {
     }
 
     /** Update a pool's description by ID
-     * @param {(number | string)} poolID 
-     * @param {string} poolName 
+     * @param {(number | string)} poolID ID of the pool to update
+     * @param {string} poolDescription The updated description for the given `poolID`
      * @returns Promise<e621POSTResponse>
      * @memberof Pools
      */
@@ -133,8 +141,10 @@ export default class Pools {
             })
     }
 
-    /** DELETE a pool by its ID
-     * @param {(number | string)} poolID 
+    /** Delete a pool by its ID
+     * 
+     * You must either own the pool or be a moderator (or above) to delete a pool
+     * @param {(number | string)} poolID ID of the pool to delete
      * @returns Promise<e621POSTResponse>
      * @memberof Pools
      */
