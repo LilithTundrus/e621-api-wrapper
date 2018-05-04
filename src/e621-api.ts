@@ -9,6 +9,7 @@ import Blips from './subComponents/Blips';
 import Sets from './subComponents/Sets';
 import Dmail from './subComponents/Dmail';
 import Notes from './subComponents/Notes';
+import Wiki from './subComponents/Wiki';
 
 import { RequestServices } from './RequestService';
 
@@ -72,6 +73,11 @@ export default class e621 {
      */
     public notes: Notes;
 
+    /** Contains all methods for performing GET/POST operations on the e621 `note` endpoints
+     * @memberof e621
+     */
+    public wiki: Wiki;
+
     /**
      * Creates an instance of e621.
      * @param {string} userAgent This identifies you to the API
@@ -102,6 +108,7 @@ export default class e621 {
         this.sets = new Sets(this.pageLimit, this.requestservices);
         this.dmail = new Dmail(this.pageLimit, this.requestservices);
         this.notes = new Notes(this.pageLimit, this.requestservices);
+        this.wiki = new Wiki(this.pageLimit, this.requestservices);
     }
 
     public get agent() { return this.userAgent; }
