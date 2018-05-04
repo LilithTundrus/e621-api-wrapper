@@ -6,7 +6,7 @@ function xmlToJson(xml: any) {
     var obj: any = {};
 
     if (xml.nodeType == 1) { // element
-        // do attributes
+        // process attributes
         if (xml.attributes.length > 0) {
             obj["@attributes"] = {};
             for (var j = 0; j < xml.attributes.length; j++) {
@@ -18,7 +18,7 @@ function xmlToJson(xml: any) {
         obj = xml.nodeValue;
     }
 
-    // do children
+    // process child nodes 
     // If just one text node inside
     if (xml.hasChildNodes() && xml.childNodes.length === 1 && xml.childNodes[0].nodeType === 3) {
         obj = xml.childNodes[0].nodeValue;
