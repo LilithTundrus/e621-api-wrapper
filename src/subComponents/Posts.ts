@@ -143,7 +143,7 @@ export default class Posts {
                 })
         }
     }
-    
+
     /** Revert a post with the given `postID` to a previous tag history 
      * @param {number} postID ID of the post to revert the tags for
      * @param {number} tagHistoryID ID of the tag history set, can be retrieved by using `posts.getTagHistoryByID` method
@@ -175,7 +175,13 @@ export default class Posts {
         return this.requestServices.post('https://e621.net/post/vote.json',
             {
                 "id": postID, "score": score
-            });
+            })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     /** Generate a post's URL by its ID
@@ -254,31 +260,24 @@ export default class Posts {
      * @memberof e621
      */
     public getIndexPaginate(tags?: string, start?: number, limitPerPage?: number, pageLimit?: number) {
-        var tagsString: string;
-        var pageStart: number;
-        var limitString;
-        var pageLimitTemp: number;
-        if (!tags) {
-            tagsString = '';
-        } else {
-            tagsString = `tags=${tags}`;
-        }
-        if (!start) {
-            pageStart = 1;
-        } else {
-            pageStart = start;
-        }
-        if (!limitPerPage) {
-            limitString = '50';
-        } else {
-            limitString = limitPerPage;
-        }
-        if (!pageLimit) {
-            pageLimitTemp = this.pageLimit;
-        } else {
-            pageLimitTemp = pageLimit;
-        }
-        var dataArray = [];                                         // Empty array, likely not needed but eh?
+        let tagsString: string;
+        let pageStart: number;
+        let limitString;
+        let pageLimitTemp: number;
+
+        if (!tags) tagsString = '';
+        else tagsString = `tags=${tags}`;
+
+        if (!start) pageStart = 1;
+        else pageStart = start;
+
+        if (!limitPerPage) limitString = '50';
+        else limitString = limitPerPage;
+
+        if (!pageLimit) pageLimitTemp = this.pageLimit;
+        else pageLimitTemp = pageLimit;
+
+        let dataArray = [];                                         // Empty array, likely not needed but eh?
         return this.requestServices.paginateE621Endpoint(`https://e621.net/post/index.json?${tagsString}&limit=${limitString}`, start, pageLimit, dataArray);
     }
 
@@ -291,6 +290,7 @@ export default class Posts {
      */
     public getTagHistoryByID(postID: string | number, returnJSON?: boolean) {
         let url = `https://e621.net/post_tag_history/index.json?post_id=${postID}`;
+
         return this.requestServices.get(url)
             .then((response: e621PostTagHistory[]) => {
                 return response;
