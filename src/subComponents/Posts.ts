@@ -290,6 +290,11 @@ export default class Posts {
             })
     }
 
+    /** Get a list of users who have favorited a given post by `postID`
+     * @param {(string | number)} postID ID of the post to get favorites for
+     * @returns Promise<e621FavoritedUsers>
+     * @memberof Posts
+     */
     public getFavorites(postID: string | number) {
         let url = `https://e621.net/favorite/list_users.json?id=${postID}`;
 
