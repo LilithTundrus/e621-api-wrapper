@@ -13,12 +13,13 @@ let parser = new DOMParser();
 export default class Posts {
     private pageLimit: number;
     private requestServices: RequestServices;
+
     public constructor(pageLimit: number, requestServices: RequestServices) {
         this.pageLimit = pageLimit;
         this.requestServices = requestServices;
     }
 
-    // // TODO: Have this user REST params, or a custom args object
+    // // TODO: Have this user rest params, or a custom args object
     // public create(tags: string, source: string, rating: string, file?: string, url?: string) {
     //     let formOptions;
     //     if (file) {
@@ -57,6 +58,7 @@ export default class Posts {
     //     return this.requestServices.post('https://e621.net/post/create.json', formOptions)
     // }
 
+    // TODO: split this into stuff like updateSource/etc.
     // public update(postID: string) {
     //     //         The base URL is /post/update.json. Only the id parameter is required. Leave the other parameters blank if you don't want to change them. If submitting the post[tags] parameter, it is recommended to include the post[old_tags] parameter as well because it allows e621 to correctly handle simultaneous edits from multiple users.
 
