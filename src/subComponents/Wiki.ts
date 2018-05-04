@@ -38,6 +38,11 @@ export default class Wiki {
         // wiki_page[body] The new body of the wiki page.
     }
 
+    /** Get a wiki page data by its `wikiTitle`
+     * @param {string} wikiTitle Title of the wiki page to get
+     * @returns Promise<e621WikiEntry>
+     * @memberof Wiki
+     */
     getWikiByTitle(wikiTitle: string) {
         let url = `https://e621.net/wiki/show.json?title=${wikiTitle}`;
 
@@ -50,7 +55,13 @@ export default class Wiki {
             })
     }
 
-    destroy() {
+    /** Delete a wiki page by its `wikiTitle`
+     * 
+     * **NOTE**: You must be logged in as a moderator or higher to delete a wiki page
+     * @param {string} wikiTitle Title of the wiki page to delete
+     * @memberof Wiki
+     */
+    destroy(wikiTitle: string) {
         // The base URL is /wiki/destroy.json. You must be logged in as a moderator to use this action.
 
         // title The title of the page to delete.
