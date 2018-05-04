@@ -12,15 +12,26 @@ export default class Wiki {
         this.requestServices = requestServices;
     }
 
-    //     All titles must be exact (but case and whitespace don't matter).
+    /** List ALL wiki pages, sorted by name
+     * 
+     * **NOTE**: The official docs on the list endpoint where it says that queries are accepted is **false**,
+     * none of the args besides `page` are processed.
+     * @param {number} [page] 
+     * @returns 
+     * @memberof Wiki
+     */
+    list(page?: number) {
+        let url = `https://e621.net/wiki/index.json?`;
 
-    searchWiki(query: string, order?: string, page?: number) {
-        // The base URL is /wiki/index.json. This retrieves a list of every wiki page.
+        if (page) url += `&page=${page}`;
 
-        // order How you want the pages ordered. Can be: title, date.
-        // limit The number of pages to retrieve.
-        // page The page number.
-        // query A word or phrase to search for.
+        return this.requestServices.get(url)
+            .then((response: e621WikiEntry[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     create() {
@@ -86,12 +97,25 @@ export default class Wiki {
 
     // title The title of the page to unlock.
 
+    /** Revert a wiki page with the givem `wikiTitle` to the given tag `version`
+     * @param {string} wikiTitle Title of the wiki page to revert
+     * @param {number} version Version to revert the page to
+     * @returns Promise<e621POSTResponse>
+     * @memberof Wiki
+     */
+    revertWiki(wikiTitle: string, version: number) {
+        let url = `https://e621.net/wiki/revert.json`;
 
-    revertWiki() {
-        // The base URL is /wiki/revert.json. Potential error reasons: "Page is locked"
-
-        // title The title of the wiki page to update.
-        // version The version to revert to.
+        return this.requestServices.post(url, {
+            "title": wikiTitle,
+            "version": version
+        })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     // /** Get the history of a wiki page by title
