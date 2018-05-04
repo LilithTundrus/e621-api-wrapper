@@ -15,9 +15,9 @@ export default class Wiki {
     /** List ALL wiki pages, sorted by name
      * 
      * **NOTE**: The official docs on the list endpoint where it says that queries are accepted is **false**,
-     * none of the args besides `page` are processed.
-     * @param {number} [page] 
-     * @returns 
+     * none of the params besides `page` are processed.
+     * @param {number} [page] Page number to return
+     * @returns Promise<e621WikiEntry[]>
      * @memberof Wiki
      */
     list(page?: number) {
@@ -35,8 +35,8 @@ export default class Wiki {
     }
 
     /** Create a wiki page with the given `title` and `body`
-     * @param {string} title 
-     * @param {string} body 
+     * @param {string} title Title of the wiki page to create
+     * @param {string} body Body of the wiki page to create
      * @returns Promise<e621POSTResponse>
      * @memberof Wiki
      */
@@ -55,22 +55,43 @@ export default class Wiki {
             })
     }
 
-    /** Update a wikie page with the given `currentTitle`
+    /** Update a wiki page with the given `currentTitle` to have a `newTitle`
      * 
      * Potential error reasons: "Page is locked"
-     * @param {string} currentTitle 
-     * @param {string} newTitle 
-     * @param {string} newBody 
+     * @param {string} currentTitle Wiki page's current title (wiki endpoint does not support updates by ID)
+     * @param {string} newTitle New Title
      * @returns Promise<e621POSTResponse>
      * @memberof Wiki
      */
-    update(currentTitle: string, newTitle: string, newBody: string) {
+    updateWikiTitle(currentTitle: string, newTitle: string) {
         let url = `https://e621.net/wiki/update.json`;
 
         return this.requestServices.post(url, {
             "title": currentTitle,
             "wiki_page[title]": newTitle,
-            "wiki_page[body]": newBody
+        })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /** Update a wiki page with the given `wikiTitle` to have a `newBody`
+     * 
+     * Potential error reasons: "Page is locked"
+     * @param {string} wikiTitle Wiki page's current title (wiki endpoint does not support updates by ID)
+     * @param {string} newBody New Body to update the wiki page with
+     * @returns Promise<e621POSTResponse>
+     * @memberof Wiki
+     */
+    updateWikiBody(wikiTitle: string, newBody: string) {
+        let url = `https://e621.net/wiki/update.json`;
+
+        return this.requestServices.post(url, {
+            "title": wikiTitle,
+            "wiki_page[body]": newBody,
         })
             .then((response: e621POSTResponse) => {
                 return response;
