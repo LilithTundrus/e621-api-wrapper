@@ -196,4 +196,44 @@ export default class Wiki {
                 throw Error(err);
             })
     }
+
+    /** Unlock a wiki page by its `wikiTitle`
+     * 
+     * **NOTE**: You must be logged in as a moderator or higher to unlock a wiki page
+     * @param {string} wikiTitle Title of the wiki page to unlock
+     * @memberof Wiki
+     */
+    unlockWiki(wikiTitle: string) {
+        let url = `https://e621.net/wiki/unlock.json`;
+
+        return this.requestServices.post(url, {
+            "title": wikiTitle,
+        })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /** Lock a wiki page by its `wikiTitle`
+     * 
+     * **NOTE**: You must be logged in as a moderator or higher to lock a wiki page
+     * @param {string} wikiTitle Title of the wiki page to lock
+     * @memberof Wiki
+     */
+    locWiki(wikiTitle: string) {
+        let url = `https://e621.net/wiki/lock.json`;
+
+        return this.requestServices.post(url, {
+            "title": wikiTitle,
+        })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
 }
