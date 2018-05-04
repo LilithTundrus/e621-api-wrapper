@@ -1,6 +1,7 @@
 import {
     e621PostData, e621MD5CheckJSON,
-    e621FavoritedUsers, e621PostTagHistory
+    e621FavoritedUsers, e621PostTagHistory,
+    e621POSTResponse
 } from '../interfaces';
 import { RequestServices } from '../RequestService';
 import { e621PopularityStrings } from '../enums';
@@ -142,13 +143,27 @@ export default class Posts {
                 })
         }
     }
+    
+    /** Revert a post with the given `postID` to a previous tag history 
+     * @param {number} postID ID of the post to revert the tags for
+     * @param {number} tagHistoryID ID of the tag history set, can be retrieved by using `posts.getTagHistoryByID` method
+     * @returns Promise<e621POSTResponse>
+     * @memberof Posts
+     */
+    public revertTags(postID: number, tagHistoryID: number) {
+        let url = `https://e621.net//post/revert_tags.json`;
 
-    // public revertTags() {
-    //     //  This action reverts a post to a previous set of tags. The base URL is /post/revert_tags.json.
-
-    //     //         id The post ID number to update.
-    //     // history_id The ID number of the tag history.
-    // }
+        return this.requestServices.post(url, {
+            "id": postID,
+            "history_id": tagHistoryID
+        })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
 
     /** Vote for a post by ID, Score must be 1 for updvote, -1 for downvote
      * @param {(string | number)} postID 
