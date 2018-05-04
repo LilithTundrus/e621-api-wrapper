@@ -106,12 +106,15 @@ export default class Wiki {
             })
     }
 
-    getRecentChanges() {
-        // The base URL is /wiki/recent_changes.xml.
-
-        // user_id
-        // page
+    /** Get recent changes to wiki pages
+     * @param {number} [page] Page number to return
+     * @returns Promise<e621WikiEntry[]>
+     * @memberof Wiki
+     */
+    getRecentChanges(page?: number) {
         let url = `https://e621.net/wiki/recent_changes.json?`;
+
+        if (page) url += `page=${page}`;
 
         return this.requestServices.get(url)
             .then((response: e621WikiEntry[]) => {
