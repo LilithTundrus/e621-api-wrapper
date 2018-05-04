@@ -232,3 +232,11 @@ export interface e621PostNote {
 export interface e621FavoritedUsers {
     favorited_users: string
 }
+
+export interface e621PostTagHistory {
+    id: number,
+    post_id: number,
+    created_at: number,
+    tags: string,
+    source: string
+}
