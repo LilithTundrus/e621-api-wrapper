@@ -38,11 +38,16 @@ export default class Wiki {
         // wiki_page[body] The new body of the wiki page.
     }
 
-    getWikiByName() {
-        // The base URL is /wiki/show.json. Potential error reasons: "artist type"
+    getWikiByTitle(wikiTitle: string) {
+        let url = `https://e621.net/wiki/show.json?title=${wikiTitle}`;
 
-        // title The title of the wiki page to retrieve.
-        // version The version of the page to retrieve.
+        return this.requestServices.get(url)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     destroy() {
