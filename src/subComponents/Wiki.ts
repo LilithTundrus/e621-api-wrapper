@@ -62,9 +62,17 @@ export default class Wiki {
      * @memberof Wiki
      */
     destroy(wikiTitle: string) {
-        // The base URL is /wiki/destroy.json. You must be logged in as a moderator to use this action.
+        let url = `https://e621.net/wiki/destroy.json`;
 
-        // title The title of the page to delete.
+        return this.requestServices.post(url, {
+            "title": wikiTitle,
+        })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     // Lock
