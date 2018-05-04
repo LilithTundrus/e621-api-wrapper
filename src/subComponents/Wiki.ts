@@ -94,17 +94,24 @@ export default class Wiki {
         // version The version to revert to.
     }
 
-    getWikiHistoryByTitle(wikiTitle: string) {
-        let url = `https://e621.net/wiki/history.json?title=${wikiTitle}`;
+    // /** Get the history of a wiki page by title
+    //  * 
+    //  * **NOTE**: As of API version 0.4.0 this returns a 500 internal server error
+    //  * @param {string} wikiTitle Title of the page to retrive the history of
+    //  * @returns 
+    //  * @memberof Wiki
+    //  */
+    // getWikiHistoryByTitle(wikiTitle: string) {
+    //     let url = `https://e621.net/wiki/history.json?title=${wikiTitle}`;
 
-        return this.requestServices.get(url)
-            .then((response: any) => {
-                return response;
-            })
-            .catch((err) => {
-                throw Error(err);
-            })
-    }
+    //     return this.requestServices.get(url)
+    //         .then((response: any) => {
+    //             return response;
+    //         })
+    //         .catch((err) => {
+    //             throw Error(err);
+    //         })
+    // }
 
     /** Get recent changes to wiki pages
      * @param {number} [page] Page number to return
