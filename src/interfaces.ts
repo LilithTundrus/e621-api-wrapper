@@ -201,6 +201,18 @@ export interface e621SetJSON {
     posts: e621PostData[]
 }
 
+export interface e621SetJSONConverted {
+    id: number,
+    name: string,
+    created_at: string,
+    updated_at: string,
+    user_id: number,
+    description: string,
+    shortname: string,
+    post_count: number,
+    posts: e621PostData[]
+}
+
 export interface e621DmailMessage {
     id: number,
     parent_id: number,
