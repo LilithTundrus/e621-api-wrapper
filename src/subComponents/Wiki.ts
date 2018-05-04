@@ -94,10 +94,16 @@ export default class Wiki {
         // version The version to revert to.
     }
 
-    getWikiHistoryByName() {
-        // The base URL is /wiki/history.xml.
+    getWikiHistoryByTitle(wikiTitle: string) {
+        let url = `https://e621.net/wiki/history.json?title=${wikiTitle}`;
 
-        // title The title of the wiki page to retrieve versions for.
+        return this.requestServices.get(url)
+            .then((response: any) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     getRecentChanges() {
@@ -105,5 +111,14 @@ export default class Wiki {
 
         // user_id
         // page
+        let url = `https://e621.net/wiki/recent_changes.json?`;
+
+        return this.requestServices.get(url)
+            .then((response: e621WikiEntry[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 }
