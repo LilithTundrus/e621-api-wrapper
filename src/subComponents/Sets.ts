@@ -46,14 +46,20 @@ export default class Sets {
      * @memberof Sets
      */
     public listAllSets(page?: number) {
-        let url = `https://e621.net/set/index.json?limit=50`;
+        let url = `https://e621.net/set/index.xml?limit=50`;
 
         if (page) url += `&page=${page}`;
 
         return this.requestServices.get(url)
-            .then((response: e621SetJSON[]) => {
+            .then((response: any) => {
                 // format the XML to JSON
-                return response;
+                // return response;
+                // coerce the JSON into a custom object
+
+                var document = parser.parseFromString(response, 'text/xml');
+                let json = xmlToJson(document);
+                let beh  = this.beuatifySetJSONArray(json.sets.set);
+
             })
             .catch((err) => {
                 throw Error(err);
@@ -179,4 +185,12 @@ export default class Sets {
 
     // id The ID of the maintainer invite to approve/deny/block
     // set_id The ID of the set to approve/deny/block the invite to
+
+    private beuatifySetJSONArray(convertedSetArray: any[]) {
+        convertedSetArray.forEach(setData => {
+            console.log(setData)
+            // coerce the JSON into a custom object
+       
+        });
+    }
 }
