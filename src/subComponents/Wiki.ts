@@ -34,19 +34,50 @@ export default class Wiki {
             })
     }
 
-    create() {
-        // The base URL is /wiki/create.json.
+    /** Create a wiki page with the given `title` and `body`
+     * @param {string} title 
+     * @param {string} body 
+     * @returns Promise<e621POSTResponse>
+     * @memberof Wiki
+     */
+    create(title: string, body: string) {
+        let url = `https://e621.net/wiki/create.json`;
 
-        // wiki_page[title] The title of the wiki page.
-        // wiki_page[body] The body of the wiki page.
+        return this.requestServices.post(url, {
+            "wiki_page[title]": title,
+            "wiki_page[body]": body
+        })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
-    update() {
-        // The base URL is /wiki/update.json. Potential error reasons: "Page is locked"
+    /** Update a wikie page with the given `currentTitle`
+     * 
+     * Potential error reasons: "Page is locked"
+     * @param {string} currentTitle 
+     * @param {string} newTitle 
+     * @param {string} newBody 
+     * @returns Promise<e621POSTResponse>
+     * @memberof Wiki
+     */
+    update(currentTitle: string, newTitle: string, newBody: string) {
+        let url = `https://e621.net/wiki/update.json`;
 
-        // title The title of the wiki page to update.
-        // wiki_page[title] The new title of the wiki page.
-        // wiki_page[body] The new body of the wiki page.
+        return this.requestServices.post(url, {
+            "title": currentTitle,
+            "wiki_page[title]": newTitle,
+            "wiki_page[body]": newBody
+        })
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     /** Get a wiki page data by its `wikiTitle`
@@ -85,17 +116,6 @@ export default class Wiki {
                 throw Error(err);
             })
     }
-
-    // Lock
-    // The base URL is /wiki/lock.json. You must be logged in as a moderator to use this action.
-
-    // title The title of the page to lock.
-
-
-    // Unlock
-    // The base URL is /wiki/unlock.json. You must be logged in as a moderator to use this action.
-
-    // title The title of the page to unlock.
 
     /** Revert a wiki page with the givem `wikiTitle` to the given tag `version`
      * @param {string} wikiTitle Title of the wiki page to revert
