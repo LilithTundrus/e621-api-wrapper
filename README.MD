@@ -467,6 +467,13 @@ To get a list of `note` methods, check the `docs/` folder.
 </br>
 
 
+### Wiki
+
+To get a list of `wiki` methods, check the `docs/` folder.
+</br>
+</br>
+
+
 ## Logging in through the API
 
 Some API actions require you to log in.
@@ -511,10 +518,15 @@ Any POST calls you make to the API through `requestServices` will use your login
 ## History
 </br>
 
+- **v0.3.56*
+    - Added support for `Wiki` endpoints (what actually works, anyway)
+
+
 - **v0.3.5**
     - Added support for `Notes`
     - Added `getFavorites` method to `Posts`
     - Moving closer to completing the API wrapping
+
 
 - **v0.3.4**
     - Added support for `Dmail`
