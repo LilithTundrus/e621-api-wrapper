@@ -240,3 +240,14 @@ export interface e621PostTagHistory {
     tags: string,
     source: string
 }
+
+export interface e621WikiEntry {
+    id: number,
+    created_at: { json_class: string, s: number, n: number },
+    updated_at: { json_class: string, s: number, n: number },
+    title: string,
+    body: string,
+    updater_id: number,
+    locked: boolean,
+    version: number
+}
