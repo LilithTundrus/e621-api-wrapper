@@ -1,7 +1,8 @@
 import { RequestServices } from '../RequestService';
 import {
     e621POSTResponse, e621SetJSON,
-    e621SetJSONConverted, e621PostData
+    e621SetJSONConverted, e621PostDataConverted,
+    e621SetJSONConvertedWithPosts
 } from '../interfaces';
 import { xmlToJson } from '../lib/xml2json';
 import { DOMParser } from 'xmldom'
@@ -243,7 +244,7 @@ export default class Sets {
 
     private beautifySetJSONSingle(convertedSetJSON: any, convertedPostJSON: any) {
         // coerce the JSON into a custom object
-        let cleanedObject = <e621SetJSONConverted>{};
+        let cleanedObject = <e621SetJSONConvertedWithPosts>{};
 
         // array to hold all of the posts we've cleaned to have their correct typings
         let cleanedPosts = [];
@@ -262,9 +263,52 @@ export default class Sets {
         convertedPostJSON.forEach((post, index) => {
             console.log(post)
 
-            let cleanedPost = <e621PostData>{
-                id: parseInt(post.id)
+            let cleanedPost = <e621PostDataConverted>{
+                id: parseInt(post.id),
+                tags: post.tags,
+                locked_tags: post.locked_tags,
+                description: post.description,
+                created_at: post.created_at,
+                creator_id: parseInt(post.creator_id),
+                author: post.author,
+                change: parseInt(post.change),
+                source: post.source,
+                score: parseInt(post.score),
+                fav_count: parseInt(post.fav_count),
+                md5: post.md5,
+                file_size: parseInt(post.file_size),
+                file_url: post.file_url,
+                file_ext: post.file_ext,
+                preview_url: post.preview_url,
+                preview_width: parseInt(post.preview_width),
+                preview_height: parseInt(post.preview_height),
+                sample_url: post.sample_url,
+                sample_width: parseInt(post.sample_width),
+                sample_height: parseInt(post.sample_height),
+                rating: post.rating,
+                status: post.status,
+                width: parseInt(post.width),
+                height: parseInt(post.height),
+                has_comments: JSON.parse(post.has_comments),
+                has_notes: JSON.parse(post.has_notes),
+                has_children: JSON.parse(post.has_children),
+                children: post.children,
+                parent_id: null,
             }
+            // check if a parent ID isn't some garbage XML that means nothing
+            if (isNaN(parseInt(post.parent_id)) == false) {
+                cleanedPost.parent_id = post.parent_id;
+            }
+
+            // make sure the artist prop deson't return XML garbage
+            if (post.artist.hasOwnProperty('artist')) {
+                cleanedPost.artist = post.artist.artist;
+            } else {
+                cleanedPost.artist = post.artist;
+            }
+
+
+
             console.log(cleanedPost)
         })
         return cleanedObject;
