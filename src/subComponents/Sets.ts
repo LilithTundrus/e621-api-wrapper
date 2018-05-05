@@ -102,27 +102,7 @@ export default class Sets {
     }
 
     public showSet(setID: number) {
-        // The base URL is / set / show.xml
-
-        // id The ID number of the set to retrieve
-        // Returns:
-
-        // post - set
-        // created - at
-        // updated - at
-        // id
-        // user - id
-        // name
-        // shortname
-        // description
-        // public
-        // post - count
-        // transfer - to - parent - on - delete
-        //     posts
-        // post
-
         let url = `https://e621.net/set/show.xml?id=${setID}`;
-
 
         return this.requestServices.get(url)
             .then((response: string) => {
@@ -132,9 +112,8 @@ export default class Sets {
                 // clean the conversion artifacts
 
                 // this is going to take a massive amount of work
-                console.log(json)
-                console.log(this.beautifySetJSONSingle(json["post-set"], json["post-set"].posts.post))
-                return json
+                let cleanedSet = this.beautifySetJSONSingle(json["post-set"], json["post-set"].posts.post)
+                return cleanedSet;
             })
             .catch((err) => {
                 throw Error(err);
@@ -247,7 +226,7 @@ export default class Sets {
         let cleanedObject = <e621SetJSONConvertedWithPosts>{};
 
         // array to hold all of the posts we've cleaned to have their correct typings
-        let cleanedPosts = [];
+        let cleanedPosts: e621PostDataConverted[] = [];
 
         cleanedObject.id = parseInt(convertedSetJSON.id);
         cleanedObject.name = convertedSetJSON.name;
@@ -261,8 +240,6 @@ export default class Sets {
         cleanedObject.transfer_to_parent_on_delete = JSON.parse(convertedSetJSON["transfer-to-parent-on-delete"]);
 
         convertedPostJSON.forEach((post, index) => {
-            console.log(post)
-
             let cleanedPost = <e621PostDataConverted>{
                 id: parseInt(post.id),
                 tags: post.tags,
@@ -307,10 +284,17 @@ export default class Sets {
                 cleanedPost.artist = post.artist;
             }
 
-
-
-            console.log(cleanedPost)
+            // if > 1 source, handle the XML -> JSON array conversion
+            if (post.sources) {
+                if (post.sources.hasOwnProperty('source')) {
+                    cleanedPost.sources = post.sources.source;
+                }
+            } else {
+                cleanedPost.sources = post.sources;
+            }
+            cleanedPosts.push(cleanedPost);
         })
+        cleanedObject.posts = cleanedPosts;
         return cleanedObject;
     }
 }
