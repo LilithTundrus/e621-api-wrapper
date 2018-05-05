@@ -16,32 +16,32 @@ export default class Sets {
         this.requestServices = requestServices;
     }
 
-    public listSets() {
-        // The base URL is /set/index.xml
+    // public listSets() {
+    // The base URL is /set/index.xml
 
-        // page The page number (50 sets per page)
-        // user_id Only show sets owned by the given user
-        // maintainer_id Only show sets maintained by the given user
-        // post_id Only show sets containing the given post
-        // Returns:
+    // page The page number (50 sets per page)
+    // user_id Only show sets owned by the given user
+    // maintainer_id Only show sets maintained by the given user
+    // post_id Only show sets containing the given post
+    // Returns:
 
-        // sets
-        // set
-        // created-at
-        // updated-at
-        // id
-        // user-id
-        // name
-        // shortname
-        // description
-        // public
-        // post-count
-        // transfer-to-parent-on-delete
-    }
+    // sets
+    // set
+    // created-at
+    // updated-at
+    // id
+    // user-id
+    // name
+    // shortname
+    // description
+    // public
+    // post-count
+    // transfer-to-parent-on-delete
 
     /** List most recent sets, limit of 50 per page
      * 
-     * PLEASE NOTE THAT THIS IS VERY INTENSIVE AND CAN TAKE OVER A MINUTE TO RETURN ANY DATA
+     * **PLEASE NOTE**: This is being converted from XML as the JSON endpoint is 30x slower than the
+     * XML endpoint, so it's faster to convert them
      * @param {number} [page] Page number to return
      * @returns An Array of set data
      * @memberof Sets
@@ -52,15 +52,41 @@ export default class Sets {
         if (page) url += `&page=${page}`;
 
         return this.requestServices.get(url)
-            .then((response: any) => {
-                // format the XML to JSON
-                // return response;
-                // coerce the JSON into a custom object
-
+            .then((response: string) => {
+                // format the XML string to JSON
                 var document = parser.parseFromString(response, 'text/xml');
                 let json = xmlToJson(document);
-                // let beh  = this.beautifySetJSONArray(json.sets.set);
-                this.beautifySetJSONArray(json.sets.set)
+                // clean the conversion artifacts
+                let cleanedResponse = this.beautifySetJSONArray(json.sets.set);
+                return cleanedResponse;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    /** Get sets that include the given `postID` 
+     * 
+     * **PLEASE NOTE**: This is being converted from XML as the JSON endpoint is 30x slower than the
+     * XML endpoint, so it's faster to convert them
+     * @param {number} postID Post to filter sets by
+     * @param {number} [page] The page number to return, if there is only one page this is ignored
+     * @returns 
+     * @memberof Sets
+     */
+    public getSetsWithMatchingPostID(postID: number, page?: number) {
+        let url = `https://e621.net/set/index.xml?limit=50&post_id=${postID}`;
+
+        if (page) url += `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: string) => {
+                // format the XML string to JSON
+                var document = parser.parseFromString(response, 'text/xml');
+                let json = xmlToJson(document);
+                // clean the conversion artifacts
+                let cleanedResponse = this.beautifySetJSONArray(json.sets.set);
+                return cleanedResponse;
             })
             .catch((err) => {
                 throw Error(err);
@@ -188,38 +214,21 @@ export default class Sets {
     // set_id The ID of the set to approve/deny/block the invite to
 
     private beautifySetJSONArray(convertedSetArray: any[]) {
-        let arrayToReturn: e621SetJSON[];
+        let arrayToReturn: e621SetJSONConverted[] = [];
         convertedSetArray.forEach(setData => {
-            console.log(setData);
-            console.log(setData["created-at"])
-            console.log(setData.description)
-            console.log(setData.id)
-            console.log(setData.name)
-            console.log(setData["post-count"])
-            console.log(setData.public)
-            console.log(setData.shortname)
-            console.log(setData["transfer-to-parent-on-delete"])
-            console.log(setData["updated-at"])
-            console.log(setData["user-id"])
-
-
-
-
             // coerce the JSON into a custom object
-            let cleanedObject: any = {};
-            cleanedObject.id = setData.id;
-            cleanedObject.name = setData.name;
+            let cleanedObject = <e621SetJSONConverted>{};
+            cleanedObject.id = parseInt(setData.id);
             cleanedObject.name = setData.name;
             cleanedObject.created_at = setData["created-at"];
             cleanedObject.updated_at = setData["updated-at"];
-            cleanedObject.user_id = setData["user-id"];
+            cleanedObject.user_id = parseInt(setData["user-id"]);
             cleanedObject.description = setData.description;
             cleanedObject.shortname = setData.shortname;
-            cleanedObject.post_count = setData["post-count"];
+            cleanedObject.post_count = parseInt(setData["post-count"]);
 
-
-            console.log(cleanedObject)
-            console.log(typeof setData.id)
+            arrayToReturn.push(cleanedObject);
         });
+        return arrayToReturn;
     }
 }
