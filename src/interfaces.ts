@@ -210,7 +210,6 @@ export interface e621SetJSONConverted {
     description: string,
     shortname: string,
     post_count: number,
-    posts: e621PostData[]
 }
 
 export interface e621DmailMessage {

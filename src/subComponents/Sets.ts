@@ -1,6 +1,7 @@
 import { RequestServices } from '../RequestService';
 import {
-    e621POSTResponse, e621SetJSON
+    e621POSTResponse, e621SetJSON,
+    e621SetJSONConverted
 } from '../interfaces';
 import { xmlToJson } from '../lib/xml2json';
 import { DOMParser } from 'xmldom'
@@ -58,8 +59,8 @@ export default class Sets {
 
                 var document = parser.parseFromString(response, 'text/xml');
                 let json = xmlToJson(document);
-                let beh  = this.beuatifySetJSONArray(json.sets.set);
-
+                // let beh  = this.beautifySetJSONArray(json.sets.set);
+                this.beautifySetJSONArray(json.sets.set)
             })
             .catch((err) => {
                 throw Error(err);
@@ -186,11 +187,39 @@ export default class Sets {
     // id The ID of the maintainer invite to approve/deny/block
     // set_id The ID of the set to approve/deny/block the invite to
 
-    private beuatifySetJSONArray(convertedSetArray: any[]) {
+    private beautifySetJSONArray(convertedSetArray: any[]) {
+        let arrayToReturn: e621SetJSON[];
         convertedSetArray.forEach(setData => {
-            console.log(setData)
+            console.log(setData);
+            console.log(setData["created-at"])
+            console.log(setData.description)
+            console.log(setData.id)
+            console.log(setData.name)
+            console.log(setData["post-count"])
+            console.log(setData.public)
+            console.log(setData.shortname)
+            console.log(setData["transfer-to-parent-on-delete"])
+            console.log(setData["updated-at"])
+            console.log(setData["user-id"])
+
+
+
+
             // coerce the JSON into a custom object
-       
+            let cleanedObject: any = {};
+            cleanedObject.id = setData.id;
+            cleanedObject.name = setData.name;
+            cleanedObject.name = setData.name;
+            cleanedObject.created_at = setData["created-at"];
+            cleanedObject.updated_at = setData["updated-at"];
+            cleanedObject.user_id = setData["user-id"];
+            cleanedObject.description = setData.description;
+            cleanedObject.shortname = setData.shortname;
+            cleanedObject.post_count = setData["post-count"];
+
+
+            console.log(cleanedObject)
+            console.log(typeof setData.id)
         });
     }
 }
