@@ -20,7 +20,7 @@ export default class Sets {
     /** List most recent sets, limit of 50 per page
      * 
      * **PLEASE NOTE**: This is being converted from XML as the JSON endpoint is 30x slower than the
-     * XML endpoint, so it's faster to convert them
+     * XML endpoint, so it's faster to convert them. There may also be minor bugs even when custom converting
      * @param {number} [page] Page number to return
      * @returns An array of set data (without post info, use `showSet()` method to retrive the post info)
      * @memberof Sets
@@ -47,7 +47,7 @@ export default class Sets {
     /** Get sets that include the given `postID` 
      * 
      * **PLEASE NOTE**: This is being converted from XML as the JSON endpoint is 30x slower than the
-     * XML endpoint, so it's faster to convert them
+     * XML endpoint, so it's faster to convert them. There may also be minor bugs even when custom converting
      * @param {number} postID Post to filter sets by
      * @param {number} [page] The page number to return, if there is only one page this is ignored
      * @returns An array of set data (without post info, use `showSet()` method to retrive the post info)
@@ -76,7 +76,7 @@ export default class Sets {
     /** Get sets created by the given `userID`s 
      * 
      * **PLEASE NOTE**: This is being converted from XML as the JSON endpoint is 30x slower than the
-     * XML endpoint, so it's faster to convert them
+     * XML endpoint, so it's faster to convert them. There may also be minor bugs even when custom converting
      * @param {number} userID User ID to filter sets by
      * @param {number} [page] The page number to return, if there is only one page this is ignored
      * @returns An array of set data (without post info, use `showSet()` method to retrive the post info)
@@ -101,6 +101,14 @@ export default class Sets {
             })
     }
 
+    /** Get a set by its `setID`
+     * 
+     * **PLEASE NOTE**: This is being converted from XML as the JSON endpoint is 30x slower than the
+     * XML endpoint, so it's faster to convert them. There may also be minor bugs even when custom converting
+     * @param {number} setID ID of the set to convert and retrieve
+     * @returns Promise<e621SetJSONConvertedWithPosts> - a single converted XML set
+     * @memberof Sets
+     */
     public showSet(setID: number) {
         let url = `https://e621.net/set/show.xml?id=${setID}`;
 
