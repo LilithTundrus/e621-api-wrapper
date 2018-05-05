@@ -128,7 +128,8 @@ export default class Sets {
             })
     }
 
-    public create() {
+
+    public create(setName: string, shortName: string, setDescription: string, isPublic: boolean, transferOnDelete: boolean) {
         //         The base URL is /set/create.xml
 
         // set[name] The name of the set
@@ -138,27 +139,27 @@ export default class Sets {
         // set[transfer_to_parent_on_delete] Whether to replace deleted posts with their parents
     }
 
-    public addPost() {
+    public addPost(setID: number, postID: number) {
         //         The base URL is /set/add_post.xml
 
         // set_id ID of the set to add a post to
         // post_id ID of the post to add
     }
 
-    public removePost() {
+    public removePost(setID: number, postID: number) {
         //         The base URL is /set/remove_post.xml
 
         // set_id ID of the set to remove a post from
         // post_id ID of the post to remove
     }
 
-    public destroy() {
+    public destroy(setID: number) {
         //         The base URL is /set/destroy.xml
 
         // id The name of the set to destroy
     }
 
-    public listSetMaintainers() {
+    public listSetMaintainers(setID: number) {
         //         List
         // Use this to view maintainers/invites for a given set. The base URL is /set/maintainers.xml
 
@@ -185,14 +186,14 @@ export default class Sets {
     // user-id
     // status - Either "pending", "approved", or "blocked"
 
-    public createMaintainer() {
+    public createMaintainer(setID: number, userName: string) {
         //         The base URL is /set_maintainer/create.xml
 
         // username / user_id The username or user ID of the maintainer to add
         // set_id The ID of the set to add the maintainer to
     }
 
-    public destroyMaintainer() {
+    public destroyMaintainer(setID: number, userName: string) {
         //         The base URL is /set_maintainer/destroy.xml. You must supply the id, user_id or username of the maintainer. user_id and username must be accompanied by a set_id.
 
         // id The ID of the maintainer to destroy
@@ -200,7 +201,6 @@ export default class Sets {
         // user_id The user ID of the maintainer to destroy
         // set_id The ID of the set
     }
-
 
     //     Approve/Deny/Block Maintainer Invite
     // The base URL is /set_maintainer/approve.xml (or deny.xml, or block.xml). You must supply either id or set_id.
