@@ -214,6 +214,20 @@ export interface e621SetJSONConverted {
     transfer_to_parent_on_delete: boolean
 }
 
+export interface e621SetJSONConvertedWithPosts {
+    id: number,
+    name: string,
+    created_at: string,
+    updated_at: string,
+    user_id: number,
+    description: string,
+    shortname: string,
+    post_count: number,
+    public: boolean,
+    transfer_to_parent_on_delete: boolean
+    posts: e621PostData[]
+}
+
 export interface e621DmailMessage {
     id: number,
     parent_id: number,

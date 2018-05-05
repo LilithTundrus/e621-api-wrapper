@@ -100,7 +100,7 @@ export default class Sets {
             })
     }
 
-    public showSet() {
+    public showSet(setID: number) {
         // The base URL is / set / show.xml
 
         // id The ID number of the set to retrieve
@@ -119,6 +119,25 @@ export default class Sets {
         // transfer - to - parent - on - delete
         //     posts
         // post
+
+        let url = `https://e621.net/set/show.xml?id=${setID}`;
+
+
+        return this.requestServices.get(url)
+            .then((response: string) => {
+                // format the XML string to JSON
+                var document = parser.parseFromString(response, 'text/xml');
+                let json = xmlToJson(document);
+                // clean the conversion artifacts
+
+                // this is going to take a massive amount of work
+                console.log(json)
+                console.log(this.beautifySetJSONSingle(json["post-set"]))
+                return json
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     public create() {
@@ -220,5 +239,21 @@ export default class Sets {
             arrayToReturn.push(cleanedObject);
         });
         return arrayToReturn;
+    }
+
+    private beautifySetJSONSingle(convertedSetJSON: any) {
+        // coerce the JSON into a custom object
+        let cleanedObject = <e621SetJSONConverted>{};
+        cleanedObject.id = parseInt(convertedSetJSON.id);
+        cleanedObject.name = convertedSetJSON.name;
+        cleanedObject.created_at = convertedSetJSON["created-at"];
+        cleanedObject.updated_at = convertedSetJSON["updated-at"];
+        cleanedObject.user_id = parseInt(convertedSetJSON["user-id"]);
+        cleanedObject.description = convertedSetJSON.description;
+        cleanedObject.shortname = convertedSetJSON.shortname;
+        cleanedObject.post_count = parseInt(convertedSetJSON["post-count"]);
+        cleanedObject.public = JSON.parse(convertedSetJSON.public);
+        cleanedObject.transfer_to_parent_on_delete = JSON.parse(convertedSetJSON["transfer-to-parent-on-delete"]);
+        return cleanedObject;
     }
 }

@@ -514,7 +514,7 @@ Any POST calls you make to the API through `requestServices` will use your login
 ## History
 </br>
 
-- **v0.3.56*
+- **v0.3.56**
     - Added support for `Wiki` endpoints (what actually works, anyway)
 
 
