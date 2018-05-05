@@ -93,6 +93,16 @@ export default class Sets {
             })
     }
 
+
+    /** Get sets created by the given `userID`s 
+     * 
+     * **PLEASE NOTE**: This is being converted from XML as the JSON endpoint is 30x slower than the
+     * XML endpoint, so it's faster to convert them
+     * @param {number} userID User ID to filter sets by
+     * @param {number} [page] The page number to return, if there is only one page this is ignored
+     * @returns An array of set data (without post info, use `showSet()` method to retrive the post info)
+     * @memberof Sets
+     */
     public getSetsByUserID(userID: number, page?: number) {
         let url = `https://e621.net/set/index.xml?user_id=${userID}`;
 
@@ -111,8 +121,6 @@ export default class Sets {
                 throw Error(err);
             })
     }
-
-    // 412503
 
     public showSet() {
         // The base URL is / set / show.xml
@@ -228,6 +236,8 @@ export default class Sets {
             cleanedObject.description = setData.description;
             cleanedObject.shortname = setData.shortname;
             cleanedObject.post_count = parseInt(setData["post-count"]);
+            cleanedObject.public = JSON.parse(setData.public);
+            cleanedObject.transfer_to_parent_on_delete = JSON.parse(setData["transfer-to-parent-on-delete"]);
 
             arrayToReturn.push(cleanedObject);
         });
