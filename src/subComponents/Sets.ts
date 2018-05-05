@@ -1,7 +1,7 @@
 import { RequestServices } from '../RequestService';
 import {
     e621POSTResponse, e621SetJSON,
-    e621SetJSONConverted
+    e621SetJSONConverted, e621PostData
 } from '../interfaces';
 import { xmlToJson } from '../lib/xml2json';
 import { DOMParser } from 'xmldom'
@@ -132,7 +132,7 @@ export default class Sets {
 
                 // this is going to take a massive amount of work
                 console.log(json)
-                console.log(this.beautifySetJSONSingle(json["post-set"]))
+                console.log(this.beautifySetJSONSingle(json["post-set"], json["post-set"].posts.post))
                 return json
             })
             .catch((err) => {
@@ -241,9 +241,13 @@ export default class Sets {
         return arrayToReturn;
     }
 
-    private beautifySetJSONSingle(convertedSetJSON: any) {
+    private beautifySetJSONSingle(convertedSetJSON: any, convertedPostJSON: any) {
         // coerce the JSON into a custom object
         let cleanedObject = <e621SetJSONConverted>{};
+
+        // array to hold all of the posts we've cleaned to have their correct typings
+        let cleanedPosts = [];
+
         cleanedObject.id = parseInt(convertedSetJSON.id);
         cleanedObject.name = convertedSetJSON.name;
         cleanedObject.created_at = convertedSetJSON["created-at"];
@@ -254,6 +258,15 @@ export default class Sets {
         cleanedObject.post_count = parseInt(convertedSetJSON["post-count"]);
         cleanedObject.public = JSON.parse(convertedSetJSON.public);
         cleanedObject.transfer_to_parent_on_delete = JSON.parse(convertedSetJSON["transfer-to-parent-on-delete"]);
+
+        convertedPostJSON.forEach((post, index) => {
+            console.log(post)
+
+            let cleanedPost = <e621PostData>{
+                id: parseInt(post.id)
+            }
+            console.log(cleanedPost)
+        })
         return cleanedObject;
     }
 }
