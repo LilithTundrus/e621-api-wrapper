@@ -16,28 +16,6 @@ export default class Sets {
         this.requestServices = requestServices;
     }
 
-    // public listSets() {
-    // The base URL is /set/index.xml
-
-    // page The page number (50 sets per page)
-    // user_id Only show sets owned by the given user
-    // maintainer_id Only show sets maintained by the given user
-    // post_id Only show sets containing the given post
-    // Returns:
-
-    // sets
-    // set
-    // created-at
-    // updated-at
-    // id
-    // user-id
-    // name
-    // shortname
-    // description
-    // public
-    // post-count
-    // transfer-to-parent-on-delete
-
     /** List most recent sets, limit of 50 per page
      * 
      * **PLEASE NOTE**: This is being converted from XML as the JSON endpoint is 30x slower than the
