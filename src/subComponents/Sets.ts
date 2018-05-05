@@ -266,40 +266,87 @@ export default class Sets {
             })
     }
 
+    /** Add a post to a set
+     * @param {number} setID ID of the set to add the post to
+     * @param {number} postID ID of the post to add to the set
+     * @returns Promise<e621POSTResponse>
+     * @memberof Sets
+     */
     public addPost(setID: number, postID: number) {
-        //         The base URL is /set/add_post.xml
+        let url = `https://e621.net/set/add_post.json`;
 
-        // set_id ID of the set to add a post to
-        // post_id ID of the post to add
+        let postObj = {
+            "set_id": setID,
+            "post_id": postID
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
+    /** Remove a post from a set
+     * @param {number} setID ID of the set to remove the post from
+     * @param {number} postID ID of the post to remove from the set
+     * @returns Promise<e621POSTResponse>
+     * @memberof Sets
+     */
     public removePost(setID: number, postID: number) {
-        //         The base URL is /set/remove_post.xml
+        let url = `https://e621.net/set/remove_post.json`;
 
-        // set_id ID of the set to remove a post from
-        // post_id ID of the post to remove
+        let postObj = {
+            "set_id": setID,
+            "post_id": postID
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
+    /** Delete a set (If you have proper permissions)
+     * @param {number} setID ID of the set to deleteF
+     * @returns Promise<e621POSTResponse>
+     * @memberof Sets
+     */
     public destroy(setID: number) {
-        //         The base URL is /set/destroy.xml
+        let url = `https://e621.net/set/destroy.json`;
 
-        // id The name of the set to destroy
+        let postObj = {
+            "id": setID,
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
-    public listSetMaintainers(setID: number) {
-        //         List
-        // Use this to view maintainers/invites for a given set. The base URL is /set/maintainers.xml
+    // public listSetMaintainers(setID: number) {
+    //     //         List
+    //     // Use this to view maintainers/invites for a given set. The base URL is /set/maintainers.xml
 
-        // id The name of the set to retrieve
-        // Returns:
+    //     // id The name of the set to retrieve
+    //     // Returns:
 
-        // set-maintainers
-        // set-maintainer
-        // id
-        // post-set-id
-        // user-id
-        // status - Either "pending", "approved", or "blocked"
-    }
+    //     // set-maintainers
+    //     // set-maintainer
+    //     // id
+    //     // post-set-id
+    //     // user-id
+    //     // status - Either "pending", "approved", or "blocked"
+    // }
 
     //     List Invites
     // Use this to view your personal invites. The base URL is /set_maintainer/index.xml
@@ -313,21 +360,21 @@ export default class Sets {
     // user-id
     // status - Either "pending", "approved", or "blocked"
 
-    public createMaintainer(setID: number, userName: string) {
-        //         The base URL is /set_maintainer/create.xml
+    // public createMaintainer(setID: number, userName: string) {
+    //     //         The base URL is /set_maintainer/create.xml
 
-        // username / user_id The username or user ID of the maintainer to add
-        // set_id The ID of the set to add the maintainer to
-    }
+    //     // username / user_id The username or user ID of the maintainer to add
+    //     // set_id The ID of the set to add the maintainer to
+    // }
 
-    public destroyMaintainer(setID: number, userName: string) {
-        //         The base URL is /set_maintainer/destroy.xml. You must supply the id, user_id or username of the maintainer. user_id and username must be accompanied by a set_id.
+    // public destroyMaintainer(setID: number, userName: string) {
+    //     //         The base URL is /set_maintainer/destroy.xml. You must supply the id, user_id or username of the maintainer. user_id and username must be accompanied by a set_id.
 
-        // id The ID of the maintainer to destroy
-        // username The username of the maintainer to destroy
-        // user_id The user ID of the maintainer to destroy
-        // set_id The ID of the set
-    }
+    //     // id The ID of the maintainer to destroy
+    //     // username The username of the maintainer to destroy
+    //     // user_id The user ID of the maintainer to destroy
+    //     // set_id The ID of the set
+    // }
 
     //     Approve/Deny/Block Maintainer Invite
     // The base URL is /set_maintainer/approve.xml (or deny.xml, or block.xml). You must supply either id or set_id.
