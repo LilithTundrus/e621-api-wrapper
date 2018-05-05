@@ -41,6 +41,43 @@ export interface e621PostData {
     delreason: string
 }
 
+export interface e621PostDataConverted {
+    id: number,
+    tags: string,
+    locked_tags: string,
+    description: string,
+    created_at: string,
+    creator_id: number,
+    author: string,
+    change: number,
+    source: string,
+    score: number,
+    fav_count: number,
+    md5: string,
+    // in bytes
+    file_size: number,
+    file_url: string,
+    file_ext: string,
+    preview_url: string,
+    preview_width: number,
+    preview_height: number,
+    sample_url: string,
+    sample_width: number,
+    sample_height: number,
+    rating: string,
+    status: string,
+    width: number,
+    height: number,
+    has_comments: boolean,
+    has_notes: boolean,
+    has_children: boolean,
+    children: number,
+    parent_id: number,
+    artist: string[],
+    sources: string[],
+    delreason: string
+}
+
 export interface e621TagJSON {
     id: number,
     name: string,
@@ -225,7 +262,7 @@ export interface e621SetJSONConvertedWithPosts {
     post_count: number,
     public: boolean,
     transfer_to_parent_on_delete: boolean
-    posts: e621PostData[]
+    posts: e621PostDataConverted[]
 }
 
 export interface e621DmailMessage {
