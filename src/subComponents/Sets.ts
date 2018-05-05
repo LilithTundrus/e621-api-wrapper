@@ -132,7 +132,7 @@ export default class Sets {
      * @param {string} shortName SHort named of the set 
      * @param {string} setDescription Description for the set
      * @param {boolean} isPublic If the set will be public
-     * @param {boolean} transferOnDelete Transfer deletes to parent on set delete?
+     * @param {boolean} transferOnDelete Whether to replace deleted posts with their parents
      * @returns Promise<e621POSTResponse>
      * @memberof Sets
      */
@@ -156,31 +156,114 @@ export default class Sets {
             })
     }
 
+    /** Update a set's name by its `setID`
+     * @param {number} setID ID of the set to update
+     * @param {string} newName New name of the set
+     * @returns Promise<e621POSTResponse>
+     * @memberof Sets
+     */
     public updateName(setID: number, newName: string) {
-        //         The base URL is /set/update.xml
+        let url = `https://e621.net/set/update.json`;
 
-        // set[id] ID of the set to update
-        // set[name] The name of the set
-        // set[shortname] The short name of the set
-        // set[description] The description of the set
-        // set[public] Whether to make the set public (true) or private (false)
-        // set[transfer_to_parent_on_delete] Whether to replace deleted posts with their parents
+        let postObj = {
+            "set[name]": newName,
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
+    /** Update a set's shortname by its `setID`
+     * @param {number} setID ID of the set to update
+     * @param {string} newShortName New shortname of the set
+     * @returns Promise<e621POSTResponse>
+     * @memberof Sets
+     */
     public updateShortName(setID: number, newShortName: string) {
+        let url = `https://e621.net/set/update.json`;
 
+        let postObj = {
+            "set[shortname]": newShortName,
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
+    /** Update a set's description by its `setID`
+     * @param {number} setID ID of the set to update
+     * @param {string} newDescription New description of the set
+     * @returns Promise<e621POSTResponse>
+     * @memberof Sets
+     */
     public updateDescription(setID: number, newDescription: string) {
+        let url = `https://e621.net/set/update.json`;
 
+        let postObj = {
+            "set[description]": newDescription,
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
+    /** Update a set's public status by its `setID`
+     * @param {number} setID ID of the set to update
+     * @param {string} isPublic Public status of the set
+     * @returns Promise<e621POSTResponse>
+     * @memberof Sets
+     */
     public updatePublicStatus(setID: number, isPublic: boolean) {
+        let url = `https://e621.net/set/update.json`;
 
+        let postObj = {
+            "set[pulibc]": isPublic,
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
+    /** Update a set's transferOnDelete status by its `setID`
+     * @param {number} setID ID of the set to update
+     * @param {string} transferOnDelete Public status of the set
+     * @returns Promise<e621POSTResponse>
+     * @memberof Sets
+     */
     public updateTransferOnDeleteStatus(setID: number, transferOnDelete: boolean) {
+        let url = `https://e621.net/set/update.json`;
 
+        let postObj = {
+            "set[transfer_to_parent_on_delete]": transferOnDelete,
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     public addPost(setID: number, postID: number) {
