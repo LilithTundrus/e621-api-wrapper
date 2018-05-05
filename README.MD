@@ -442,6 +442,13 @@ wrapper.users.listUsers(e621UserLevels.Member, 'date')
 </br>
 
 
+### Sets
+
+To get a list of `set` methods, check the `docs/` folder.
+</br>
+</br>
+
+
 ### Blips
 
 To get a list of the supported `blip` methods, check the `docs/` folder.
@@ -513,6 +520,12 @@ Any POST calls you make to the API through `requestServices` will use your login
 
 ## History
 </br>
+
+- **v0.3.7**
+    - Added support for `Set` endpoints
+    - Automatically converting `set` endpoints into JSON as the XML endpoints are 30x faster but are harder to parse
+    - Improved the XML conversion engine + per-class support for special cases
+
 
 - **v0.3.6**
     - Added support for `Wiki` endpoints (what actually works, anyway)
