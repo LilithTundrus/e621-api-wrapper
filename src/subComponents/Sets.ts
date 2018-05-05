@@ -43,10 +43,10 @@ export default class Sets {
      * **PLEASE NOTE**: This is being converted from XML as the JSON endpoint is 30x slower than the
      * XML endpoint, so it's faster to convert them
      * @param {number} [page] Page number to return
-     * @returns An Array of set data
+     * @returns An array of set data (without post info, use `showSet()` method to retrive the post info)
      * @memberof Sets
      */
-    public listAllSets(page?: number) {
+    public getAllSets(page?: number) {
         let url = `https://e621.net/set/index.xml?limit=50`;
 
         if (page) url += `&page=${page}`;
@@ -71,10 +71,10 @@ export default class Sets {
      * XML endpoint, so it's faster to convert them
      * @param {number} postID Post to filter sets by
      * @param {number} [page] The page number to return, if there is only one page this is ignored
-     * @returns 
+     * @returns An array of set data (without post info, use `showSet()` method to retrive the post info)
      * @memberof Sets
      */
-    public getSetsWithMatchingPostID(postID: number, page?: number) {
+    public getSetsByPostID(postID: number, page?: number) {
         let url = `https://e621.net/set/index.xml?limit=50&post_id=${postID}`;
 
         if (page) url += `&page=${page}`;
@@ -93,17 +93,19 @@ export default class Sets {
             })
     }
 
-    public getSetByUserID(userID: number, page?: number) {
+    public getSetsByUserID(userID: number, page?: number) {
         let url = `https://e621.net/set/index.xml?user_id=${userID}`;
 
         if (page) url += `&page=${page}`;
 
         return this.requestServices.get(url)
-            .then((response) => {
-                // format the XML to JSON
+            .then((response: string) => {
+                // format the XML string to JSON
                 var document = parser.parseFromString(response, 'text/xml');
-                let json = xmlToJson(document)
-                return json.sets;
+                let json = xmlToJson(document);
+                // clean the conversion artifacts
+                let cleanedResponse = this.beautifySetJSONArray(json.sets.set);
+                return cleanedResponse;
             })
             .catch((err) => {
                 throw Error(err);
