@@ -72,7 +72,6 @@ export default class Sets {
             })
     }
 
-
     /** Get sets created by the given `userID`s 
      * 
      * **PLEASE NOTE**: This is being converted from XML as the JSON endpoint is 30x slower than the
@@ -128,15 +127,60 @@ export default class Sets {
             })
     }
 
-
+    /** Cretae a new empty set
+     * @param {string} setName Name of the set to create
+     * @param {string} shortName SHort named of the set 
+     * @param {string} setDescription Description for the set
+     * @param {boolean} isPublic If the set will be public
+     * @param {boolean} transferOnDelete Transfer deletes to parent on set delete?
+     * @returns Promise<e621POSTResponse>
+     * @memberof Sets
+     */
     public create(setName: string, shortName: string, setDescription: string, isPublic: boolean, transferOnDelete: boolean) {
-        //         The base URL is /set/create.xml
+        let url = `https://e621.net/set/create.json`;
 
+        let postObj = {
+            "set[name]": setName,
+            "set[shortname]": shortName,
+            "set[description]": setDescription,
+            "set[public]": isPublic,
+            "set[transfer_to_parent_on_delete]": transferOnDelete
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
+    }
+
+    public updateName(setID: number, newName: string) {
+        //         The base URL is /set/update.xml
+
+        // set[id] ID of the set to update
         // set[name] The name of the set
         // set[shortname] The short name of the set
         // set[description] The description of the set
         // set[public] Whether to make the set public (true) or private (false)
         // set[transfer_to_parent_on_delete] Whether to replace deleted posts with their parents
+    }
+
+    public updateShortName(setID: number, newShortName: string) {
+
+    }
+
+    public updateDescription(setID: number, newDescription: string) {
+
+    }
+
+    public updatePublicStatus(setID: number, isPublic: boolean) {
+
+    }
+
+    public updateTransferOnDeleteStatus(setID: number, transferOnDelete: boolean) {
+
     }
 
     public addPost(setID: number, postID: number) {
