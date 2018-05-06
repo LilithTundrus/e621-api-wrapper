@@ -122,3 +122,13 @@ export enum e621UserLevels {
     'Mode' = 40,
     'Admin' = 50
 }
+
+export enum e621ForumPostReasons {
+    'General' = 1,
+    'Site Bug Reports & Feature Requests' = 11,
+    'Tag Alias and Implication Suggestions' = 2,
+    'Tag/Wiki Projects and Questions' = 10,
+    'Art Talk' = 3,
+    'Off Topic' = 5,
+    'e621 Tools and Applications' = 9
+}
