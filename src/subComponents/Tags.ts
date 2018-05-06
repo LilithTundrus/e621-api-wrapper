@@ -11,13 +11,15 @@ export default class Tags {
         this.requestServices = requestServices;
     }
 
-    /** Get an e621 tag's data by name
+    /** Get a tag's data by name
      * @param {string} tagName 
      * @returns Promise<e621TagJSON[]>
      * @memberof Tags
      */
     public getByName(tagName: string): Promise<e621TagJSON[]> {
-        return this.requestServices.get(`https://e621.net/tag/index.json?name=${tagName}`)
+        let url = `https://e621.net/tag/index.json?name=${tagName}`;
+
+        return this.requestServices.get(url)
             .then((response: e621TagJSON[]) => {
                 return response;
             })
@@ -26,19 +28,20 @@ export default class Tags {
             })
     }
 
-    /** Get a set of related tags by providing a valid e621 tag. Returns a 2D array. This may change in the future
+    /** Get a set of related tags by providing a valid tag
      * @param {string} tagName The tag to get related results for
      * @returns Promise<e621RelatedTagJSON[]>
      * @memberof Tags
      */
     public getRelatedTagsByName(tagName: string): Promise<e621RelatedTagJSON[]> {
-        return this.requestServices.get(`https://e621.net/tag/related.json?tags=${tagName}`)
+        let url = `https://e621.net/tag/related.json?tags=${tagName}`;
+
+        return this.requestServices.get(url)
             .then((response) => {
                 // We are going to have to modify this a bit before giving it to the user
                 let key = Object.keys(response)[0];
                 let data = response[key];
                 // make the array 1D, and have JSON inside the array entries, not CSV
-                // there has to be a better way to represent the data
                 let formattedData = data.map(entry => {
                     return new Object({
                         name: entry[0],
@@ -53,11 +56,11 @@ export default class Tags {
             })
     }
 
-    /** This is a more advanced getByName method, allowing you to get more tag data than just by name
+    /** This is a more advanced `getByName` method, allowing you to get more tag data than just by name
      * @param {number} [limit] Hard limit of 500
-     * @param {number} [page] 
-     * @param {string} [order] 
-     * @param {string} [name] 
+     * @param {number} [page] Page number to return
+     * @param {string} [order] Order of the tags, can be `date`, `count` or `name`
+     * @param {string} [name] Name of the tag
      * @returns Promise<e621TagJSON[]>
      * @memberof Tags
      */
@@ -80,8 +83,8 @@ export default class Tags {
             })
     }
 
-    /** Get an e621 tag's data by ID
-     * @param {(number | string)} tagID 
+    /** Get a tag's data by ID
+     * @param {(number | string)} tagID ID of the tag to return
      * @returns Promise<e621TagJSON>
      * @memberof Tags
      */
@@ -96,8 +99,8 @@ export default class Tags {
     }
 
     /** Update a tag's type
-     * @param {string} name 
-     * @param {e621TagTypes} tagType 
+     * @param {string} name Name of the tag to update
+     * @param {e621TagTypes} tagType New type for the tag
      * @returns Promise<e621TagUpdateResponse>
      * @memberof Tags
      */
@@ -116,10 +119,10 @@ export default class Tags {
             })
     }
 
-    /** Get a tag's aliases (user an forum_post queries NOT supported)
+    /** Get a tag's aliases (user and forum_post queries NOT supported)
      * @param {string} query The tag to query
-     * @param {number} [page] Page to start at (default is 1)
-     * @param {string} [order] How to order the results. Can be tag, aliasedtag, reason, user, date, or forum_post
+     * @param {number} [page] Page number to return
+     * @param {string} [order] How to order the results. Can be `tag`, `aliasedtag`,` reason`, `user`, `date`, or `forum_post`
      * @param {boolean} [approved] Can be all, true, false.
      * @returns Promise<e621TagAliases[]>
      * @memberof Tags
