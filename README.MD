@@ -446,7 +446,6 @@ wrapper.users.listUsers(e621UserLevels.Member, 'date')
 ### Blips
 
 To get a list of  supported `blips` methods, check out [Blips](/docs/Blips.md) in the `docs/` folder.
-
 </br>
 </br>
 
