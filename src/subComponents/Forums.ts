@@ -2,6 +2,7 @@ import { RequestServices } from '../RequestService';
 import {
     e621POSTResponse
 } from '../interfaces';
+import { e621ForumPostReasons } from '../enums';
 
 export default class Forums {
     private pageLimit: number;
@@ -12,7 +13,7 @@ export default class Forums {
         this.requestServices = requestServices;
     }
 
-    create() {
+    createPost(postTitle: string, postBody: string, parentPostID: number, postCategory: e621ForumPostReasons) {
         //         The base URL is /forum/create.xml.
 
         // forum_post[body]
@@ -28,16 +29,28 @@ export default class Forums {
         // 9 e621 Tools and Applications
     }
 
-    update() {
-        // The base URL is /forum/update.xml.
+    // update() {
+    // The base URL is /forum/update.xml.
 
-        // id The ID number of the forum post being edited.
-        // forum_post[body]
-        // forum_post[title]
-        // forum_post[category_id] See Create for possible values.
+    // id The ID number of the forum post being edited.
+    // forum_post[body]
+    // forum_post[title]
+    // forum_post[category_id] See Create for possible values.
+    // }
+
+    updatePostBody(postID: number, newBody: string) {
+
     }
 
-    list() {
+    updatePostTitle(postID: number, newTitle: string) {
+
+    }
+
+    updatePostCategory(postID: number, newTopic: e621ForumPostReasons) {
+
+    }
+
+    listAllPosts() {
         //         The base URL is /forum/index.xml. If you don't specify any parameters you'll get a list of all the parent topics.
 
         // parent_id The parent ID number.
@@ -45,28 +58,20 @@ export default class Forums {
         // limit How many posts to retrieve. Hard limit of 100.
     }
 
-    search() {
+    listPostsByParentID(parentID: number, page?: string) {
+
+    }
+
+    search(query: string, page?: number) {
         //         The base URL is /forum/search.xml. If you don't specify any parameters you'll get a list of all the parent topics.
 
         // query Returns posts which contain the given text. Using the prefix user: allows for searching for posts created by a given user.
         // page The page.
     }
 
-    show() {
+    show(forumPostID: number) {
         //         The base URL is /forum/show.xml.
 
         // id Returns the post with the given ID number.
-    }
-
-    hide() {
-        //         The base URL is /forum/hide.xml. Unlike the other hide methods, requires a POST call.
-
-        // id Hides the forum post with the given ID number.
-    }
-
-    unhide() {
-        //         The base URL is /forum/unhide.xml.
-
-        // id Unhides the forum post with the given ID number.
     }
 }
