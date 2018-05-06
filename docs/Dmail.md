@@ -5,19 +5,9 @@ Dmail is e621's personal emailing/message sending system. It's internal to the s
 
 ## GET Methods
 
-****
-
-Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
-
-```typescript
-
-```
-</br>
+**getAllMail**
 
 
-****
-
-Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
 
 ```typescript
 
@@ -25,19 +15,9 @@ Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
 </br>
 
 
-****
-
-Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
-
-```typescript
-
-```
-</br>
+**getDmailByID**
 
 
-****
-
-Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
 
 ```typescript
 
@@ -45,19 +25,9 @@ Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
 </br>
 
 
-****
-
-Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
-
-```typescript
-
-```
-</br>
+**getHidden**
 
 
-****
-
-Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
 
 ```typescript
 
@@ -65,9 +35,9 @@ Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
 </br>
 
 
-****
+**getInbox**
 
-Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
+
 
 ```typescript
 
@@ -75,9 +45,39 @@ Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
 </br>
 
 
-****
+**getOutbox**
 
-Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
+
+
+```typescript
+
+```
+</br>
+
+
+**searchAllMail**
+
+
+
+```typescript
+
+```
+</br>
+
+
+**searchInbox**
+
+
+
+```typescript
+
+```
+</br>
+
+
+**searchOutbox**
+
+
 
 ```typescript
 
@@ -87,19 +87,9 @@ Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
 
 ## POST Methods
 
-****
-
-Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
-
-```typescript
-
-```
-</br>
+**create**
 
 
-****
-
-Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
 
 ```typescript
 
@@ -107,19 +97,9 @@ Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
 </br>
 
 
-****
-
-Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
-
-```typescript
-
-```
-</br>
+**hideAll**
 
 
-****
-
-Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
 
 ```typescript
 
@@ -127,9 +107,49 @@ Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
 </br>
 
 
-****
+**hideDmail**
 
-Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
+
+
+```typescript
+
+```
+</br>
+
+
+**markAllAsRead**
+
+
+
+```typescript
+
+```
+</br>
+
+
+**responsdToParent**
+
+
+
+```typescript
+
+```
+</br>
+
+
+**unhideAll**
+
+
+
+```typescript
+
+```
+</br>
+
+
+**unhideDmail**
+
+
 
 ```typescript
 
@@ -141,4 +161,8 @@ Update a note's visibility status by ID. Parameters are `noteID` and `isVisible`
 
 ## Unavailable Endpoints
 
-Some dmail methods aren't exposed through the wrapper as they really make no sense to be used while programatically.
+Some dmail methods aren't exposed through the wrapper for sorting mail.
+
+<br>
+
+You can always access these using the `requestServices` part of the wrapper.
