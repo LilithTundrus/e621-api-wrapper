@@ -14,11 +14,11 @@ export default class Comments {
     }
 
     /** Get a single comment's data by ID
-     * @param {(string | number)} commentID The ID number of the comment to retrieve
+     * @param {(number | string)} commentID ID of the comment to retrieve
      * @returns Promise<e621CommentJSON>
      * @memberof Comments
      */
-    public show(commentID: string | number) {
+    public show(commentID: number | string) {
         let url = `https://e621.net/comment/show.json?id=${commentID}`;
 
         return this.requestServices.get(url)
@@ -31,19 +31,19 @@ export default class Comments {
     }
 
     /** List a set of comments by a post's ID
-     * @param {(string | number)} postID The ID number of the post to retrieve comments for
+     * @param {(number | string)} postID The ID number of the post to retrieve comments for
      * @param {number} [page] Page number to return
      * @param {string} [commentStatus] Returns hidden comments when set to `hidden`, visible comments when set to `active`, or both when set to `any`. Note that whether or not you can see other user's hidden comments is affected by your permission levels
      * @returns Promise<e621CommentJSON[]>
      * @memberof Comments
      */
-    public list(postID: string | number, page?: number, commentStatus?: string) {
+    public list(postID: number | string, page?: number, commentStatus?: string) {
         let url = `https://e621.net/comment/index.json?`;
-        
+
         if (postID) url += `&post_id=${postID}`;
         if (page) url += `&page=${page}`;
         if (commentStatus) url += `&status=${commentStatus}`;
-        
+
         return this.requestServices.get(url)
             .then((response: e621CommentJSON[]) => {
                 return response;
@@ -63,10 +63,10 @@ export default class Comments {
      */
     public searchByCommentText(query: string, fuzzy?: boolean, page?: number, order?: string) {
         let url = `https://e621.net/comment/search.json?query=${query}`;
-        
+
         if (fuzzy) url += `&results=fuzzy`;
         else url += `&results=exact`;
-        
+
         if (order) url += `&order=${order}`;
         if (page) url += `&page=${page}`;
 
@@ -80,7 +80,7 @@ export default class Comments {
     }
 
     /** Search for comments by a single user's ID
-     * @param {(number | string)} userID ID of the user to search
+     * @param {(number | string)} userID ID of the user to search comments for
      * @param {number} [page] Page number to return
      * @param {string} [order] Sorts the results. Can be one of the following: `date`, `date_asc`, `score`, `score_asc`
      * @returns Promise<e621CommentJSON[]>
@@ -88,10 +88,10 @@ export default class Comments {
      */
     public searchByCommentCreatorID(userID: number | string, page?: number, order?: string): Promise<e621CommentJSON[]> {
         let url = `https://e621.net/comment/search.json?user_id=${userID}`;
-        
+
         if (order) url += `&order=${order}`;
         if (page) url += `&page=${page}`;
-        
+
         return this.requestServices.get(url)
             .then((response: e621CommentJSON[]) => {
                 return response;
@@ -108,12 +108,12 @@ export default class Comments {
      * @returns Promise<e621CommentJSON[]>
      * @memberof Comments
      */
-    public searchByCommentCreatorName(userName: number | string, page?: number, order?: string) {
+    public searchByCommentCreatorName(userName: string, page?: number, order?: string) {
         let url = `https://e621.net/comment/search.json?user=${userName}`;
-        
+
         if (order) url += `&order=${order}`;
         if (page) url += `&page=${page}`;
-        
+
         return this.requestServices.get(url)
             .then((response: e621CommentJSON[]) => {
                 return response;
@@ -130,7 +130,7 @@ export default class Comments {
      */
     public getRecentComments(page?: number) {
         let url = `https://e621.net/comment/search.json?`;
-        
+
         if (page) url += `&page=${page}`;
 
         return this.requestServices.get(url)
@@ -143,13 +143,13 @@ export default class Comments {
     }
 
     /** Create a comment for a post given the ID and comment text
-     * @param {(string | number)} postID The post ID number to which you are responding
+     * @param {(number | string)} postID ID of the post to which you are responding
      * @param {string} commentText The body of the comment
      * @param {boolean} [anonymous] Set to `true` if you want to post this comment anonymously
      * @returns Promise<e621POSTResponse>
      * @memberof Comments
      */
-    public create(postID: string | number, commentText: string, anonymous?: boolean) {
+    public create(postID: number | string, commentText: string, anonymous?: boolean) {
         let url = `https://e621.net/comment/create.json`;
 
         let postObj = <e621CommentCreateJSON>{
@@ -168,12 +168,12 @@ export default class Comments {
     }
 
     /** Update a comment's body by ID
-     * @param {(string | number)} commentID ID of the comment to update
+     * @param {(number | string)} commentID ID of the comment to update
      * @param {string} commentTextUpdate New text for the given comment
      * @returns Promise<e621POSTResponse>
      * @memberof Comments
      */
-    public update(commentID: string | number, commentTextUpdate: string) {
+    public update(commentID: number | string, commentTextUpdate: string) {
         let url = `https://e621.net/comment/update.json`;
 
         let postObj = <e621CommentUpdateJSON>{
@@ -191,13 +191,13 @@ export default class Comments {
     }
 
     /** Delete a comment by ID
-     * @param {number} commentID ID of the comment to delete
+     * @param {(number | string)} commentID ID of the comment to delete
      * @returns Promise<e621POSTResponse>
      * @memberof Comments
      */
-    public destroy(commentID: string | number) {
+    public destroy(commentID: number | string) {
         let url = `https://e621.net/comment/destroy.json`;
-        
+
         return this.requestServices.post(url,
             {
                 "id": commentID
