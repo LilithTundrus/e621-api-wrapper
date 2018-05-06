@@ -175,7 +175,7 @@ wrapper.sets.updateTransferOnDeleteStatusF(9847, false)
 </br>
 </br>
 
-## Unavailable Methods
+## Unavailable Endpoints
 
 <br>
 

@@ -475,7 +475,7 @@ To get a list of `note` methods, check the `docs/` folder.
 
 ### Wiki
 
-To get a list of `wiki` methods, check the `docs/` folder.
+To get a list of  supported `wiki` methods, check out [Wiki](/docs/Wiki.md) in the `docs/` folder.
 </br>
 </br>
 
