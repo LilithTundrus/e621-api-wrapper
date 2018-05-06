@@ -38,8 +38,8 @@ export default class Users {
             })
     }
 
-    /** Get a single user's info by their ID (Returns an array from e621 with a single entry)
-     * @param {number} userID 
+    /** Get a single user's info by ID (Returns an array from e621 with a single entry)
+     * @param {number} userID ID of the user
      * @returns Promise<e621UserInfo[]>
      * @memberof Users
      */
@@ -55,7 +55,7 @@ export default class Users {
             })
     }
 
-    /** Get a single user's info by their name (Returns an array from e621 with a single entry)
+    /** Get a single user's info by name (Returns an array from e621 with a single entry)
      * @param {string} userName Text exactly matching a user's name
      * @returns Promise<e621UserInfo[]>
      * @memberof Users
