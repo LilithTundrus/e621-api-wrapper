@@ -197,6 +197,7 @@ export default class Comments {
      */
     public destroy(commentID: string | number) {
         let url = `https://e621.net/comment/destroy.json`;
+        
         return this.requestServices.post(url,
             {
                 "id": commentID
