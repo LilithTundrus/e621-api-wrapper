@@ -13,7 +13,7 @@ export default class Notes {
     }
 
     /** Get a post's Notes by the `postID` of the post
-     * @param {(number | string)} postID ID of the post to retrieve Notes for
+     * @param {(number | string)} postID ID of the post to retrieve notes for
      * @returns Promise<e621PostNote[]>
      * @memberof Notes
      */
@@ -30,7 +30,7 @@ export default class Notes {
     }
 
     /** Search ALL notes that match a given `query`
-     * @param {string} query String query to search Notes for
+     * @param {string} query String to search all notes for
      * @returns Promise<e621PostNote[]>
      * @memberof Notes
      */
@@ -47,11 +47,11 @@ export default class Notes {
     }
 
     /** Get the history of a note by its `noteID`
-     * @param {number} noteID ID of the note to get the history of
+     * @param {(number | string)} noteID ID of the note to get the history of
      * @returns Promise<e621PostNote[]>
      * @memberof Notes
      */
-    public getNoteHistory(noteID: number) {
+    public getNoteHistory(noteID: number | string) {
         let url = `https://e621.net/note/history.json?id=${noteID}`;
 
         return this.requestServices.get(url)
@@ -64,12 +64,12 @@ export default class Notes {
     }
 
     /** Revert a note to a given previous `version` by `noteID`
-     * @param {number} noteID ID of the note to revert
+     * @param {(number | string)} noteID ID of the note to revert
      * @param {number} version Version number to revert the note to
      * @returns Promise<e621POSTResponse>
      * @memberof Notes
      */
-    public revertNote(noteID: number, version: number) {
+    public revertNote(noteID: number | string, version: number) {
         let url = `https://e621.net/note/revert.json`;
 
         return this.requestServices.post(url, {
@@ -84,7 +84,7 @@ export default class Notes {
             })
     }
 
-    /** Update a note's `body` by its `noteID`
+    /** Update a note's `body` by  ID
      * @param {number} noteID ID of the note to update
      * @param {string} body The new body message
      * @returns Promise<e621POSTResponse>
@@ -106,13 +106,13 @@ export default class Notes {
     }
 
     /** Update a note's location on the assocaited post by its `noteID`
-     * @param {number} noteID ID of the note to update
+     * @param {(number | string)} noteID ID of the note to update
      * @param {number} x The X position of the note
      * @param {number} y The Y position of the note
      * @returns Promise<e621POSTResponse>
      * @memberof Notes
      */
-    public updateNoteLocation(noteID: number, x: number, y: number) {
+    public updateNoteLocation(noteID: number | string, x: number, y: number) {
         let url = `https://e621.net/note/update.json`;
 
         return this.requestServices.post(url, {
@@ -129,13 +129,13 @@ export default class Notes {
     }
 
     /** Update a note's `width` and `height` by its `noteID`
-     * @param {number} noteID ID of the note to update
+     * @param {(number | string)} noteID ID of the note to update
      * @param {number} width New Width of the note
      * @param {number} height New height of the note
      * @returns Promise<e621POSTResponse>
      * @memberof Notes
      */
-    public updateNoteWidthAndHeight(noteID: number, width: number, height: number) {
+    public updateNoteWidthAndHeight(noteID: number | string, width: number, height: number) {
         let url = `https://e621.net/note/update.json`;
 
         return this.requestServices.post(url, {
@@ -152,12 +152,12 @@ export default class Notes {
     }
 
     /** Set a note with `noteID` to visible or invisible using `isVisible` (true or false)
-     * @param {number} noteID ID of the note to update
+     * @param {(number | string)} noteID ID of the note to update
      * @param {boolean} isVisible True or false
      * @returns Promise<e621POSTResponse>
      * @memberof Notes
      */
-    public updateNoteVisibility(noteID: number, isVisible: boolean) {
+    public updateNoteVisibility(noteID: number | string, isVisible: boolean) {
         let visibility = 1;
         if (isVisible == false) visibility = 0;
 
@@ -176,7 +176,7 @@ export default class Notes {
     }
 
     /** Create a note, given the `postID` to add the note to
-     * @param {number} postID ID of the post to attach the note to
+     * @param {(number | string)} postID ID of the post to attach the note to
      * @param {string} body Text body of the note
      * @param {number} x X position of the note
      * @param {number} y Y position of the note
@@ -185,7 +185,7 @@ export default class Notes {
      * @returns Promise<e621POSTResponse>
      * @memberof Notes
      */
-    public create(postID: number, body: string, x: number, y: number, width: number, height: number) {
+    public create(postID: number | string, body: string, x: number, y: number, width: number, height: number) {
         let url = `https://e621.net/note/update.json`;
 
         return this.requestServices.post(url, {

@@ -12,8 +12,8 @@ export default class Dmail {
         this.requestServices = requestServices;
     }
 
-    /** Get your Dmail inbox, will return an empty array if page number is empty
-     * @param {number} [page] Page number to retrieve
+    /** Get your Dmail inbox, will return an empty array if the given `page` number is empty
+     * @param {number} [page] Page number to return
      * @returns Array of dmail data
      * @memberof Dmail
      */
@@ -32,7 +32,7 @@ export default class Dmail {
     }
 
     /** Get your Dmail outbox (sent messages) Will return an empty array if page number is empty
-     * @param {number} [page] Page number to retrieve
+     * @param {number} [page] Page number to return
      * @returns Array of dmail data
      * @memberof Dmail
      */
@@ -51,7 +51,7 @@ export default class Dmail {
     }
 
     /** Get ALL dmail messages, will return an empty array if page number is empty
-     * @param {number} [page] Page number to retrieve
+     * @param {number} [page] Page number to return
      * @returns Array of dmail data
      * @memberof Dmail
      */
@@ -73,7 +73,7 @@ export default class Dmail {
      * 
      * **NOTE**: you do NOT need to include the 'Re:' in your `query` string
      * @param {string} query Exact message subject match
-     * @param {number} [page] Page number to retrieve
+     * @param {number} [page] Page number to return
      * @returns Array of dmail data that match your query
      * @memberof Dmail
      */
@@ -95,7 +95,7 @@ export default class Dmail {
      * 
      * **NOTE**: you do NOT need to include the 'Re:' in your `query` string
      * @param {string} query Exact message subject match
-     * @param {number} [page] Page number to retrieve
+     * @param {number} [page] Page number to return
      * @returns Array of dmail data that match your query
      * @memberof Dmail
      */
@@ -117,7 +117,7 @@ export default class Dmail {
      * 
      * **NOTE**: you do NOT need to include the 'Re:' in your `query` string
      * @param {string} query Exact message subject match
-     * @param {number} [page] Page number to retrieve
+     * @param {number} [page] Page number to return
      * @returns Array of dmail data that match your query
      * @memberof Dmail
      */
@@ -143,13 +143,14 @@ export default class Dmail {
      * @memberof Dmail
      */
     public create(to: string, title: string, body: string) {
+        let url = `https://e621.net/dmail/create.json`;
+
         let postObj = {
             "dmail[to_name]": to,
             "dmail[title]": title,
             "dmail[body]": body
         };
 
-        let url = `https://e621.net/dmail/create.json`;
         return this.requestServices.post(url, postObj)
             .then((response: any) => {
                 return response;
@@ -171,6 +172,7 @@ export default class Dmail {
      * @memberof Dmail
      */
     public responsdToParent(to: string, title: string, body: string, parentID: number) {
+        let url = `https://e621.net/dmail/create.json`;
 
         let postObj = {
             "dmail[parent_id]": parentID,
@@ -179,7 +181,6 @@ export default class Dmail {
             "dmail[body]": body
         };
 
-        let url = `https://e621.net/dmail/create.json`;
         return this.requestServices.post(url, postObj)
             .then((response: any) => {
                 return response;
@@ -223,7 +224,7 @@ export default class Dmail {
     }
 
     /** Get a list of ALL of your hidden dmails
-     * @param {number} [page] Page number to retrieve
+     * @param {number} [page] Page number to return
      * @returns Array of dmail data
      * @memberof Dmail
      */
@@ -248,6 +249,7 @@ export default class Dmail {
      */
     public hideDmail(dmailID: number) {
         let url = `https://e621.net/dmail/hide.json`;
+
         return this.requestServices.post(url,
             { "id": dmailID }
         )
@@ -266,6 +268,7 @@ export default class Dmail {
      */
     public unhideDmail(dmailID: number) {
         let url = `https://e621.net/dmail/unhide.json`;
+        
         return this.requestServices.post(url,
             { "id": dmailID }
         )
