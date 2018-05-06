@@ -110,11 +110,11 @@ export default class Forums {
     }
 
     /** List all forum parent posts
-     * @param {number} [page] 
+     * @param {number} [page] Page number to return
      * @returns Promise<e621ForumPost[]>
      * @memberof Forums
      */
-    listAllPosts(page?: number) {
+    getAllPosts(page?: number) {
         let url = `https://e621.net/forum/index.json?`;
 
         if (page) url += `&page=${page}`;
@@ -129,12 +129,12 @@ export default class Forums {
     }
 
     /** List all posts that have the given `parentID`
-     * @param {number} parentID ID of the parents post to get the children of
+     * @param {number} parentID ID of the parent's post to get the children of
      * @param {string} [page] Page number to return
      * @returns Promise<e621ForumPost[]>
      * @memberof Forums
      */
-    listPostsByParentID(parentID: number, page?: string) {
+    getPostsByParentID(parentID: number, page?: string) {
         let url = `https://e621.net/forum/index.json?parent_id=${parentID}`;
 
         if (page) url += `&page=${page}`;
@@ -167,16 +167,13 @@ export default class Forums {
                 throw Error(err);
             })
     }
-    
-    /** Get a forum post's 
+
+    /** Get a forum post's data by its `forumPostID`
      * @param {number} forumPostID ID of the forum post to retrieve
      * @returns Promise<e621ForumPost>
      * @memberof Forums
      */
-    getForumPostByID(forumPostID: number) {
-        //         The base URL is /forum/show.xml.
-
-        // id Returns the post with the given ID number.
+    getPostByID(forumPostID: number) {
         let url = `https://e621.net/forum/show.json?id=${forumPostID}`;
 
         return this.requestServices.get(url)
