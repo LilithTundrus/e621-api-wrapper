@@ -525,6 +525,7 @@ Any POST calls you make to the API through `requestServices` will use your login
     - Added support for `Set` endpoints
     - Automatically converting `set` endpoints into JSON as the XML endpoints are 30x faster but are harder to parse
     - Improved the XML conversion engine + per-class support for special cases
+    - Removed debug GET/POST logging
 
 
 - **v0.3.6**

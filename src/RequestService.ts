@@ -43,7 +43,6 @@ export class RequestServices {
             options.form.password_hash = this.apiKey;
         }
 
-        console.log(url);
         return new Promise((resolve, reject) => {
             request.get(options, function (err: Error, response, body) {
                 if (err) {
@@ -52,7 +51,6 @@ export class RequestServices {
                 if (response.statusCode !== e621ResponseCodes.OK) {
                     return reject(`GET did not return OK: Code ${response.statusCode}`);
                 }
-                // typescript wouldn't leave me alone on this
                 if (response.statusCode == e621ResponseCodes.FORBIDDEN) {
                     return reject('Incorrect password given');
                 }
@@ -83,7 +81,6 @@ export class RequestServices {
             postObject.login = this.userName;
             postObject.password_hash = this.apiKey;
         }
-        console.log(url);
         return new Promise((resolve, reject) => {
             request.post(options, function (err: Error, response, body) {
                 if (err) {
