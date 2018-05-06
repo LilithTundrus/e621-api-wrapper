@@ -443,7 +443,6 @@ wrapper.users.listUsers(e621UserLevels.Member, 'date')
 </br>
 </br>
 
-
 ### Blips
 
 To get a list of  supported `blips` methods, check out [Blips](/docs/Blips.md) in the `docs/` folder.
@@ -457,20 +456,17 @@ To get a list of  supported `dmail` methods, check out [Dmail](/docs/Dmail.md) i
 </br>
 </br>
 
-
 ### Notes
 
 To get a list of  supported `notes` methods, check out [Notes](/docs/Notes.md) in the `docs/` folder.
 </br>
 </br>
 
-
 ### Sets
 
 To get a list of  supported `set` methods, check out [Sets](/docs/Sets.md) in the `docs/` folder.
 </br>
 </br>
-
 
 ### Wiki
 
