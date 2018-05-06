@@ -36,7 +36,10 @@ wrapper.blips.getBlipByText('fox', 2)
 Get all responses (if any) of a blip by ID. Parameters are `blipID` and `page?`
 
 ```typescript
-
+wrapper.blips.getBlipResponses(1145, 1)
+    .then((response) => {
+        console.log(response);
+    })
 ```
 </br>
 
