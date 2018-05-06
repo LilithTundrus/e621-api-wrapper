@@ -1,5 +1,6 @@
 # Blips
 
+Blips are something like public comments/disucssion that aren't forum related.
 
 </br>
 

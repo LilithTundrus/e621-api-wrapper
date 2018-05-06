@@ -155,63 +155,6 @@ wrapper.tags.updateTag('fox', 5)
 </br>
 </br>
 
-
-### Artists
-
-Artists have fairly few endpoints, so all are listed below
-
-
-**createArtist**
-
-Create an artist, parameters are `name`, `artistURLs`, `groupNames?` `otherNames?`
-
-```typescript
-wrapper.artists.createArtist('test', 'artist_url other_url', 'artistGroupName', 'otherTestName')
-    .then((results) => {
-        console.log(results);
-    })
-```
-</br>
-
-
-**deleteArtist**
-
-Delete an artist by their id, parameters are `artistID`. You **must** be logged in for this to work
-
-```typescript
-wrapper.artists.deleteArtist(12345)
-    .then((results) => {
-        console.log(results);
-    })
-```
-</br>
-
-**listArtists**
-
-List all artists by a set of options, parameters are `name?`, `limit?`, `order?`, `page?`
-
-```typescript
-wrapper.artists.listArtists('test', 25, 'date', 1)
-    .then((results) => {
-        console.log(results);
-    })
-```
-</br>
-
-**updateArtist**
-
-Update an artist's information, parameters are `artistID`, `name?`, `artistURLs?`. `isActive?`, `groupName?`, `otherName?`
-
-```typescript
-wrapper.artists.updateArtist(12345, 'new_name', null, true, null, 'other_new_test')
-    .then((results) => {
-        console.log(results);
-    })
-```
-</br>
-</br>
-
-
 ### Posts
 
 **Posts have a lot of endpoints, some common endpoints are below**. Posts are the main data type of e621, these can be pictures, videos or flash animations
@@ -440,6 +383,12 @@ wrapper.users.listUsers(e621UserLevels.Member, 'date')
         console.log(response);
     })
 ```
+</br>
+</br>
+
+### Artists
+
+To get a list of  supported `artists` methods, check out [Artists](/docs/Artists.md) in the `docs/` folder.
 </br>
 </br>
 
