@@ -315,3 +315,13 @@ export interface e621WikiEntry {
     locked: boolean,
     version: number
 }
+
+
+export interface e621ForumPost {
+    body: string,
+    creator: string,
+    creator_id: number,
+    id: number,
+    parent_id: number | null,
+    title: string
+}

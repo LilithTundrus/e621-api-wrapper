@@ -1,6 +1,6 @@
 import { RequestServices } from '../RequestService';
 import {
-    e621POSTResponse
+    e621POSTResponse, e621ForumPost
 } from '../interfaces';
 import { e621ForumPostReasons } from '../enums';
 
@@ -16,12 +16,12 @@ export default class Forums {
     /** Create a forum post
      * @param {string} postTitle Title of the forum post to create
      * @param {string} postBody Body of the forum post
-     * @param {number} parentPostID ID of the parent forum post
+     * @param {number | null} parentPostID ID of the parent forum post. Can be `null`
      * @param {e621ForumPostReasons} postCategory Category of the forum post
      * @returns Promise<e621POSTResponse>
      * @memberof Forums
      */
-    createPost(postTitle: string, postBody: string, parentPostID: number, postCategory: e621ForumPostReasons) {
+    createPost(postTitle: string, postBody: string, parentPostID: number | null, postCategory: e621ForumPostReasons) {
         let url = `https://e621.net/forum/create.json`;
 
         let postObj = {
@@ -40,15 +40,6 @@ export default class Forums {
             })
     }
 
-    // update() {
-    // The base URL is /forum/update.xml.
-
-    // id The ID number of the forum post being edited.
-    // forum_post[body]
-    // forum_post[title]
-    // forum_post[category_id] See Create for possible values.
-    // }
-    
     /** Update a forum post's body
      * @param {number} postID ID of the forum post to update
      * @param {string} newBody New Body of the forum post
@@ -118,12 +109,23 @@ export default class Forums {
             })
     }
 
-    listAllPosts() {
+    listAllPosts(page?: number) {
         //         The base URL is /forum/index.xml. If you don't specify any parameters you'll get a list of all the parent topics.
 
         // parent_id The parent ID number.
         // page The page.
         // limit How many posts to retrieve. Hard limit of 100.
+        let url = `https://e621.net/forum/index.json?`;
+
+        if (page) url += `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: e621ForumPost[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     listPostsByParentID(parentID: number, page?: string) {
@@ -137,7 +139,7 @@ export default class Forums {
         // page The page.
     }
 
-    show(forumPostID: number) {
+    getPostByID(forumPostID: number) {
         //         The base URL is /forum/show.xml.
 
         // id Returns the post with the given ID number.
