@@ -130,6 +130,7 @@ wrapper.notes.updateNoteVisibility(11675, true)
 Note endpoints that are not yet supported should be added in the future, for now they'll be listed below.
 
 <br>
+
 You can always access these using the `requestServices` part of the wrapper.
 
 
@@ -141,4 +142,3 @@ History is not yet supported for filtering by `post_id`, `user_id`, nor  is ther
 ### Create/Update
 
 Updating the `note[post_id]` (the post the note belongs to) is not yet supported
-
