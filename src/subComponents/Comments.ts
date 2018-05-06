@@ -19,7 +19,9 @@ export default class Comments {
      * @memberof Comments
      */
     public show(commentID: string | number) {
-        return this.requestServices.get(`https://e621.net/comment/show.json?id=${commentID}`)
+        let url = `https://e621.net/comment/show.json?id=${commentID}`;
+
+        return this.requestServices.get(url)
             .then((response: e621CommentJSON) => {
                 return response;
             })
@@ -28,9 +30,9 @@ export default class Comments {
             })
     }
 
-    /** List a set of comments by post ID
+    /** List a set of comments by a post's ID
      * @param {(string | number)} postID The ID number of the post to retrieve comments for
-     * @param {number} [page] The Page number
+     * @param {number} [page] Page number to return
      * @param {string} [commentStatus] Returns hidden comments when set to hidden, visible comments when set to active, or both when set to any. Note that whether or not you can see other user's hidden comments is affected by your permission levels
      * @returns Promise<e621CommentJSON[]>
      * @memberof Comments
@@ -54,7 +56,7 @@ export default class Comments {
     /** Search for comments matching the given `query` text
      * @param {string} query String query which contains the given text for the comment body
      * @param {boolean} [fuzzy] If set to true, fuzzy logic for the query will be used, otherwise it's exact matched
-     * @param {boolean} [page] Page number to return 
+     * @param {boolean} [page] Page number to return
      * @param {string} [order] Sorts the results. Can be one of the following: date, date_asc, score, score_asc
      * @returns Promise<e621CommentJSON[]>
      * @memberof Comments
@@ -166,12 +168,12 @@ export default class Comments {
     }
 
     /** 
-     * @param {number} commentID 
-     * @param {any} commentTextUpdate 
+     * @param {(string | number)} commentID ID of the comment to update
+     * @param {string} commentTextUpdate Net text for the given comment
      * @returns Promise<e621POSTResponse>
      * @memberof Comments
      */
-    public update(commentID: number, commentTextUpdate: string) {
+    public update(commentID: string | number, commentTextUpdate: string) {
         let url = `https://e621.net/comment/update.json`;
 
         let postObj = <e621CommentUpdateJSON>{
@@ -193,7 +195,7 @@ export default class Comments {
      * @returns Promise<e621POSTResponse>
      * @memberof Comments
      */
-    public destroy(commentID: number) {
+    public destroy(commentID: string | number) {
         let url = `https://e621.net/comment/destroy.json`;
         return this.requestServices.post(url,
             {

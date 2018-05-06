@@ -129,12 +129,12 @@ export default class Forums {
     }
 
     /** List all posts that have the given `parentID`
-     * @param {number} parentID ID of the parent's post to get the children of
+     * @param {(number | string )} parentID ID of the parent's post to get the children of
      * @param {string} [page] Page number to return
      * @returns Promise<e621ForumPost[]>
      * @memberof Forums
      */
-    getPostsByParentID(parentID: number, page?: string) {
+    getPostsByParentID(parentID: number | string, page?: string) {
         let url = `https://e621.net/forum/index.json?parent_id=${parentID}`;
 
         if (page) url += `&page=${page}`;
