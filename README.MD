@@ -275,48 +275,6 @@ wrapper.pools.updatePoolDescription(123456, 'Some very descriptive update')
 </br>
 
 
-### Users
-
-Relatively few methods are exposed for users, bellow is **all** user methods for the API
-
-**getUserInfoByID**
-
-Get a user's info by their `userID`
-
-```typescript
-wrapper.users.getUserInfoByID(12345)
-    .then((response) => {
-        console.log(response[0].name);
-    })
-```
-</br>
-
-**getUserInfoByName**
-
-Get a user's info by their `userName`
-
-```typescript
-wrapper.users.getUserInfoByName('test')
-    .then((response) => {
-        console.log(response[0].name);
-    })
-```
-</br>
-
-
-**listUsers**
-
-List users that match an optional `level?` or `order?`
-
-```typescript
-wrapper.users.listUsers(e621UserLevels.Member, 'date')
-    .then((response) => {
-        console.log(response);
-    })
-```
-</br>
-</br>
-
 ### Artists
 
 To get a list of  supported `artists` methods, check out [Artists](/docs/Artists.md) in the `docs/` folder.
@@ -346,6 +304,10 @@ To get a list of  supported `notes` methods, check out [Notes](/docs/Notes.md) i
 To get a list of  supported `set` methods, check out [Sets](/docs/Sets.md) in the `docs/` folder.
 </br>
 </br>
+
+### Users
+
+To get a list of  supported `users` methods, check out [Users](/docs/Users.md) in the `docs/` folder.
 
 ### Wiki
 
