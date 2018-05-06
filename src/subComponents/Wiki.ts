@@ -204,7 +204,7 @@ export default class Wiki {
      * @param {string} wikiTitle Title of the wiki page to lock
      * @memberof Wiki
      */
-    locWiki(wikiTitle: string) {
+    lockWiki(wikiTitle: string) {
         let url = `https://e621.net/wiki/lock.json`;
 
         return this.requestServices.post(url, {
