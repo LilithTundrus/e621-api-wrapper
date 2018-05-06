@@ -10,6 +10,7 @@ import Sets from './subComponents/Sets';
 import Dmail from './subComponents/Dmail';
 import Notes from './subComponents/Notes';
 import Wiki from './subComponents/Wiki';
+import Forums from './subComponents/Forums';
 
 import { RequestServices } from './RequestService';
 
@@ -73,10 +74,15 @@ export default class e621 {
      */
     public notes: Notes;
 
-    /** Contains all methods for performing GET/POST operations on the e621 `note` endpoints
+    /** Contains all methods for performing GET/POST operations on the e621 `wiki` endpoints
      * @memberof e621
      */
     public wiki: Wiki;
+
+    /** Contains all methods for performing GET/POST operations on the e621 `forum` endpoints
+     * @memberof e621
+     */
+    public forums: Forums;
 
     /**
      * Creates an instance of e621.
@@ -109,6 +115,7 @@ export default class e621 {
         this.dmail = new Dmail(this.pageLimit, this.requestservices);
         this.notes = new Notes(this.pageLimit, this.requestservices);
         this.wiki = new Wiki(this.pageLimit, this.requestservices);
+        this.forums = new Forums(this.pageLimit, this.requestservices);
     }
 
     public get agent() { return this.userAgent; }
