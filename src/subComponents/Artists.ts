@@ -1,5 +1,9 @@
 import { RequestServices } from '../RequestService';
-import { e621ArtistInfo, e621ArtistCreateJSON, e621ArtistUpdateJSON, e621ArtistPOSTJSON, e621POSTResponse } from '../interfaces';
+import {
+    e621ArtistInfo, e621ArtistCreateJSON,
+    e621ArtistUpdateJSON, e621ArtistPOSTJSON,
+    e621POSTResponse
+} from '../interfaces';
 
 export default class Artists {
     private pageLimit: number;
@@ -25,7 +29,7 @@ export default class Artists {
         if (limit) url = url + `&limit=${limit}`;
         if (order) url = url + `&order=${order}`;
         if (page) url = url + `&page=${page}`;
-        
+
         return this.requestServices.get(url)
             .then((response: e621ArtistInfo[]) => {
                 return response;

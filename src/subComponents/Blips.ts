@@ -85,7 +85,7 @@ export default class Blips {
     }
 
     /** Get a blip's information by ID, returns a single blip
-     * @param {(number | string)} ID for the blip to retrieve
+     * @param {(number | string)} blipID ID of the blip to retrieve
      * @returns Promise<e621BlipInfo>
      * @memberof Blips
      */
