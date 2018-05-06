@@ -178,8 +178,10 @@ wrapper.sets.updateTransferOnDeleteStatusF(9847, false)
 ## Unavailable Methods
 
 <br>
+
 These are the endpoints that the API wrapper does **NOT** support, either for lack of utility or for small impact.
 <br>
+
 You can always access these using the `requestServices` part of the wrapper.
 
 

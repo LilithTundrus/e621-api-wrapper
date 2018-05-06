@@ -34,7 +34,7 @@ export default class Wiki {
             })
     }
 
-    /** Create a wiki page with the given `title` and `body`
+    /** Create a wiki page with the given title and body
      * @param {string} title Title of the wiki page to create
      * @param {string} body Body of the wiki page to create
      * @returns Promise<e621POSTResponse>
@@ -55,7 +55,7 @@ export default class Wiki {
             })
     }
 
-    /** Update a wiki page with the given `currentTitle` to have a `newTitle`
+    /** Update a wiki page by title to have a new title
      * 
      * Potential error reasons: "Page is locked"
      * @param {string} currentTitle Wiki page's current title (wiki endpoint does not support updates by ID)
@@ -78,7 +78,7 @@ export default class Wiki {
             })
     }
 
-    /** Update a wiki page with the given `wikiTitle` to have a `newBody`
+    /** Update a wiki page with the given title to have a new body
      * 
      * Potential error reasons: "Page is locked"
      * @param {string} wikiTitle Wiki page's current title (wiki endpoint does not support updates by ID)
@@ -101,7 +101,7 @@ export default class Wiki {
             })
     }
 
-    /** Get a wiki page data by its `wikiTitle`
+    /** Get a wiki page data by title
      * @param {string} wikiTitle Title of the wiki page to get
      * @returns Promise<e621WikiEntry>
      * @memberof Wiki
@@ -118,7 +118,7 @@ export default class Wiki {
             })
     }
 
-    /** Delete a wiki page by its `wikiTitle`
+    /** Delete a wiki page by title
      * 
      * **NOTE**: You must be logged in as a moderator or higher to delete a wiki page
      * @param {string} wikiTitle Title of the wiki page to delete
@@ -138,7 +138,7 @@ export default class Wiki {
             })
     }
 
-    /** Revert a wiki page with the givem `wikiTitle` to the given tag `version`
+    /** Revert a wiki page with the given title to the given version
      * @param {string} wikiTitle Title of the wiki page to revert
      * @param {number} version Version to revert the page to
      * @returns Promise<e621POSTResponse>
@@ -159,25 +159,6 @@ export default class Wiki {
             })
     }
 
-    // /** Get the history of a wiki page by title
-    //  * 
-    //  * **NOTE**: As of API version 0.4.0 this returns a 500 internal server error
-    //  * @param {string} wikiTitle Title of the page to retrive the history of
-    //  * @returns 
-    //  * @memberof Wiki
-    //  */
-    // getWikiHistoryByTitle(wikiTitle: string) {
-    //     let url = `https://e621.net/wiki/history.json?title=${wikiTitle}`;
-
-    //     return this.requestServices.get(url)
-    //         .then((response: any) => {
-    //             return response;
-    //         })
-    //         .catch((err) => {
-    //             throw Error(err);
-    //         })
-    // }
-
     /** Get recent changes to wiki pages
      * @param {number} [page] Page number to return
      * @returns Promise<e621WikiEntry[]>
@@ -197,7 +178,7 @@ export default class Wiki {
             })
     }
 
-    /** Unlock a wiki page by its `wikiTitle`
+    /** Unlock a wiki page by title
      * 
      * **NOTE**: You must be logged in as a moderator or higher to unlock a wiki page
      * @param {string} wikiTitle Title of the wiki page to unlock
@@ -217,7 +198,7 @@ export default class Wiki {
             })
     }
 
-    /** Lock a wiki page by its `wikiTitle`
+    /** Lock a wiki page by its title
      * 
      * **NOTE**: You must be logged in as a moderator or higher to lock a wiki page
      * @param {string} wikiTitle Title of the wiki page to lock
