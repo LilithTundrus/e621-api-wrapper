@@ -64,7 +64,7 @@ export default class Artists {
     }
 
     /** Update an artists info, only the artistID is required
-     * @param {any} artistID ID of the artist to update
+     * @param {(number | string)} artistID ID of the artist to update
      * @param {string} [name] Name of the artist
      * @param {string} [artistURLs] A list of URLs associated with the artist, whitespace delimited
      * @param {boolean} [isActive] If the Artist is active (true or false)
@@ -96,7 +96,7 @@ export default class Artists {
     }
 
     /** DELETE an artist, you must be logged in to perform this action and have sufficient privaleges
-     * @param {(number | string)} id ID of the artist to delete
+     * @param {(number | string)} artistID ID of the artist to delete
      * @returns Promise<e621POSTResponse>
      * @memberof Artists
      */
