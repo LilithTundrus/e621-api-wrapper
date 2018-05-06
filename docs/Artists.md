@@ -1,6 +1,6 @@
 # Artists
 
-Artists are part of e621 _post_ types but are an individual endpoint. ALlL methods available through the API are wrapped
+Artists are part of e621 _post_ types but are an individual endpoint. ALL methods available through the API are wrapped
 
 </br>
 

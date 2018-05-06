@@ -209,7 +209,7 @@ wrapper.dmail.unhideDmail(12345)
 
 ## Unavailable Endpoints
 
-Some dmail methods aren't exposed through the wrapper for sorting mail.
+Some dmail endpoints aren't exposed through the wrapper for sorting mail.
 
 <br>
 
