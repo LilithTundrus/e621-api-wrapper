@@ -461,14 +461,14 @@ To get a list of the supported `blip` methods, check the `docs/` folder.
 
 ### Dmail
 
-To get a list of `dmail` methods, check the `docs/` folder.
+To get a list of  supported `dmail` methods, check out [Dmail](/docs/Dmail.md) in the `docs/` folder.
 </br>
 </br>
 
 
 ### Notes
 
-To get a list of `note` methods, check the `docs/` folder.
+To get a list of  supported `notes` methods, check out [Notes](/docs/Notes.md) in the `docs/` folder.
 </br>
 </br>
 
