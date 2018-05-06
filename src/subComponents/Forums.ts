@@ -109,12 +109,12 @@ export default class Forums {
             })
     }
 
+    /** List all forum parent posts
+     * @param {number} [page] 
+     * @returns Promise<e621ForumPost[]>
+     * @memberof Forums
+     */
     listAllPosts(page?: number) {
-        //         The base URL is /forum/index.xml. If you don't specify any parameters you'll get a list of all the parent topics.
-
-        // parent_id The parent ID number.
-        // page The page.
-        // limit How many posts to retrieve. Hard limit of 100.
         let url = `https://e621.net/forum/index.json?`;
 
         if (page) url += `&page=${page}`;
@@ -128,20 +128,63 @@ export default class Forums {
             })
     }
 
+    /** List all posts that have the given `parentID`
+     * @param {number} parentID ID of the parents post to get the children of
+     * @param {string} [page] Page number to return
+     * @returns Promise<e621ForumPost[]>
+     * @memberof Forums
+     */
     listPostsByParentID(parentID: number, page?: string) {
+        let url = `https://e621.net/forum/index.json?parent_id=${parentID}`;
 
+        if (page) url += `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: e621ForumPost[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
-    search(query: string, page?: number) {
-        //         The base URL is /forum/search.xml. If you don't specify any parameters you'll get a list of all the parent topics.
+    /** Search for a forum post that matches the given `query` string
+     * @param {string} query String to match forum posts for
+     * @param {number} [page] Page number to return
+     * @returns e621ForumPost[]
+     * @memberof Forums
+     */
+    searchPosts(query: string, page?: number) {
+        let url = `https://e621.net/forum/search.json?query=${query}`;
 
-        // query Returns posts which contain the given text. Using the prefix user: allows for searching for posts created by a given user.
-        // page The page.
+        if (page) url += `&page=${page}`;
+
+        return this.requestServices.get(url)
+            .then((response: e621ForumPost[]) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
-
-    getPostByID(forumPostID: number) {
+    
+    /** Get a forum post's 
+     * @param {number} forumPostID ID of the forum post to retrieve
+     * @returns Promise<e621ForumPost>
+     * @memberof Forums
+     */
+    getForumPostByID(forumPostID: number) {
         //         The base URL is /forum/show.xml.
 
         // id Returns the post with the given ID number.
+        let url = `https://e621.net/forum/show.json?id=${forumPostID}`;
+
+        return this.requestServices.get(url)
+            .then((response: e621ForumPost) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 }
