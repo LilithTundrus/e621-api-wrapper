@@ -166,6 +166,7 @@ export default class Sets {
         let url = `https://e621.net/set/update.json`;
 
         let postObj = {
+            "set[id]": setID,
             "set[name]": newName,
         };
 
@@ -188,6 +189,7 @@ export default class Sets {
         let url = `https://e621.net/set/update.json`;
 
         let postObj = {
+            "set[id]": setID,
             "set[shortname]": newShortName,
         };
 
@@ -210,6 +212,7 @@ export default class Sets {
         let url = `https://e621.net/set/update.json`;
 
         let postObj = {
+            "set[id]": setID,
             "set[description]": newDescription,
         };
 
@@ -232,6 +235,7 @@ export default class Sets {
         let url = `https://e621.net/set/update.json`;
 
         let postObj = {
+            "set[id]": setID,
             "set[pulibc]": isPublic,
         };
 
@@ -254,6 +258,7 @@ export default class Sets {
         let url = `https://e621.net/set/update.json`;
 
         let postObj = {
+            "set[id]": setID,
             "set[transfer_to_parent_on_delete]": transferOnDelete,
         };
 
