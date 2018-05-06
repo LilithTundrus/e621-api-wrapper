@@ -67,7 +67,7 @@ wrapper.posts.getPopularPosts(enums.e621PopularityStrings.daily)
 </br>
 
 
-## Available methods
+## Available Method Endpoints
 
 If you want more information for any method, check the `docs/` folder. Not all methods per endpoint are listed here.
 
@@ -446,7 +446,8 @@ wrapper.users.listUsers(e621UserLevels.Member, 'date')
 
 ### Sets
 
-To get a list of `set` methods, check the `docs/` folder.
+
+To get a list of `set` methods, check out the [Sets](/docs/Sets.md) file in the `docs/` folder.
 </br>
 </br>
 
