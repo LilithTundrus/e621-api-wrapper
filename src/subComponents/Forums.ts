@@ -48,17 +48,74 @@ export default class Forums {
     // forum_post[title]
     // forum_post[category_id] See Create for possible values.
     // }
-
+    
+    /** Update a forum post's body
+     * @param {number} postID ID of the forum post to update
+     * @param {string} newBody New Body of the forum post
+     * @returns Promise<e621POSTResponse>
+     * @memberof Forums
+     */
     updatePostBody(postID: number, newBody: string) {
+        let url = `https://e621.net/forum/update.json`;
 
+        let postObj = {
+            "id": postID,
+            "forum_post[body]": newBody,
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
+    /** Update a forum post's title
+     * @param {number} postID ID of the forum post to update
+     * @param {string} newTitle New title of the forum post
+     * @returns Promise<e621POSTResponse>
+     * @memberof Forums
+     */
     updatePostTitle(postID: number, newTitle: string) {
+        let url = `https://e621.net/forum/update.json`;
 
+        let postObj = {
+            "id": postID,
+            "forum_post[title]": newTitle,
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
+    /** Update a forum post's topic category
+     * @param {number} postID ID of the forum post to update
+     * @param {string} newTopic New topic of the forum post
+     * @returns Promise<e621POSTResponse>
+     * @memberof Forums
+     */
     updatePostCategory(postID: number, newTopic: e621ForumPostReasons) {
+        let url = `https://e621.net/forum/update.json`;
 
+        let postObj = {
+            "id": postID,
+            "forum_post[category_id]": newTopic,
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     listAllPosts() {
