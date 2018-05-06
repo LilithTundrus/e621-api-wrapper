@@ -447,7 +447,7 @@ wrapper.users.listUsers(e621UserLevels.Member, 'date')
 ### Sets
 
 
-To get a list of `set` methods, check out the [Sets](/docs/Sets.md) file in the `docs/` folder.
+To get a list of  supported `set` methods, check out [Sets](/docs/Sets.md) in the `docs/` folder.
 </br>
 </br>
 
