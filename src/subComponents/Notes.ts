@@ -46,7 +46,7 @@ export default class Notes {
             })
     }
 
-    /** Get the history of a note by its `noteID`
+    /** Get the history of a note by its ID
      * @param {(number | string)} noteID ID of the note to get the history of
      * @returns Promise<e621PostNote[]>
      * @memberof Notes
@@ -63,7 +63,7 @@ export default class Notes {
             })
     }
 
-    /** Revert a note to a given previous `version` by `noteID`
+    /** Revert a note to a given previous version by ID
      * @param {(number | string)} noteID ID of the note to revert
      * @param {number} version Version number to revert the note to
      * @returns Promise<e621POSTResponse>
@@ -84,7 +84,7 @@ export default class Notes {
             })
     }
 
-    /** Update a note's `body` by  ID
+    /** Update a note's body by ID
      * @param {number} noteID ID of the note to update
      * @param {string} body The new body message
      * @returns Promise<e621POSTResponse>
@@ -105,7 +105,7 @@ export default class Notes {
             })
     }
 
-    /** Update a note's location on the assocaited post by its `noteID`
+    /** Update a note's location on the assocaited post by  ID
      * @param {(number | string)} noteID ID of the note to update
      * @param {number} x The X position of the note
      * @param {number} y The Y position of the note
@@ -128,7 +128,7 @@ export default class Notes {
             })
     }
 
-    /** Update a note's `width` and `height` by its `noteID`
+    /** Update a note's width and height by ID
      * @param {(number | string)} noteID ID of the note to update
      * @param {number} width New Width of the note
      * @param {number} height New height of the note
@@ -151,7 +151,7 @@ export default class Notes {
             })
     }
 
-    /** Set a note with `noteID` to visible or invisible using `isVisible` (true or false)
+    /** Set a note's visibility boolean by ID
      * @param {(number | string)} noteID ID of the note to update
      * @param {boolean} isVisible True or false
      * @returns Promise<e621POSTResponse>
@@ -175,7 +175,7 @@ export default class Notes {
             })
     }
 
-    /** Create a note, given the `postID` to add the note to
+    /** Create a note, given the ID of the post to add the note to
      * @param {(number | string)} postID ID of the post to attach the note to
      * @param {string} body Text body of the note
      * @param {number} x X position of the note

@@ -151,7 +151,10 @@ export default class Pools {
     public destroy(poolID: number | string) {
         let url = `https://e621.net/pool/destroy.json`;
 
-        return this.requestServices.post(url, { "id": poolID })
+        return this.requestServices.post(url,
+            {
+                "id": poolID
+            })
             .then((response: e621POSTResponse) => {
                 return response;
             })

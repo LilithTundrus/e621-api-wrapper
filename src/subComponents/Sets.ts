@@ -44,7 +44,7 @@ export default class Sets {
             })
     }
 
-    /** Get sets that include the given `postID` 
+    /** Get sets that include the given post's ID
      * 
      * **PLEASE NOTE**: This is being converted from XML as the JSON endpoint is 30x slower than the
      * XML endpoint, so it's faster to convert them. There may also be minor bugs even when custom converting
@@ -72,7 +72,7 @@ export default class Sets {
             })
     }
 
-    /** Get sets created by the given `userID`s 
+    /** Get sets created by the given user's ID
      * 
      * **PLEASE NOTE**: This is being converted from XML as the JSON endpoint is 30x slower than the
      * XML endpoint, so it's faster to convert them. There may also be minor bugs even when custom converting
@@ -104,11 +104,11 @@ export default class Sets {
      * 
      * **PLEASE NOTE**: This is being converted from XML as the JSON endpoint is 30x slower than the
      * XML endpoint, so it's faster to convert them. There may also be minor bugs even when custom converting
-     * @param {number} setID ID of the set to convert and retrieve
+     * @param {(number | string)} setID ID of the set to convert and retrieve
      * @returns Promise<e621SetJSONConvertedWithPosts> - a single converted XML set
      * @memberof Sets
      */
-    public showSet(setID: number) {
+    public showSet(setID: number | string) {
         let url = `https://e621.net/set/show.xml?id=${setID}`;
 
         return this.requestServices.get(url)
@@ -156,13 +156,13 @@ export default class Sets {
             })
     }
 
-    /** Update a set's name by its `setID`
-     * @param {number} setID ID of the set to update
+    /** Update a set's name by ID
+     * @param {(number | string)} setID ID of the set to update
      * @param {string} newName New name of the set
      * @returns Promise<e621POSTResponse>
      * @memberof Sets
      */
-    public updateName(setID: number, newName: string) {
+    public updateName(setID: number | string, newName: string) {
         let url = `https://e621.net/set/update.json`;
 
         let postObj = {
@@ -179,13 +179,13 @@ export default class Sets {
             })
     }
 
-    /** Update a set's shortname by its `setID`
-     * @param {number} setID ID of the set to update
+    /** Update a set's shortname by ID
+     * @param {(number | string)} setID ID of the set to update
      * @param {string} newShortName New shortname of the set
      * @returns Promise<e621POSTResponse>
      * @memberof Sets
      */
-    public updateShortName(setID: number, newShortName: string) {
+    public updateShortName(setID: number | string, newShortName: string) {
         let url = `https://e621.net/set/update.json`;
 
         let postObj = {
@@ -202,13 +202,13 @@ export default class Sets {
             })
     }
 
-    /** Update a set's description by its `setID`
-     * @param {number} setID ID of the set to update
+    /** Update a set's description by its ID
+     * @param {(number | string)} setID ID of the set to update
      * @param {string} newDescription New description of the set
      * @returns Promise<e621POSTResponse>
      * @memberof Sets
      */
-    public updateDescription(setID: number, newDescription: string) {
+    public updateDescription(setID: number | string, newDescription: string) {
         let url = `https://e621.net/set/update.json`;
 
         let postObj = {
@@ -226,12 +226,12 @@ export default class Sets {
     }
 
     /** Update a set's public status by its `setID`
-     * @param {number} setID ID of the set to update
+     * @param {(number | string)} setID ID of the set to update
      * @param {string} isPublic Public status of the set
      * @returns Promise<e621POSTResponse>
      * @memberof Sets
      */
-    public updatePublicStatus(setID: number, isPublic: boolean) {
+    public updatePublicStatus(setID: number | string, isPublic: boolean) {
         let url = `https://e621.net/set/update.json`;
 
         let postObj = {
@@ -249,12 +249,12 @@ export default class Sets {
     }
 
     /** Update a set's transferOnDelete status by its `setID`
-     * @param {number} setID ID of the set to update
+     * @param {(number | string)} setID ID of the set to update
      * @param {string} transferOnDelete Public status of the set
      * @returns Promise<e621POSTResponse>
      * @memberof Sets
      */
-    public updateTransferOnDeleteStatus(setID: number, transferOnDelete: boolean) {
+    public updateTransferOnDeleteStatus(setID: number | string, transferOnDelete: boolean) {
         let url = `https://e621.net/set/update.json`;
 
         let postObj = {
@@ -272,12 +272,12 @@ export default class Sets {
     }
 
     /** Add a post to a set
-     * @param {number} setID ID of the set to add the post to
+     * @param {(number | string)} setID ID of the set to add the post to
      * @param {number} postID ID of the post to add to the set
      * @returns Promise<e621POSTResponse>
      * @memberof Sets
      */
-    public addPost(setID: number, postID: number) {
+    public addPost(setID: number | string, postID: number) {
         let url = `https://e621.net/set/add_post.json`;
 
         let postObj = {
@@ -295,12 +295,12 @@ export default class Sets {
     }
 
     /** Remove a post from a set
-     * @param {number} setID ID of the set to remove the post from
+     * @param {(number | string)} setID ID of the set to remove the post from
      * @param {number} postID ID of the post to remove from the set
      * @returns Promise<e621POSTResponse>
      * @memberof Sets
      */
-    public removePost(setID: number, postID: number) {
+    public removePost(setID: number | string, postID: number) {
         let url = `https://e621.net/set/remove_post.json`;
 
         let postObj = {
@@ -318,11 +318,11 @@ export default class Sets {
     }
 
     /** Delete a set (If you have proper permissions)
-     * @param {number} setID ID of the set to deleteF
+     * @param {(number | string)} setID ID of the set to deleteF
      * @returns Promise<e621POSTResponse>
      * @memberof Sets
      */
-    public destroy(setID: number) {
+    public destroy(setID: number | string) {
         let url = `https://e621.net/set/destroy.json`;
 
         let postObj = {
