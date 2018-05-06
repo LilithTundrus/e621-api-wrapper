@@ -13,20 +13,31 @@ export default class Forums {
         this.requestServices = requestServices;
     }
 
+    /** Create a forum post
+     * @param {string} postTitle Title of the forum post to create
+     * @param {string} postBody Body of the forum post
+     * @param {number} parentPostID ID of the parent forum post
+     * @param {e621ForumPostReasons} postCategory Category of the forum post
+     * @returns Promise<e621POSTResponse>
+     * @memberof Forums
+     */
     createPost(postTitle: string, postBody: string, parentPostID: number, postCategory: e621ForumPostReasons) {
-        //         The base URL is /forum/create.xml.
+        let url = `https://e621.net/forum/create.json`;
 
-        // forum_post[body]
-        // forum_post[title]
-        // forum_post[parent_id]
-        // forum_post[category_id] Can be one of the following:
-        // 1 General
-        // 11 Site Bug Reports & Feature Requests
-        // 2 Tag Alias and Implication Suggestions
-        // 10 Tag/Wiki Projects and Questions
-        // 3 Art Talk
-        // 5 Off Topic
-        // 9 e621 Tools and Applications
+        let postObj = {
+            "forum_post[body]": postBody,
+            "forum_post[title]": postTitle,
+            "forum_post[parent_id]": parentPostID,
+            "forum_post[category_id]": postCategory
+        };
+
+        return this.requestServices.post(url, postObj)
+            .then((response: e621POSTResponse) => {
+                return response;
+            })
+            .catch((err) => {
+                throw Error(err);
+            })
     }
 
     // update() {
