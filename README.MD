@@ -72,6 +72,8 @@ wrapper.posts.getPopularPosts(enums.e621PopularityStrings.daily)
 If you want more information for any method, check the `docs/` folder. Not all methods per endpoint are listed here.
 
 Any time a `GET` request is made (you receiving data), if invalid parameters are given they will typically be ignored by the API.
+
+**Note**: the `wrapper` const used here is representative of your instanced e621 class, for simplicity
 </br>
 </br>
 
