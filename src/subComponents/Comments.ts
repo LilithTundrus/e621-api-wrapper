@@ -33,7 +33,7 @@ export default class Comments {
     /** List a set of comments by a post's ID
      * @param {(string | number)} postID The ID number of the post to retrieve comments for
      * @param {number} [page] Page number to return
-     * @param {string} [commentStatus] Returns hidden comments when set to hidden, visible comments when set to active, or both when set to any. Note that whether or not you can see other user's hidden comments is affected by your permission levels
+     * @param {string} [commentStatus] Returns hidden comments when set to `hidden`, visible comments when set to `active`, or both when set to `any`. Note that whether or not you can see other user's hidden comments is affected by your permission levels
      * @returns Promise<e621CommentJSON[]>
      * @memberof Comments
      */
@@ -57,7 +57,7 @@ export default class Comments {
      * @param {string} query String query which contains the given text for the comment body
      * @param {boolean} [fuzzy] If set to true, fuzzy logic for the query will be used, otherwise it's exact matched
      * @param {boolean} [page] Page number to return
-     * @param {string} [order] Sorts the results. Can be one of the following: date, date_asc, score, score_asc
+     * @param {string} [order] Sorts the results. Can be one of the following: `date`, `date_asc`, `score`, `score_asc`
      * @returns Promise<e621CommentJSON[]>
      * @memberof Comments
      */
@@ -82,7 +82,7 @@ export default class Comments {
     /** Search for comments by a single user's ID
      * @param {(number | string)} userID ID of the user to search
      * @param {number} [page] Page number to return
-     * @param {string} [order] Sorts the results. Can be one of the following: date, date_asc, score, score_asc
+     * @param {string} [order] Sorts the results. Can be one of the following: `date`, `date_asc`, `score`, `score_asc`
      * @returns Promise<e621CommentJSON[]>
      * @memberof Comments
      */
@@ -104,7 +104,7 @@ export default class Comments {
     /** Search for comments by a single user's name
      * @param {string} userName name of the user to search
      * @param {number} [page] Page number to return
-     * @param {string} [order] Sorts the results. Can be one of the following: date, date_asc, score, score_asc
+     * @param {string} [order] Sorts the results. Can be one of the following: `date`, `date_asc`, `score`, `score_asc`
      * @returns Promise<e621CommentJSON[]>
      * @memberof Comments
      */
@@ -145,7 +145,7 @@ export default class Comments {
     /** Create a comment for a post given the ID and comment text
      * @param {(string | number)} postID The post ID number to which you are responding
      * @param {string} commentText The body of the comment
-     * @param {boolean} [anonymous] Set to 1 if you want to post this comment anonymously
+     * @param {boolean} [anonymous] Set to `true` if you want to post this comment anonymously
      * @returns Promise<e621POSTResponse>
      * @memberof Comments
      */
@@ -167,9 +167,9 @@ export default class Comments {
             })
     }
 
-    /** 
+    /** Update a comment's body by ID
      * @param {(string | number)} commentID ID of the comment to update
-     * @param {string} commentTextUpdate Net text for the given comment
+     * @param {string} commentTextUpdate New text for the given comment
      * @returns Promise<e621POSTResponse>
      * @memberof Comments
      */
@@ -190,8 +190,8 @@ export default class Comments {
             })
     }
 
-    /** Delete a comment by its ID
-     * @param {number} commentID 
+    /** Delete a comment by ID
+     * @param {number} commentID ID of the comment to delete
      * @returns Promise<e621POSTResponse>
      * @memberof Comments
      */
