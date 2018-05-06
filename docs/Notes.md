@@ -122,7 +122,7 @@ wrapper.notes.updateNoteVisibility(11675, true)
     })
 ```
 </br>
-
+</br>
 
 ## Unavailable Endpoints
 
