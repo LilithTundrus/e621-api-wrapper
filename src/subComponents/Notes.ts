@@ -12,7 +12,7 @@ export default class Notes {
         this.requestServices = requestServices;
     }
 
-    /** Get a post's Notes by the `postID` of the post
+    /** Get a post's Notes by the ID of the post
      * @param {(number | string)} postID ID of the post to retrieve notes for
      * @returns Promise<e621PostNote[]>
      * @memberof Notes
@@ -29,7 +29,7 @@ export default class Notes {
             })
     }
 
-    /** Search ALL notes that match a given `query`
+    /** Search ALL notes that match a given query
      * @param {string} query String to search all notes for
      * @returns Promise<e621PostNote[]>
      * @memberof Notes
