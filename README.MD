@@ -286,6 +286,12 @@ To get a list of  supported `blips` methods, check out [Blips](/docs/Blips.md) i
 </br>
 </br>
 
+### Blips
+
+To get a list of  supported `comments` methods, check out [Comments](/docs/Comments.md) in the `docs/` folder.
+</br>
+</br>
+
 ### Dmail
 
 To get a list of  supported `dmail` methods, check out [Dmail](/docs/Dmail.md) in the `docs/` folder.
