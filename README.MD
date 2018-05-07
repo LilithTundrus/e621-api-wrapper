@@ -286,7 +286,7 @@ To get a list of  supported `blips` methods, check out [Blips](/docs/Blips.md) i
 </br>
 </br>
 
-### Blips
+### Comments
 
 To get a list of  supported `comments` methods, check out [Comments](/docs/Comments.md) in the `docs/` folder.
 </br>
