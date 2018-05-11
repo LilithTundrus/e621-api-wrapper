@@ -19,6 +19,7 @@
   "author": "Lilith Tundrus",
   "license": "MIT",
   "dependencies": {
+    "npm": "^6.0.1",
     "request": "^2.85.0",
     "xmldom": "^0.1.27"
   },
