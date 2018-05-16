@@ -9,7 +9,7 @@
 
 This is an API wrapper for the site [e621](https://e621.net) to assist in any projects you might have that need API use.
 
-A (in progress) project to better document the general API can be found [here](https://github.com/LilithTundrus/e621-api-docs)
+AE project to better document the general API can be found [here](https://github.com/LilithTundrus/e621-api-docs)
 
 If you're here, you know what this site is for.
 
