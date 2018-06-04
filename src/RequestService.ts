@@ -55,12 +55,11 @@ export class RequestServices {
                     return reject('Incorrect password given');
                 }
                 return resolve(body);
-            })
+            });
         })
     }
 
-
-    /** POST a `postObject` to the e621 API, authorization keys are automatically pulled from the parent class
+    /** POST a `postObject` to the e621 API, authorization keys are automatically pulled from the parent class (if any)
      * @param {string} url 
      * @param {*} postObject 
      * @returns {Promise<any>} 
@@ -87,7 +86,7 @@ export class RequestServices {
                     return reject(err);
                 }
                 return resolve(body);
-            })
+            });
         })
     }
 
@@ -97,14 +96,13 @@ export class RequestServices {
      * Note: Page 0 and 1 are the same results so we start at 1, not 0 (Sorry)
      * 
      * Note: For some endpoints the maximum is 750 pages (which should be fine)
-     * @param {String} urlWithoutPageNum 
-     * @param {Number} start 
-     * @param {Number} limit 
-     * @param {Array<Array<e621PostData>>} pageArray 
-     * @param {string} userAgent
-     * @returns {Array<Array<e621PostData>>} Returns a 2D array
+     * @param {String} urlWithoutPageNum URL to paginate (no page number)
+     * @param {Number} start Starting page number
+     * @param {Number} limit Limit on the number of pages to retrieve
+     * @param {Array<any>} pageArray For internal use
+     * @returns Promise<Array<any>>
      */
-    public paginateE621Endpoint(urlWithoutPageNum: string, start: number, limit: number, pageArray: Array<Array<e621PostData>>): Promise<Array<Array<e621PostData>>> {
+    public paginateE621Endpoint(urlWithoutPageNum: string, start: number, limit: number, pageArray: Array<any>): Promise<Array<any>> {
         return this.get(`${urlWithoutPageNum}&page=${start}`)
             .then((response: Array<e621PostData>) => {
                 if (response.length !== 0 && limit !== start) {

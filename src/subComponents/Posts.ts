@@ -261,7 +261,7 @@ export default class Posts {
      * @param {number} pageLimit Number of pages to get (Max of 750)
      * @memberof e621
      */
-    public getIndexPaginate(tags?: string, start?: number, limitPerPage?: number, pageLimit?: number) {
+    public getIndexPaginate(tags?: string, start?: number, limitPerPage?: number, pageLimit?: number): Promise<Array<Array<e621PostData>>> {
         let tagsString: string;
         let pageStart: number;
         let limitString;
