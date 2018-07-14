@@ -1,9 +1,7 @@
 # e621-api
-
 [![Build Status](https://travis-ci.org/LilithTundrus/e621-api-wrapper.svg?branch=master)](https://travis-ci.org/LilithTundrus/e621-api-wrapper)
 </br>
 </br>
-
 
 ## About
 
@@ -15,7 +13,7 @@ If you're here, you know what this site is for.
 
 **PLEASE NOTE:**
 
-This is still in **early BETA** development, if something doesn't work or isn't defined correctly, please let me know!
+This is still in **BETA** development, if something doesn't work or isn't defined correctly, please let me know!
 </br>
 </br>
 
