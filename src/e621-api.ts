@@ -1,4 +1,5 @@
-import * as request from 'request'
+
+// Imports and dependencies
 import Tags from './subComponents/Tags';
 import Posts from './subComponents/Posts';
 import Artists from './subComponents/Artists';
