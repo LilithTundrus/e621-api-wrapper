@@ -367,9 +367,13 @@ Any POST calls you make to the API through `requestServices` will use your login
 ## History
 </br>
 
+- **v0.3.9**
+    - Fixed the project not working on *nix Operating Systems
+
+
 - **v0.3.8**
     - Minor doc updates
-    - Internal pagination system now returns `<any>` 
+    - Internal pagination system now returns `<any>`
 
 
 - **v0.3.7**
